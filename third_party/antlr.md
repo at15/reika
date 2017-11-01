@@ -16,11 +16,10 @@ Java
 
 Python
 
-- https://github.com/antlr/antlr4/blob/master/doc/python-target.md
-- `antlr4 -Dlanguage=Python3 MyGrammar.g4`
-
+- [python-target](https://github.com/antlr/antlr4/blob/master/doc/python-target.md)
+- `antlr4 -Dlanguage=Python3 Hello.g4`
 
 JavaScript
 
-- https://github.com/antlr/antlr4/blob/master/doc/javascript-target.md
+- [js-target](https://github.com/antlr/antlr4/blob/master/doc/javascript-target.md)
 - `antlr4 -Dlanguage=JavaScript Hello.g4`

@@ -1,5 +1,12 @@
+# downloaded
 *.jar
+*.zip
+
+# generated parsers
 *.java
 *.tokens
-*.class
 *.js
+*.py
+
+# compiled
+*.class
