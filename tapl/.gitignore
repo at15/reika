@@ -1,10 +1,11 @@
+bin/
+build/
 .gradle
 .settings
 .project
-.classpath
-
-.vscode
 
 # IDEA
 .idea
 *.iml
+.classpath
+
