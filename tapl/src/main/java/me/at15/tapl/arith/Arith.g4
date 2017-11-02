@@ -1,6 +1,9 @@
 grammar Arith;
 
-prog: term+ ;
+prog: stat+ ;
+
+stat: term ';'
+    ;
 
 term: 'true' # ConsTrue
     | 'false' # ConsFalse
@@ -9,6 +12,9 @@ term: 'true' # ConsTrue
     | 'succ' term # Succ
     | 'pred' term # Pred
     | 'iszero' term # ZeroTest
+    | '(' term ')' # Brackets
     ;
 
 WS  :   [ \t\n\r]+ -> skip;
+BLOCK_COMMENT  : '/*' .*? '*/' -> skip;
+SINGLE_COMMENT : '//' .*? '\n' -> skip;

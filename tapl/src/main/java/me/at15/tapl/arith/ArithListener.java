@@ -18,6 +18,16 @@ public interface ArithListener extends ParseTreeListener {
 	 */
 	void exitProg(ArithParser.ProgContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link ArithParser#stat}.
+	 * @param ctx the parse tree
+	 */
+	void enterStat(ArithParser.StatContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link ArithParser#stat}.
+	 * @param ctx the parse tree
+	 */
+	void exitStat(ArithParser.StatContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code ConsTrue}
 	 * labeled alternative in {@link ArithParser#term}.
 	 * @param ctx the parse tree
@@ -101,4 +111,16 @@ public interface ArithListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitZeroTest(ArithParser.ZeroTestContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code Brackets}
+	 * labeled alternative in {@link ArithParser#term}.
+	 * @param ctx the parse tree
+	 */
+	void enterBrackets(ArithParser.BracketsContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code Brackets}
+	 * labeled alternative in {@link ArithParser#term}.
+	 * @param ctx the parse tree
+	 */
+	void exitBrackets(ArithParser.BracketsContext ctx);
 }

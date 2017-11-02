@@ -17,6 +17,12 @@ public interface ArithVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitProg(ArithParser.ProgContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link ArithParser#stat}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitStat(ArithParser.StatContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code ConsTrue}
 	 * labeled alternative in {@link ArithParser#term}.
 	 * @param ctx the parse tree
@@ -65,4 +71,11 @@ public interface ArithVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitZeroTest(ArithParser.ZeroTestContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code Brackets}
+	 * labeled alternative in {@link ArithParser#term}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBrackets(ArithParser.BracketsContext ctx);
 }
