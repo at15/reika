@@ -4,6 +4,7 @@ group 'me.at15.tapl'
 version '0.0.1-SNAPSHOT'
 
 sourceCompatibility = 1.8
+targetCompatibility = 1.8
 
 repositories {
     mavenCentral()
