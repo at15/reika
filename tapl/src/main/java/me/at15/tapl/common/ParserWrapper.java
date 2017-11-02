@@ -37,4 +37,8 @@ public class ParserWrapper<P extends Parser, L extends Lexer> {
         return lexerErrorListener;
     }
 
+    public boolean hasError() {
+        return lexerErrorListener.hasError() || parseErrorListener.hasError();
+    }
+
 }

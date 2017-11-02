@@ -2,7 +2,7 @@
 
 0 0;
 
-/* NOTE: there are lexer error ... https://github.com/at15/reika/issues/2
+/* NOTE: following are lexer error not parser error ... https://github.com/at15/reika/issues/2
 1 + 1;
 func abc (x) {
     x = x + 1;

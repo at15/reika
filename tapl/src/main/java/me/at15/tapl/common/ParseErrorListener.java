@@ -39,7 +39,6 @@ public class ParseErrorListener extends BaseErrorListener {
         errors.add(new SyntaxError(line, charPositionInLine, msg));
     }
 
-
     public boolean hasError() {
         return errors.size() > 0;
     }

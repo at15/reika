@@ -12,7 +12,6 @@ import java.io.IOException;
 import java.io.InputStream;
 
 public class ArithParserTest {
-    //    public static ArithParserTracked readResource(String fileName) throws IOException {
     public static ParserWrapper<ArithParser, ArithLexer> readResource(String fileName) throws IOException {
         ClassLoader classLoader = ArithParserTest.class.getClassLoader();
         InputStream is = classLoader.getResourceAsStream(fileName);
@@ -23,20 +22,15 @@ public class ArithParserTest {
         ArithLexer lexer = new ArithLexer(charStream);
         wrapper.wrapLexer(lexer);
         CommonTokenStream tokens = new CommonTokenStream(lexer);
-        ArithParserTracked parser = new ArithParserTracked(tokens);
+        ArithParser parser = new ArithParser(tokens);
         wrapper.wrapParser(parser);
         is.close();
-//        parser.removeErrorListeners();
-//        ParseErrorListener listener = new ParseErrorListener(true);
-//        parser.addErrorListener(listener);
-//        return parser;
         return wrapper;
     }
 
     @Test
     public void testOfficialExample() throws IOException {
         // https://www.cis.upenn.edu/~bcpierce/tapl/checkers/arith/test.f
-//        ArithParserTracked parser = readResource("arith.f");
         ParserWrapper<ArithParser, ArithLexer> wrapper = readResource("arith.f");
         ArithParser parser = wrapper.getParser();
         parser.prog();
@@ -44,11 +38,21 @@ public class ArithParserTest {
     }
 
     @Test
+    public void testLexerErrorListener() throws IOException {
+        ParserWrapper<ArithParser, ArithLexer> wrapper = readResource("arith_lexer_err.f");
+        ArithParser parser = wrapper.getParser();
+        parser.prog();
+        assertTrue(wrapper.hasError());
+        assertTrue(wrapper.getLexerErrorListener().hasError());
+        wrapper.getLexerErrorListener().printErrors();
+    }
+
+    @Test
     public void testParseErrorListener() throws IOException {
-//        ArithParserTracked parser = readResource("arith_parser_err.f");
         ParserWrapper<ArithParser, ArithLexer> wrapper = readResource("arith_parser_err.f");
         ArithParser parser = wrapper.getParser();
         parser.prog();
+        assertTrue(wrapper.hasError());
         assertTrue(wrapper.getParseErrorListener().hasError());
         wrapper.getParseErrorListener().printErrors();
     }
