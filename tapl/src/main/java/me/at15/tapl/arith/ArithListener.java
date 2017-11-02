@@ -100,17 +100,17 @@ public interface ArithListener extends ParseTreeListener {
 	 */
 	void exitPred(ArithParser.PredContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code ZeroTest}
+	 * Enter a parse tree produced by the {@code IsZero}
 	 * labeled alternative in {@link ArithParser#term}.
 	 * @param ctx the parse tree
 	 */
-	void enterZeroTest(ArithParser.ZeroTestContext ctx);
+	void enterIsZero(ArithParser.IsZeroContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code ZeroTest}
+	 * Exit a parse tree produced by the {@code IsZero}
 	 * labeled alternative in {@link ArithParser#term}.
 	 * @param ctx the parse tree
 	 */
-	void exitZeroTest(ArithParser.ZeroTestContext ctx);
+	void exitIsZero(ArithParser.IsZeroContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code Brackets}
 	 * labeled alternative in {@link ArithParser#term}.

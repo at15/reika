@@ -65,12 +65,12 @@ public interface ArithVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitPred(ArithParser.PredContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code ZeroTest}
+	 * Visit a parse tree produced by the {@code IsZero}
 	 * labeled alternative in {@link ArithParser#term}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitZeroTest(ArithParser.ZeroTestContext ctx);
+	T visitIsZero(ArithParser.IsZeroContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code Brackets}
 	 * labeled alternative in {@link ArithParser#term}.

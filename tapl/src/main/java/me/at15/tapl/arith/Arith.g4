@@ -11,7 +11,7 @@ term: 'true' # ConsTrue
     | '0' # ConsZero
     | 'succ' term # Succ
     | 'pred' term # Pred
-    | 'iszero' term # ZeroTest
+    | 'iszero' term # IsZero
     | '(' term ')' # Brackets
     ;
 

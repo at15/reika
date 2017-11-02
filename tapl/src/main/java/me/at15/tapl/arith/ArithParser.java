@@ -199,22 +199,22 @@ public class ArithParser extends Parser {
 			super.copyFrom(ctx);
 		}
 	}
-	public static class ZeroTestContext extends TermContext {
+	public static class IsZeroContext extends TermContext {
 		public TermContext term() {
 			return getRuleContext(TermContext.class,0);
 		}
-		public ZeroTestContext(TermContext ctx) { copyFrom(ctx); }
+		public IsZeroContext(TermContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof ArithListener ) ((ArithListener)listener).enterZeroTest(this);
+			if ( listener instanceof ArithListener ) ((ArithListener)listener).enterIsZero(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof ArithListener ) ((ArithListener)listener).exitZeroTest(this);
+			if ( listener instanceof ArithListener ) ((ArithListener)listener).exitIsZero(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof ArithVisitor ) return ((ArithVisitor<? extends T>)visitor).visitZeroTest(this);
+			if ( visitor instanceof ArithVisitor ) return ((ArithVisitor<? extends T>)visitor).visitIsZero(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -416,7 +416,7 @@ public class ArithParser extends Parser {
 				}
 				break;
 			case T__9:
-				_localctx = new ZeroTestContext(_localctx);
+				_localctx = new IsZeroContext(_localctx);
 				enterOuterAlt(_localctx, 7);
 				{
 				setState(28);

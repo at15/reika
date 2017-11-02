@@ -112,13 +112,13 @@ public class ArithBaseListener implements ArithListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterZeroTest(ArithParser.ZeroTestContext ctx) { }
+	@Override public void enterIsZero(ArithParser.IsZeroContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitZeroTest(ArithParser.ZeroTestContext ctx) { }
+	@Override public void exitIsZero(ArithParser.IsZeroContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
