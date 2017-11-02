@@ -1,5 +1,7 @@
 package me.at15.tapl.arith;
 
+import static org.junit.Assert.*;
+
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
@@ -9,7 +11,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 public class ArithParserTest {
-    public static ArithParser readResource(String fileName) throws IOException {
+    public static ArithParserTracked readResource(String fileName) throws IOException {
         ClassLoader classLoader = ArithParserTest.class.getClassLoader();
         InputStream is = classLoader.getResourceAsStream(fileName);
         // NOTE: we are using charStream instead ANTLRInputStream, which is deprecated in 4.7
@@ -17,16 +19,27 @@ public class ArithParserTest {
         CharStream charStream = CharStreams.fromStream(is);
         ArithLexer lexer = new ArithLexer(charStream);
         CommonTokenStream tokens = new CommonTokenStream(lexer);
-        ArithParser parser = new ArithParser(tokens);
+        ArithParserTracked parser = new ArithParserTracked(tokens);
         is.close();
+//        parser.removeErrorListeners();
+//        ParseErrorListener listener = new ParseErrorListener(true);
+//        parser.addErrorListener(listener);
         return parser;
     }
 
     @Test
     public void testOfficialExample() throws IOException {
         // https://www.cis.upenn.edu/~bcpierce/tapl/checkers/arith/test.f
-        ArithParser parser = readResource("arith.f");
-        // TODO: ANTLR by default would log to stderr instead of throw exception, need to migrate the error tracker from old reika
+        ArithParserTracked parser = readResource("arith.f");
         parser.prog();
+        assertFalse(parser.getParseErrorListener().hasError());
+    }
+
+    @Test
+    public void testParseErrorListener() throws IOException {
+        ArithParserTracked parser = readResource("arith_parser_err.f");
+        parser.prog();
+        assertTrue(parser.getParseErrorListener().hasError());
+        parser.getParseErrorListener().printErrors();
     }
 }
