@@ -16,16 +16,13 @@ public class ArithAst {
     }
 
     // literals, boolean and 0
-    public static class Bool extends Node {
-        public final boolean val;
+    public static class True extends Node {
+    }
 
-        public Bool(boolean b) {
-            val = b;
-        }
+    public static class False extends Node {
     }
 
     public static class Zero extends Node {
-
     }
 
     // control flow

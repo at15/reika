@@ -8,7 +8,7 @@ import org.junit.Test;
 
 import java.io.IOException;
 
-public class ArithAstBuilderTest {
+public class ArithEvaluatorTest {
     @Test
     public void testOfficialExample() throws IOException {
         ParserWrapper<ArithParser, ArithLexer> wrapper = ArithParserTest.readResource("arith.f");
@@ -16,6 +16,8 @@ public class ArithAstBuilderTest {
         ParseTree tree = parser.prog();
         assertFalse(wrapper.hasError());
         ArithAstBuilder astBuilder = new ArithAstBuilder();
-        astBuilder.visit(tree);
+        ArithAst.Node prog = astBuilder.visit(tree);
+        ArithEvaluator evaluator = new ArithEvaluator();
+        evaluator.evalProg((ArithAst.Prog) prog);
     }
 }

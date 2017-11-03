@@ -23,5 +23,46 @@ public class ArithAstBuilder extends ArithBaseVisitor<ArithAst.Node> implements 
         return new ArithAst.Prog(terms);
     }
 
-    // TODO: override others
+    @Override
+    public ArithAst.Node visitConsTrue(ArithParser.ConsTrueContext ctx) {
+        return new ArithAst.True();
+    }
+
+    @Override
+    public ArithAst.Node visitConsFalse(ArithParser.ConsFalseContext ctx) {
+        return new ArithAst.False();
+    }
+
+    @Override
+    public ArithAst.Node visitConditional(ArithParser.ConditionalContext ctx) {
+        return new ArithAst.If(
+                visit(ctx.term(0)), // if
+                visit(ctx.term(1)), // then
+                visit(ctx.term(2))); // else
+    }
+
+    @Override
+    public ArithAst.Node visitConsZero(ArithParser.ConsZeroContext ctx) {
+        return new ArithAst.Zero();
+    }
+
+    @Override
+    public ArithAst.Node visitSucc(ArithParser.SuccContext ctx) {
+        return new ArithAst.Succ(visit(ctx.term()));
+    }
+
+    @Override
+    public ArithAst.Node visitPred(ArithParser.PredContext ctx) {
+        return new ArithAst.Pred(visit(ctx.term()));
+    }
+
+    @Override
+    public ArithAst.Node visitIsZero(ArithParser.IsZeroContext ctx) {
+        return new ArithAst.IsZero(visit(ctx.term()));
+    }
+
+    @Override
+    public ArithAst.Node visitBrackets(ArithParser.BracketsContext ctx) {
+        return visit(ctx.term());
+    }
 }
