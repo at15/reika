@@ -43,14 +43,21 @@ public class UntypedAst {
     }
 
     public static class App extends Node {
-        public final Abs abs;
+        // NOTE" we use Node instead of Abs because it can be a var i.e. lambda x. x x
+        // see https://github.com/at15/reika/issues/8
+        public final Node abs;
         public final Node param;
 
-        public App(Abs abs, Node param) {
+        public App(Node abs, Node param) {
             this.abs = abs;
             this.param = param;
         }
 
-        // TODO: abs can be evaluated further, so it's toString should never be called
+        // FIXMED: abs can be evaluated further, so it's toString should never be called? No!
+        // lambda x. x x, we got x x
+        @Override
+        public String toString() {
+            return String.format("%s %s", abs.toString(), param.toString());
+        }
     }
 }

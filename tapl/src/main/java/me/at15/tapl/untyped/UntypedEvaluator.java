@@ -53,8 +53,13 @@ public class UntypedEvaluator {
             return node;
         } else if (node instanceof UntypedAst.App) {
             UntypedAst.App app = (UntypedAst.App) node;
-//            Environment newEnv = env.extend(app.param.)
-            return "TODO";
+            if (!(app.abs instanceof UntypedAst.Abs)) {
+                return "left side of app is not abs";
+            }
+            UntypedAst.Abs abs = (UntypedAst.Abs) app.abs;
+            // bind
+            Environment newEnv = env.extend(abs.param.name, app.param);
+            return eval(abs.body, newEnv);
         } else {
             return "unknown node";
         }
