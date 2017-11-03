@@ -38,7 +38,7 @@ line 2:0 mismatched input '<EOF>' expecting {'true', 'false', 'if', '0', 'succ',
 
 This works
 
-```
+````
 java -cp ./third_party/antlr-4.7-complete.jar:./build/libs/tapl-0.0.1-SNAPSHOT.jar org.antlr.v4.gui.TestRig me.at15.tapl.arith.Arith prog -gui
 if true then 0 else false
 0

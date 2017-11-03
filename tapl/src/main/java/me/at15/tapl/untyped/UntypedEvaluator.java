@@ -46,9 +46,10 @@ public class UntypedEvaluator {
         }
     }
 
+    // TODO: we didn't handle renaming
     public Object eval(UntypedAst.Node node, Environment env) {
         if (node instanceof UntypedAst.Var) {
-            return node;
+            return env.Lookup(((UntypedAst.Var) node).name);
         } else if (node instanceof UntypedAst.Abs) {
             return node;
         } else if (node instanceof UntypedAst.App) {
