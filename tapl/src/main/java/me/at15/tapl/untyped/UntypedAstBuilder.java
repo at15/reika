@@ -27,7 +27,7 @@ public class UntypedAstBuilder extends UntypedBaseVisitor<UntypedAst.Node> imple
 
     @Override
     public UntypedAst.Node visitApp(UntypedParser.AppContext ctx) {
-        return new UntypedAst.App(visit(ctx.term(0)), visit(ctx.term(1)));
+        return new UntypedAst.App((UntypedAst.Abs) visit(ctx.term(0)), visit(ctx.term(1)));
     }
 
     @Override

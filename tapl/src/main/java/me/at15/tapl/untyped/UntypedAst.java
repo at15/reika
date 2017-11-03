@@ -20,25 +20,37 @@ public class UntypedAst {
         public Var(String name) {
             this.name = name;
         }
+
+        @Override
+        public String toString() {
+            return name;
+        }
     }
 
     public static class Abs extends Node {
-        public final Node param;
+        public final Var param;
         public final Node body;
 
-        public Abs(Node param, Node body) {
+        public Abs(Var param, Node body) {
             this.param = param;
             this.body = body;
+        }
+
+        @Override
+        public String toString() {
+            return String.format("lambda %s %s", param.toString(), body.toString());
         }
     }
 
     public static class App extends Node {
-        public final Node abs;
+        public final Abs abs;
         public final Node param;
 
-        public App(Node abs, Node param) {
+        public App(Abs abs, Node param) {
             this.abs = abs;
             this.param = param;
         }
+
+        // TODO: abs can be evaluated further, so it's toString should never be called
     }
 }
