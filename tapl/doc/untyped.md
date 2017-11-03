@@ -20,4 +20,9 @@ lambda x. x;
 ````
 
 - [ ] TODO: can we have the parameter of function looks like a function, or it can only be just one ID
-- [ ] TODO: #7 when function body contains function application, it is not parsed properly `lambda x. x x` should have a body `x x` instead of `(lambda x. x) x`, though actually I think latter makes more sense to me, it's not what we get in the OCaml implementation
+- [x] TODO: #7 when function body contains function application, it is not parsed properly `lambda x. x x` should have a body `x x` instead of `(lambda x. x) x`, though actually I think latter makes more sense to me, it's not what we get in the OCaml implementation
+  - change order of `lambda` and `t t` solve this problem
+
+`(lambda x. x) (lambda x. x x); `
+
+![untyped-lambda-calculus-parse-tree](untyped-lambda-calculus-parse-tree.png)

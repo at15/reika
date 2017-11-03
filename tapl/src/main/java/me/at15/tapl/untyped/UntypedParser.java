@@ -315,7 +315,7 @@ public class UntypedParser extends Parser {
 				setState(18);
 				match(T__2);
 				setState(19);
-				term(3);
+				term(2);
 				}
 				break;
 			case T__3:
@@ -347,9 +347,9 @@ public class UntypedParser extends Parser {
 					_localctx = new AppContext(new TermContext(_parentctx, _parentState));
 					pushNewRecursionContext(_localctx, _startState, RULE_term);
 					setState(26);
-					if (!(precpred(_ctx, 2))) throw new FailedPredicateException(this, "precpred(_ctx, 2)");
+					if (!(precpred(_ctx, 3))) throw new FailedPredicateException(this, "precpred(_ctx, 3)");
 					setState(27);
-					term(3);
+					term(4);
 					}
 					} 
 				}
@@ -380,7 +380,7 @@ public class UntypedParser extends Parser {
 	private boolean term_sempred(TermContext _localctx, int predIndex) {
 		switch (predIndex) {
 		case 0:
-			return precpred(_ctx, 2);
+			return precpred(_ctx, 3);
 		}
 		return true;
 	}
@@ -392,9 +392,9 @@ public class UntypedParser extends Parser {
 		"\3\6\5\2\4\6\2\2\2$\2\t\3\2\2\2\4\r\3\2\2\2\6\32\3\2\2\2\b\n\5\4\3\2\t"+
 		"\b\3\2\2\2\n\13\3\2\2\2\13\t\3\2\2\2\13\f\3\2\2\2\f\3\3\2\2\2\r\16\5\6"+
 		"\4\2\16\17\7\3\2\2\17\5\3\2\2\2\20\21\b\4\1\2\21\33\7\b\2\2\22\23\7\4"+
-		"\2\2\23\24\7\b\2\2\24\25\7\5\2\2\25\33\5\6\4\5\26\27\7\6\2\2\27\30\5\6"+
+		"\2\2\23\24\7\b\2\2\24\25\7\5\2\2\25\33\5\6\4\4\26\27\7\6\2\2\27\30\5\6"+
 		"\4\2\30\31\7\7\2\2\31\33\3\2\2\2\32\20\3\2\2\2\32\22\3\2\2\2\32\26\3\2"+
-		"\2\2\33 \3\2\2\2\34\35\f\4\2\2\35\37\5\6\4\5\36\34\3\2\2\2\37\"\3\2\2"+
+		"\2\2\33 \3\2\2\2\34\35\f\5\2\2\35\37\5\6\4\6\36\34\3\2\2\2\37\"\3\2\2"+
 		"\2 \36\3\2\2\2 !\3\2\2\2!\7\3\2\2\2\" \3\2\2\2\5\13\32 ";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());

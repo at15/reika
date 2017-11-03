@@ -6,8 +6,8 @@ stat: term ';'
     ;
 
 term: ID # Var
-    | 'lambda' ID '.' term # Abs
     | term term # App
+    | 'lambda' ID '.' term # Abs
     | '(' term ')' # Brackets
     ;
 
