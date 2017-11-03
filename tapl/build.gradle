@@ -25,3 +25,11 @@ task genArith(type: Exec) {
     commandLine 'java', '-cp', "$projectDir/third_party/antlr-4.7-complete.jar", '-Xmx500M',
             'org.antlr.v4.Tool', '-visitor', '-package', 'me.at15.tapl.arith', 'Arith.g4'
 }
+
+// TODO: define a function and reuse it
+task genUntyped(type: Exec) {
+    println 'Generate parser for Untyped'
+    workingDir './src/main/java/me/at15/tapl/untyped'
+    commandLine 'java', '-cp', "$projectDir/third_party/antlr-4.7-complete.jar", '-Xmx500M',
+            'org.antlr.v4.Tool', '-visitor', '-package', 'me.at15.tapl.untyped', 'Untyped.g4'
+}

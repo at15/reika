@@ -2,12 +2,12 @@
 
 - Chapter 4 An ML Implementation of Arithmetic Expressions
 - [tapl Arithmetic #3](https://github.com/at15/reika/issues/3)
-- [official OCaml implementation](https://www.cis.upenn.edu/~bcpierce/tapl/checkers/arith)
+- [official OCaml implementation](https://www.cis.upenn.edu/~bcpierce/tapl/checkers/arith/)
 - [Java implementation](../src/main/java/me/at15/tapl/arith)
 
 ## Syntax
 
-![syntax](p24-untyped-syntax.png)
+![syntax](p24-untyped-arith-syntax.png)
 
 [syntax.ml](https://www.cis.upenn.edu/~bcpierce/tapl/checkers/arith/syntax.ml)
 
