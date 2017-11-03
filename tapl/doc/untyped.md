@@ -16,7 +16,7 @@ test.f for untyped
 x;
 
 lambda x. x;
-(lambda x. x) (lambda x. x x); 
+(lambda x. x) (lambda x. x x);
 ````
 
 - [ ] TODO: can we have the parameter of function looks like a function, or it can only be just one ID
