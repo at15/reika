@@ -17,3 +17,24 @@ test.f for simplebool
 ````
 
 ![simplebool-parse-tree](simplebool-parse-tree.png)
+
+## AST
+
+## Typing
+
+[simplebool/core.ml](https://www.cis.upenn.edu/~bcpierce/tapl/checkers/simplebool/core.ml)
+
+Abs
+
+````ocaml
+let rec typeof ctx t =
+  match t with
+    TmVar(fi,i,_) -> getTypeFromContext fi ctx i
+  | TmAbs(fi,x,tyT1,t2) ->
+      let ctx' = addbinding ctx x (VarBind(tyT1)) in
+      let tyT2 = typeof ctx' t2 in
+      TyArr(tyT1, tyT2)
+````
+
+## Evaluation
+

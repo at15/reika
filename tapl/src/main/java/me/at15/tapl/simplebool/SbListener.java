@@ -28,18 +28,6 @@ public interface SbListener extends ParseTreeListener {
 	 */
 	void exitStat(SbParser.StatContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code Conditioanl}
-	 * labeled alternative in {@link SbParser#term}.
-	 * @param ctx the parse tree
-	 */
-	void enterConditioanl(SbParser.ConditioanlContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code Conditioanl}
-	 * labeled alternative in {@link SbParser#term}.
-	 * @param ctx the parse tree
-	 */
-	void exitConditioanl(SbParser.ConditioanlContext ctx);
-	/**
 	 * Enter a parse tree produced by the {@code App}
 	 * labeled alternative in {@link SbParser#term}.
 	 * @param ctx the parse tree
@@ -111,6 +99,18 @@ public interface SbListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitConsFalse(SbParser.ConsFalseContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code If}
+	 * labeled alternative in {@link SbParser#term}.
+	 * @param ctx the parse tree
+	 */
+	void enterIf(SbParser.IfContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code If}
+	 * labeled alternative in {@link SbParser#term}.
+	 * @param ctx the parse tree
+	 */
+	void exitIf(SbParser.IfContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code TyBool}
 	 * labeled alternative in {@link SbParser#type}.

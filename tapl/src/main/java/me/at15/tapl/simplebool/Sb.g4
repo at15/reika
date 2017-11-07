@@ -6,7 +6,7 @@ stat: term ';' ;
 
 term: 'true' # ConsTrue
     | 'false' # ConsFalse
-    | 'if' term 'then' term 'else' term # Conditioanl
+    | 'if' term 'then' term 'else' term # If
     | ID # Var
     | term term # App
     | 'lambda' ID ':' type '.' term # Abs

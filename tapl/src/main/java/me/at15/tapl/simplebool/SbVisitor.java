@@ -23,13 +23,6 @@ public interface SbVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitStat(SbParser.StatContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code Conditioanl}
-	 * labeled alternative in {@link SbParser#term}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitConditioanl(SbParser.ConditioanlContext ctx);
-	/**
 	 * Visit a parse tree produced by the {@code App}
 	 * labeled alternative in {@link SbParser#term}.
 	 * @param ctx the parse tree
@@ -71,6 +64,13 @@ public interface SbVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitConsFalse(SbParser.ConsFalseContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code If}
+	 * labeled alternative in {@link SbParser#term}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitIf(SbParser.IfContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code TyBool}
 	 * labeled alternative in {@link SbParser#type}.

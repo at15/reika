@@ -200,28 +200,6 @@ public class SbParser extends Parser {
 			super.copyFrom(ctx);
 		}
 	}
-	public static class ConditioanlContext extends TermContext {
-		public List<TermContext> term() {
-			return getRuleContexts(TermContext.class);
-		}
-		public TermContext term(int i) {
-			return getRuleContext(TermContext.class,i);
-		}
-		public ConditioanlContext(TermContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof SbListener ) ((SbListener)listener).enterConditioanl(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof SbListener ) ((SbListener)listener).exitConditioanl(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof SbVisitor ) return ((SbVisitor<? extends T>)visitor).visitConditioanl(this);
-			else return visitor.visitChildren(this);
-		}
-	}
 	public static class AppContext extends TermContext {
 		public List<TermContext> term() {
 			return getRuleContexts(TermContext.class);
@@ -335,6 +313,28 @@ public class SbParser extends Parser {
 			else return visitor.visitChildren(this);
 		}
 	}
+	public static class IfContext extends TermContext {
+		public List<TermContext> term() {
+			return getRuleContexts(TermContext.class);
+		}
+		public TermContext term(int i) {
+			return getRuleContext(TermContext.class,i);
+		}
+		public IfContext(TermContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof SbListener ) ((SbListener)listener).enterIf(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof SbListener ) ((SbListener)listener).exitIf(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof SbVisitor ) return ((SbVisitor<? extends T>)visitor).visitIf(this);
+			else return visitor.visitChildren(this);
+		}
+	}
 
 	public final TermContext term() throws RecognitionException {
 		return term(0);
@@ -375,7 +375,7 @@ public class SbParser extends Parser {
 				break;
 			case T__3:
 				{
-				_localctx = new ConditioanlContext(_localctx);
+				_localctx = new IfContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
 				setState(19);

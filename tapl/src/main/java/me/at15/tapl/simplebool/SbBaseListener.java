@@ -40,18 +40,6 @@ public class SbBaseListener implements SbListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterConditioanl(SbParser.ConditioanlContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitConditioanl(SbParser.ConditioanlContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterApp(SbParser.AppContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -119,6 +107,18 @@ public class SbBaseListener implements SbListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitConsFalse(SbParser.ConsFalseContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterIf(SbParser.IfContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitIf(SbParser.IfContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

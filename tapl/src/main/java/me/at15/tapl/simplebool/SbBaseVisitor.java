@@ -31,13 +31,6 @@ public class SbBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements SbV
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitConditioanl(SbParser.ConditioanlContext ctx) { return visitChildren(ctx); }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
-	 */
 	@Override public T visitApp(SbParser.AppContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
@@ -74,6 +67,13 @@ public class SbBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements SbV
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
 	@Override public T visitConsFalse(SbParser.ConsFalseContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitIf(SbParser.IfContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
