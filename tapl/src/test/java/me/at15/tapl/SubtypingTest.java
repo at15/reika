@@ -1,5 +1,6 @@
 package me.at15.tapl;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.*;
@@ -25,6 +26,7 @@ public class SubtypingTest {
     }
 
     @Test
+    @Ignore
     public void testDownCast2() {
         Set<String> s = new TreeSet<>();
         DownCast(s);

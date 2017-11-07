@@ -24,3 +24,13 @@ untyped-gen:
 untyped-visual:
 	$(GRUN) me.at15.tapl.untyped.Untyped prog -gui
 #---- Untyped ----
+
+#---- Simplebool ----
+.PHONY: simplebool-gen
+simplebool-gen:
+	gradle genSimplebool
+	gradle build
+.PHONY: simplebool-visual
+simplebool-visual:
+	$(GRUN) me.at15.tapl.simplebool.Sb prog -gui
+#---- Simplebool ----

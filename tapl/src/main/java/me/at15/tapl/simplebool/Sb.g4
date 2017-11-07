@@ -4,14 +4,17 @@ prog: stat+ ;
 
 stat: term ';' ;
 
-term: ID # Var
+term: 'true' # ConsTrue
+    | 'false' # ConsFalse
+    | 'if' term 'then' term 'else' term # Conditioanl
+    | ID # Var
     | term term # App
     | 'lambda' ID ':' type '.' term # Abs
     | '(' term ')' # Brackets
     ;
 
 type: 'Bool' # TyBool
-    | type '->' type # TyAbs
+    | type '->' type # TyArr
     ;
 
 ID  :   [a-zA-Z]+ ;
