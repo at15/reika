@@ -16,3 +16,4 @@ Reference OCaml implementation and chapter mapping
 
 - [arith](arith.md)
 - [untyped](untyped.md)
+- [simplebool](simplebool.md)

@@ -18,18 +18,29 @@ dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.+'
 }
 
-// TODO: it seems it is run everytime when gradle build?
-task genArith(type: Exec) {
-    println 'Generate parser for Arith'
-    workingDir './src/main/java/me/at15/tapl/arith'
-    commandLine 'java', '-cp', "$projectDir/third_party/antlr-4.7-complete.jar", '-Xmx500M',
-            'org.antlr.v4.Tool', '-visitor', '-package', 'me.at15.tapl.arith', 'Arith.g4'
+ext.gen = { pkg, g4 ->
+    exec {
+        println "Generate parser for $pkg"
+        workingDir "./src/main/java/me/at15/tapl/$pkg"
+        commandLine 'java', '-cp', "$projectDir/third_party/antlr-4.7-complete.jar", '-Xmx500M',
+                'org.antlr.v4.Tool', '-visitor', '-package', "me.at15.tapl.$pkg", g4
+    }
 }
 
-// TODO: define a function and reuse it
-task genUntyped(type: Exec) {
-    println 'Generate parser for Untyped'
-    workingDir './src/main/java/me/at15/tapl/untyped'
-    commandLine 'java', '-cp', "$projectDir/third_party/antlr-4.7-complete.jar", '-Xmx500M',
-            'org.antlr.v4.Tool', '-visitor', '-package', 'me.at15.tapl.untyped', 'Untyped.g4'
+task genArith {
+    doLast {
+        gen('arith', 'Arith.g4')
+    }
+}
+
+task genUntyped {
+    doLast {
+        gen('untyped', 'Untyped.g4')
+    }
+}
+
+task genSimplebool {
+    doLast {
+        gen('simplebool', 'Sb.g4')
+    }
 }
