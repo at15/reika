@@ -19,6 +19,10 @@ public class SbAst {
     }
 
     public static class TyBool extends Ty {
+        @Override
+        public String toString() {
+            return "Bool";
+        }
     }
 
     // Bool -> Bool
@@ -30,18 +34,31 @@ public class SbAst {
             this.arg = arg;
             this.res = res;
         }
+
+        @Override
+        public String toString() {
+            return String.format("(%s -> %s)", arg.toString(), res.toString());
+        }
     }
 
     // literal
     public static class True extends Node {
+        @Override
+        public String toString() {
+            return "true";
+        }
     }
 
     public static class False extends Node {
+        @Override
+        public String toString() {
+            return "false";
+        }
     }
 
     public static class Var extends Node {
-        // TODO: var might have type i.e. lambda x:Bool. x, we know x is Bool from function declaration
-        // we can store Bool in AST of Abs
+        // TODOED: var might have type i.e. lambda x:Bool. x, we know x is Bool from function declaration
+        // we can store Bool in AST of Abs and add it to context
         public final String name;
 
         public Var(String name) {
@@ -66,6 +83,11 @@ public class SbAst {
             this.argType = argType;
             this.body = body;
         }
+
+        @Override
+        public String toString() {
+            return String.format("(lambda %s:%s. %s)", arg.toString(), argType.toString(), body.toString());
+        }
     }
 
     // function call
@@ -77,6 +99,11 @@ public class SbAst {
         public App(Node abs, Node arg) {
             this.abs = abs;
             this.arg = arg;
+        }
+
+        @Override
+        public String toString() {
+            return String.format("%s %s", abs.toString(), arg.toString());
         }
     }
 
@@ -90,6 +117,11 @@ public class SbAst {
             con = t1;
             then = t2;
             els = t3;
+        }
+
+        @Override
+        public String toString() {
+            return String.format("if %s then %s else %s", con.toString(), then.toString(), els.toString());
         }
     }
 }

@@ -1,8 +1,5 @@
 package me.at15.tapl.untyped;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class UntypedEvaluator {
     // environment is actually a linked list, following this blog http://www.yinwang.org/blog-cn/2012/08/01/interpreter
     private class Environment {
