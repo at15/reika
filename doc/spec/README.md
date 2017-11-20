@@ -1,3 +1,3 @@
 # Spec
 
-- `:=` for assignment that allocate storage
+- [v0.1](0.1.md)
