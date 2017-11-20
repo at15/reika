@@ -3,7 +3,9 @@
 - http://code.kx.com/q4m3
 - https://github.com/at15/reika/issues/12
 
-## Q Shock and Ave
+## 1. Q Shock and Ave
+
+http://code.kx.com/q4m3/1_Q_Shock_and_Awe/
 
 - int, float
 - date (int, days since 2000)
@@ -58,3 +60,32 @@ IPC
 Websocket
 
 - also gives an example of chart
+
+## 6. Functions
+
+- call by name, use backslash to pass symbol http://code.kx.com/q4m3/6_Functions/#62-call-by-name
+
+````
+a:42
+get `a
+````
+
+## 7. Transforming Data
+
+http://code.kx.com/q4m3/7_Transforming_Data/
+
+- `type` returns the type num
+- there is casting
+
+## 8 Tables
+
+### 8.4 Primary Key and Keyed Tables
+
+- A keyed table is a dictionary mapping a table of key records to a table of value records
+- (kind of like index?)
+- `([] eid:1001 1002)#kt` no longer need select
+- can convert between keyed and normal table, by default create copy, use call by name (see 6. Functions) to do it in place
+
+### 8.5 Foreign Key
+
+- 
