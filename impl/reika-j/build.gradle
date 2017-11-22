@@ -1,8 +1,98 @@
-allprojects {
-    group 'me.at15'
-    version '0.0.1-SNAPSHOT'
-
-    apply plugin: 'java'
-
-    sourceCompatibility = 1.8
+// based on https://github.com/junit-team/junit5-samples/blob/master/junit5-gradle-consumer/build.gradle
+// https://docs.gradle.org/current/userguide/organizing_build_logic.html#sec:build_script_external_dependencies
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'org.junit.platform:junit-platform-gradle-plugin:1.0.2'
+    }
 }
+
+repositories {
+    mavenCentral()
+}
+
+ext.junit4Version = '4.12'
+ext.junitVintageVersion = '4.12.2'
+ext.junitPlatformVersion = '1.0.2'
+ext.junitJupiterVersion = '5.0.2'
+ext.log4jVersion = '2.9.0'
+
+apply plugin: 'java'
+apply plugin: 'org.junit.platform.gradle.plugin'
+
+group 'me.at15.reika'
+version '0.0.1-SNAPSHOT'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+compileTestJava {
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+    // Generate metadata for reflection on method parameters
+    options.compilerArgs += '-parameters'
+}
+
+junitPlatform {
+    // platformVersion '1.0.2'
+    filters {
+        engines {
+            // include 'junit-jupiter', 'junit-vintage'
+            // exclude 'custom-engine'
+        }
+        tags {
+            // include 'fast'
+            exclude 'slow'
+        }
+        // includeClassNamePattern '.*Test'
+    }
+    // configurationParameter 'junit.jupiter.conditions.deactivate', '*'
+    // enableStandardTestTask true
+    // reportsDir file('build/test-results/junit-platform') // this is the default
+    logManager 'org.apache.logging.log4j.jul.LogManager'
+}
+
+dependencies {
+    compile group: 'org.antlr', name: 'antlr4', version: '4.7'
+    compile group: 'org.apache.logging.log4j', name: 'log4j-api', version: log4jVersion
+    compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: log4jVersion
+
+    // JUnit Jupiter API and TestEngine implementation
+    testCompile("org.junit.jupiter:junit-jupiter-api:${junitJupiterVersion}")
+    testRuntime("org.junit.jupiter:junit-jupiter-engine:${junitJupiterVersion}")
+    // To avoid compiler warnings about @API annotations in JUnit code
+    testCompileOnly('org.apiguardian:apiguardian-api:1.0.0')
+    // To use Log4J's LogManager
+    testRuntime("org.apache.logging.log4j:log4j-core:${log4jVersion}")
+    testRuntime("org.apache.logging.log4j:log4j-jul:${log4jVersion}")
+
+}
+
+ext.gen = { pkg, g4 ->
+    exec {
+        println "Generate parser for $pkg"
+        workingDir "./src/main/java/me/at15/tapl/$pkg"
+        commandLine 'java', '-cp', "$projectDir/third_party/antlr-4.7-complete.jar", '-Xmx500M',
+                'org.antlr.v4.Tool', '-visitor', '-package', "me.at15.tapl.$pkg", g4
+    }
+}
+
+// task genArith {
+//     doLast {
+//         gen('arith', 'Arith.g4')
+//     }
+// }
+
+// task genUntyped {
+//     doLast {
+//         gen('untyped', 'Untyped.g4')
+//     }
+// }
+
+// task genSimplebool {
+//     doLast {
+//         gen('simplebool', 'Sb.g4')
+//     }
+// }
