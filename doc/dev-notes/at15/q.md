@@ -3,6 +3,18 @@
 - http://code.kx.com/q4m3
 - https://github.com/at15/reika/issues/12
 
+Q is executed from right to left
+
+````q
+q)2 * 1 + 3
+8
+````
+
+````python
+>>> 2 * 1 + 3
+5
+````
+
 ## 1. Q Shock and Ave
 
 http://code.kx.com/q4m3/1_Q_Shock_and_Awe/

@@ -70,29 +70,13 @@ dependencies {
 
 }
 
-ext.gen = { pkg, g4 ->
-    exec {
-        println "Generate parser for $pkg"
-        workingDir "./src/main/java/me/at15/tapl/$pkg"
-        commandLine 'java', '-cp', "$projectDir/third_party/antlr-4.7-complete.jar", '-Xmx500M',
-                'org.antlr.v4.Tool', '-visitor', '-package', "me.at15.tapl.$pkg", g4
+task genReika {
+    doLast {
+        exec {
+            println "Generate parser for Reika"
+            workingDir "./src/main/java/me/at15/reika/parser"
+            commandLine 'java', '-cp', "$projectDir/third_party/antlr-4.7-complete.jar", '-Xmx500M',
+                    'org.antlr.v4.Tool', '-visitor', '-no-listener', '-package', 'me.at15.reika.parser', 'Reika.g4'
+        }
     }
 }
-
-// task genArith {
-//     doLast {
-//         gen('arith', 'Arith.g4')
-//     }
-// }
-
-// task genUntyped {
-//     doLast {
-//         gen('untyped', 'Untyped.g4')
-//     }
-// }
-
-// task genSimplebool {
-//     doLast {
-//         gen('simplebool', 'Sb.g4')
-//     }
-// }
