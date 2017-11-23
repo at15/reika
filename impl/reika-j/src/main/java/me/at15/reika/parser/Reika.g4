@@ -9,6 +9,13 @@ stat
     : term ';'
     ;
 
+term
+    : literal # LiteralTerm
+    | list # ListTerm
+    | record # RecordTerm
+    | '(' term ')' # BracketsTerm
+    ;
+
 literal
     : BOOL # BoolLiteral
     | INT # IntLiteral
@@ -18,15 +25,12 @@ literal
 
 // TODO: [0:123]
 list
-    : '[' literal (' ' literal)* ']'
+    : '[' literal+ ']'
     ;
 
-term
-    : literal # LiteralTerm
-    | list # ListTerm
-    // FIXME: the record rule is wrong
-    | '{' ID ':' literal (',' ID ':' literal)* '}' # RecordTerm // TODO: allow record to have non-literal types? nested record etc.
-    | '(' term ')' # BracketsTerm
+// TODO: allow record to have non-literal types? nested record etc.
+record
+    : '{' ID ':' literal (',' ID ':' literal)* '}'
     ;
 
 BOOL
@@ -39,7 +43,7 @@ INT
     ;
 
 DOUBLE
-    : [0-9]+ '.' [0-0]+
+    : [0-9]+ '.' [0-9]+
     ;
 
 // TODO: use single quote for string?

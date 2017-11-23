@@ -23,6 +23,34 @@ public interface ReikaVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitStat(ReikaParser.StatContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code LiteralTerm}
+	 * labeled alternative in {@link ReikaParser#term}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitLiteralTerm(ReikaParser.LiteralTermContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ListTerm}
+	 * labeled alternative in {@link ReikaParser#term}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitListTerm(ReikaParser.ListTermContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code RecordTerm}
+	 * labeled alternative in {@link ReikaParser#term}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitRecordTerm(ReikaParser.RecordTermContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code BracketsTerm}
+	 * labeled alternative in {@link ReikaParser#term}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBracketsTerm(ReikaParser.BracketsTermContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code BoolLiteral}
 	 * labeled alternative in {@link ReikaParser#literal}.
 	 * @param ctx the parse tree
@@ -57,24 +85,9 @@ public interface ReikaVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitList(ReikaParser.ListContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code LiteralTerm}
-	 * labeled alternative in {@link ReikaParser#term}.
+	 * Visit a parse tree produced by {@link ReikaParser#record}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitLiteralTerm(ReikaParser.LiteralTermContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code RecordTerm}
-	 * labeled alternative in {@link ReikaParser#term}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitRecordTerm(ReikaParser.RecordTermContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code BracketsTerm}
-	 * labeled alternative in {@link ReikaParser#term}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitBracketsTerm(ReikaParser.BracketsTermContext ctx);
+	T visitRecord(ReikaParser.RecordContext ctx);
 }
