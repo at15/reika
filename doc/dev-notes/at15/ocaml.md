@@ -1,6 +1,7 @@
 # OCaml
 
-https://realworldocaml.org/v1/en/html/a-guided-tour.html#refs
+- https://realworldocaml.org/v1/en/html/a-guided-tour.html#refs
+- http://www.cs.cornell.edu/courses/cs3110/2011sp/Handouts/style.htm
 
 - reference is explicitly specified
 - use `!` to de reference
