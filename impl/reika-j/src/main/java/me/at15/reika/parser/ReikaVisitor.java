@@ -44,40 +44,19 @@ public interface ReikaVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitLtDouble(ReikaParser.LtDoubleContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code LtString}
-	 * labeled alternative in {@link ReikaParser#literal}.
+	 * Visit a parse tree produced by the {@code TmBinaryOp}
+	 * labeled alternative in {@link ReikaParser#term}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitLtString(ReikaParser.LtStringContext ctx);
+	T visitTmBinaryOp(ReikaParser.TmBinaryOpContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code ListLt}
-	 * labeled alternative in {@link ReikaParser#list}.
+	 * Visit a parse tree produced by the {@code TmNegative}
+	 * labeled alternative in {@link ReikaParser#term}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitListLt(ReikaParser.ListLtContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code ListList}
-	 * labeled alternative in {@link ReikaParser#list}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitListList(ReikaParser.ListListContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code ListRecord}
-	 * labeled alternative in {@link ReikaParser#list}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitListRecord(ReikaParser.ListRecordContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code RecordLt}
-	 * labeled alternative in {@link ReikaParser#record}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitRecordLt(ReikaParser.RecordLtContext ctx);
+	T visitTmNegative(ReikaParser.TmNegativeContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code TmLiteral}
 	 * labeled alternative in {@link ReikaParser#term}.
@@ -85,20 +64,6 @@ public interface ReikaVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitTmLiteral(ReikaParser.TmLiteralContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code TmList}
-	 * labeled alternative in {@link ReikaParser#term}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitTmList(ReikaParser.TmListContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code TmRecord}
-	 * labeled alternative in {@link ReikaParser#term}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitTmRecord(ReikaParser.TmRecordContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code TmBrackets}
 	 * labeled alternative in {@link ReikaParser#term}.

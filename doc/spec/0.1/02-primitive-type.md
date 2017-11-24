@@ -3,8 +3,8 @@
 ## Types
 
 - [ ] TODO: symbol and string
-- [ ] TODO: negative values
-  - could consider make it an operator https://github.com/antlr/grammars-v4/issues/212
+- [ ] TODO: avoid mixed type list (in parser or when building ast?)
+- negative number is defined using unary operator in parser, instead of put the `-` into lexer
 
 ````reika
 1;
@@ -23,10 +23,11 @@ false;
 
 Unary
 
-- [ ] `-` what should it be?, and we didn't add sign for numbers
+- [ ] `-`
 
 Infix
 
+- [ ] avoid duplicate logic in ASTBuilder like we did before
 - `+, -, *, /`
 - `random_from`
 

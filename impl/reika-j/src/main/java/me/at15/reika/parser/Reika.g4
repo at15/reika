@@ -14,26 +14,28 @@ literal
     : BOOL # LtBool
     | INT # LtInt
     | DOUBLE # LtDouble
-    | STRING # LtString
+//    | STRING # LtString
     ;
 
 // TODO: [0:123], empty list? but what about type?
-list
-    : '[' literal+ ']' # ListLt
-    | '[' list+ ']' # ListList
-    | '[' record+ ']' # ListRecord
-    ;
+//list
+//    : '[' literal+ ']' # ListLt
+//    | '[' list+ ']' # ListList
+//    | '[' record+ ']' # ListRecord
+//    ;
 
 
 // TODO: allow record to have non-literal types? nested record etc.
-record
-    : '{' (ID ':' literal)+ '}' # RecordLt
-    ;
+//record
+//    : '{' (ID ':' literal)+ '}' # RecordLt
+//    ;
 
 term
     : literal # TmLiteral
-    | list # TmList
-    | record # TmRecord
+    | '-' term # TmNegative
+    | term BINARY_OP term # TmBinaryOp
+//    | list # TmList
+//    | record # TmRecord
     | '(' term ')' # TmBrackets
     ;
 
@@ -61,12 +63,12 @@ ESC
     | '\\\\'  // \\
     ;
 
-BIN_OP
+BINARY_OP
     : '+'
     | '-'
     | '*'
     | '/'
-    | 'random'
+//    | 'random_from' // TODO: use ? and # like q does
     ;
 
 ID  :   LETTER (LETTER | [0-9])* ;
