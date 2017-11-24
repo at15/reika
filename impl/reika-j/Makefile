@@ -4,10 +4,15 @@ ANTLR_JAR=./third_party/antlr-4.7-complete.jar
 ANTLR=java -Xmx500M -cp $(ANTLR_JAR) org.antlr.v4.Tool
 GRUN=java -cp $(ANTLR_JAR):$(BUILT_JAR) org.antlr.v4.gui.TestRig
 
+all: gen build
+
+.PHONY: build
+build:
+	gradle build
+
 .PHONY: gen
 gen:
 	gradle genReika
-	gradle build
 
 .PHONY: visual
 visual:

@@ -9,28 +9,32 @@ stat
     : term ';'
     ;
 
-term
-    : literal # LiteralTerm
-    | list # ListTerm
-    | record # RecordTerm
-    | '(' term ')' # BracketsTerm
-    ;
-
+// TODO: symbol (immutable string) and string (list of character)
 literal
-    : BOOL # BoolLiteral
-    | INT # IntLiteral
-    | DOUBLE # DoubleLiteral
-    | STRING # StringLiteral
+    : BOOL # LtBool
+    | INT # LtInt
+    | DOUBLE # LtDouble
+    | STRING # LtString
     ;
 
-// TODO: [0:123]
+// TODO: [0:123], empty list? but what about type?
 list
-    : '[' literal+ ']'
+    : '[' literal+ ']' # ListLt
+    | '[' list+ ']' # ListList
+    | '[' record+ ']' # ListRecord
     ;
+
 
 // TODO: allow record to have non-literal types? nested record etc.
 record
-    : '{' ID ':' literal (',' ID ':' literal)* '}'
+    : '{' (ID ':' literal)+ '}' # RecordLt
+    ;
+
+term
+    : literal # TmLiteral
+    | list # TmList
+    | record # TmRecord
+    | '(' term ')' # TmBrackets
     ;
 
 BOOL

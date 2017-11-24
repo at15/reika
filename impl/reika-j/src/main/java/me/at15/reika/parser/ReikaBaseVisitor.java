@@ -31,68 +31,82 @@ public class ReikaBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements 
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitLiteralTerm(ReikaParser.LiteralTermContext ctx) { return visitChildren(ctx); }
+	@Override public T visitLtBool(ReikaParser.LtBoolContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitListTerm(ReikaParser.ListTermContext ctx) { return visitChildren(ctx); }
+	@Override public T visitLtInt(ReikaParser.LtIntContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitRecordTerm(ReikaParser.RecordTermContext ctx) { return visitChildren(ctx); }
+	@Override public T visitLtDouble(ReikaParser.LtDoubleContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitBracketsTerm(ReikaParser.BracketsTermContext ctx) { return visitChildren(ctx); }
+	@Override public T visitLtString(ReikaParser.LtStringContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitBoolLiteral(ReikaParser.BoolLiteralContext ctx) { return visitChildren(ctx); }
+	@Override public T visitListLt(ReikaParser.ListLtContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitIntLiteral(ReikaParser.IntLiteralContext ctx) { return visitChildren(ctx); }
+	@Override public T visitListList(ReikaParser.ListListContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitDoubleLiteral(ReikaParser.DoubleLiteralContext ctx) { return visitChildren(ctx); }
+	@Override public T visitListRecord(ReikaParser.ListRecordContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitStringLiteral(ReikaParser.StringLiteralContext ctx) { return visitChildren(ctx); }
+	@Override public T visitRecordLt(ReikaParser.RecordLtContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitList(ReikaParser.ListContext ctx) { return visitChildren(ctx); }
+	@Override public T visitTmLiteral(ReikaParser.TmLiteralContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitRecord(ReikaParser.RecordContext ctx) { return visitChildren(ctx); }
+	@Override public T visitTmList(ReikaParser.TmListContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitTmRecord(ReikaParser.TmRecordContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitTmBrackets(ReikaParser.TmBracketsContext ctx) { return visitChildren(ctx); }
 }
