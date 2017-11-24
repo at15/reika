@@ -17,20 +17,20 @@ public class ReikaParser extends Parser {
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
 	public static final int
-		T__0=1, T__1=2, T__2=3, T__3=4, BOOL=5, INT=6, DOUBLE=7, STRING=8, BINARY_OP=9, 
-		ID=10, WS=11, BLOCK_COMMENT=12, SINGLE_COMMENT=13;
+		T__0=1, T__1=2, T__2=3, T__3=4, BOOL=5, INT=6, DOUBLE=7, STRING=8, BINARY_OP_LOW=9, 
+		BINARY_OP_HIGH=10, ID=11, WS=12, BLOCK_COMMENT=13, SINGLE_COMMENT=14;
 	public static final int
-		RULE_prog = 0, RULE_stat = 1, RULE_literal = 2, RULE_term = 3;
+		RULE_prog = 0, RULE_stat = 1, RULE_value = 2, RULE_term = 3;
 	public static final String[] ruleNames = {
-		"prog", "stat", "literal", "term"
+		"prog", "stat", "value", "term"
 	};
 
 	private static final String[] _LITERAL_NAMES = {
 		null, "';'", "'-'", "'('", "')'"
 	};
 	private static final String[] _SYMBOLIC_NAMES = {
-		null, null, null, null, null, "BOOL", "INT", "DOUBLE", "STRING", "BINARY_OP", 
-		"ID", "WS", "BLOCK_COMMENT", "SINGLE_COMMENT"
+		null, null, null, null, null, "BOOL", "INT", "DOUBLE", "STRING", "BINARY_OP_LOW", 
+		"BINARY_OP_HIGH", "ID", "WS", "BLOCK_COMMENT", "SINGLE_COMMENT"
 	};
 	public static final Vocabulary VOCABULARY = new VocabularyImpl(_LITERAL_NAMES, _SYMBOLIC_NAMES);
 
@@ -171,54 +171,54 @@ public class ReikaParser extends Parser {
 		return _localctx;
 	}
 
-	public static class LiteralContext extends ParserRuleContext {
-		public LiteralContext(ParserRuleContext parent, int invokingState) {
+	public static class ValueContext extends ParserRuleContext {
+		public ValueContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
-		@Override public int getRuleIndex() { return RULE_literal; }
+		@Override public int getRuleIndex() { return RULE_value; }
 	 
-		public LiteralContext() { }
-		public void copyFrom(LiteralContext ctx) {
+		public ValueContext() { }
+		public void copyFrom(ValueContext ctx) {
 			super.copyFrom(ctx);
 		}
 	}
-	public static class LtBoolContext extends LiteralContext {
+	public static class ValBoolContext extends ValueContext {
 		public TerminalNode BOOL() { return getToken(ReikaParser.BOOL, 0); }
-		public LtBoolContext(LiteralContext ctx) { copyFrom(ctx); }
+		public ValBoolContext(ValueContext ctx) { copyFrom(ctx); }
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof ReikaVisitor ) return ((ReikaVisitor<? extends T>)visitor).visitLtBool(this);
+			if ( visitor instanceof ReikaVisitor ) return ((ReikaVisitor<? extends T>)visitor).visitValBool(this);
 			else return visitor.visitChildren(this);
 		}
 	}
-	public static class LtDoubleContext extends LiteralContext {
-		public TerminalNode DOUBLE() { return getToken(ReikaParser.DOUBLE, 0); }
-		public LtDoubleContext(LiteralContext ctx) { copyFrom(ctx); }
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof ReikaVisitor ) return ((ReikaVisitor<? extends T>)visitor).visitLtDouble(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-	public static class LtIntContext extends LiteralContext {
+	public static class ValIntContext extends ValueContext {
 		public TerminalNode INT() { return getToken(ReikaParser.INT, 0); }
-		public LtIntContext(LiteralContext ctx) { copyFrom(ctx); }
+		public ValIntContext(ValueContext ctx) { copyFrom(ctx); }
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof ReikaVisitor ) return ((ReikaVisitor<? extends T>)visitor).visitLtInt(this);
+			if ( visitor instanceof ReikaVisitor ) return ((ReikaVisitor<? extends T>)visitor).visitValInt(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class ValDoubleContext extends ValueContext {
+		public TerminalNode DOUBLE() { return getToken(ReikaParser.DOUBLE, 0); }
+		public ValDoubleContext(ValueContext ctx) { copyFrom(ctx); }
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ReikaVisitor ) return ((ReikaVisitor<? extends T>)visitor).visitValDouble(this);
 			else return visitor.visitChildren(this);
 		}
 	}
 
-	public final LiteralContext literal() throws RecognitionException {
-		LiteralContext _localctx = new LiteralContext(_ctx, getState());
-		enterRule(_localctx, 4, RULE_literal);
+	public final ValueContext value() throws RecognitionException {
+		ValueContext _localctx = new ValueContext(_ctx, getState());
+		enterRule(_localctx, 4, RULE_value);
 		try {
 			setState(19);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case BOOL:
-				_localctx = new LtBoolContext(_localctx);
+				_localctx = new ValBoolContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
 				setState(16);
@@ -226,7 +226,7 @@ public class ReikaParser extends Parser {
 				}
 				break;
 			case INT:
-				_localctx = new LtIntContext(_localctx);
+				_localctx = new ValIntContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
 				setState(17);
@@ -234,7 +234,7 @@ public class ReikaParser extends Parser {
 				}
 				break;
 			case DOUBLE:
-				_localctx = new LtDoubleContext(_localctx);
+				_localctx = new ValDoubleContext(_localctx);
 				enterOuterAlt(_localctx, 3);
 				{
 				setState(18);
@@ -267,40 +267,55 @@ public class ReikaParser extends Parser {
 			super.copyFrom(ctx);
 		}
 	}
-	public static class TmBinaryOpContext extends TermContext {
+	public static class TmBinaryHighContext extends TermContext {
 		public List<TermContext> term() {
 			return getRuleContexts(TermContext.class);
 		}
 		public TermContext term(int i) {
 			return getRuleContext(TermContext.class,i);
 		}
-		public TerminalNode BINARY_OP() { return getToken(ReikaParser.BINARY_OP, 0); }
-		public TmBinaryOpContext(TermContext ctx) { copyFrom(ctx); }
+		public TerminalNode BINARY_OP_HIGH() { return getToken(ReikaParser.BINARY_OP_HIGH, 0); }
+		public TmBinaryHighContext(TermContext ctx) { copyFrom(ctx); }
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof ReikaVisitor ) return ((ReikaVisitor<? extends T>)visitor).visitTmBinaryOp(this);
+			if ( visitor instanceof ReikaVisitor ) return ((ReikaVisitor<? extends T>)visitor).visitTmBinaryHigh(this);
 			else return visitor.visitChildren(this);
 		}
 	}
-	public static class TmNegativeContext extends TermContext {
+	public static class TmUnaryNegativeContext extends TermContext {
 		public TermContext term() {
 			return getRuleContext(TermContext.class,0);
 		}
-		public TmNegativeContext(TermContext ctx) { copyFrom(ctx); }
+		public TmUnaryNegativeContext(TermContext ctx) { copyFrom(ctx); }
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof ReikaVisitor ) return ((ReikaVisitor<? extends T>)visitor).visitTmNegative(this);
+			if ( visitor instanceof ReikaVisitor ) return ((ReikaVisitor<? extends T>)visitor).visitTmUnaryNegative(this);
 			else return visitor.visitChildren(this);
 		}
 	}
-	public static class TmLiteralContext extends TermContext {
-		public LiteralContext literal() {
-			return getRuleContext(LiteralContext.class,0);
+	public static class TmBinaryLowContext extends TermContext {
+		public List<TermContext> term() {
+			return getRuleContexts(TermContext.class);
 		}
-		public TmLiteralContext(TermContext ctx) { copyFrom(ctx); }
+		public TermContext term(int i) {
+			return getRuleContext(TermContext.class,i);
+		}
+		public TerminalNode BINARY_OP_LOW() { return getToken(ReikaParser.BINARY_OP_LOW, 0); }
+		public TmBinaryLowContext(TermContext ctx) { copyFrom(ctx); }
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof ReikaVisitor ) return ((ReikaVisitor<? extends T>)visitor).visitTmLiteral(this);
+			if ( visitor instanceof ReikaVisitor ) return ((ReikaVisitor<? extends T>)visitor).visitTmBinaryLow(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class TmValueContext extends TermContext {
+		public ValueContext value() {
+			return getRuleContext(ValueContext.class,0);
+		}
+		public TmValueContext(TermContext ctx) { copyFrom(ctx); }
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ReikaVisitor ) return ((ReikaVisitor<? extends T>)visitor).visitTmValue(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -338,23 +353,23 @@ public class ReikaParser extends Parser {
 			case INT:
 			case DOUBLE:
 				{
-				_localctx = new TmLiteralContext(_localctx);
+				_localctx = new TmValueContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
 
 				setState(22);
-				literal();
+				value();
 				}
 				break;
 			case T__1:
 				{
-				_localctx = new TmNegativeContext(_localctx);
+				_localctx = new TmUnaryNegativeContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
 				setState(23);
 				match(T__1);
 				setState(24);
-				term(3);
+				term(4);
 				}
 				break;
 			case T__2:
@@ -374,29 +389,47 @@ public class ReikaParser extends Parser {
 				throw new NoViableAltException(this);
 			}
 			_ctx.stop = _input.LT(-1);
-			setState(36);
+			setState(39);
 			_errHandler.sync(this);
-			_alt = getInterpreter().adaptivePredict(_input,3,_ctx);
+			_alt = getInterpreter().adaptivePredict(_input,4,_ctx);
 			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
 				if ( _alt==1 ) {
 					if ( _parseListeners!=null ) triggerExitRuleEvent();
 					_prevctx = _localctx;
 					{
-					{
-					_localctx = new TmBinaryOpContext(new TermContext(_parentctx, _parentState));
-					pushNewRecursionContext(_localctx, _startState, RULE_term);
-					setState(31);
-					if (!(precpred(_ctx, 2))) throw new FailedPredicateException(this, "precpred(_ctx, 2)");
-					setState(32);
-					match(BINARY_OP);
-					setState(33);
-					term(3);
+					setState(37);
+					_errHandler.sync(this);
+					switch ( getInterpreter().adaptivePredict(_input,3,_ctx) ) {
+					case 1:
+						{
+						_localctx = new TmBinaryHighContext(new TermContext(_parentctx, _parentState));
+						pushNewRecursionContext(_localctx, _startState, RULE_term);
+						setState(31);
+						if (!(precpred(_ctx, 3))) throw new FailedPredicateException(this, "precpred(_ctx, 3)");
+						setState(32);
+						match(BINARY_OP_HIGH);
+						setState(33);
+						term(4);
+						}
+						break;
+					case 2:
+						{
+						_localctx = new TmBinaryLowContext(new TermContext(_parentctx, _parentState));
+						pushNewRecursionContext(_localctx, _startState, RULE_term);
+						setState(34);
+						if (!(precpred(_ctx, 2))) throw new FailedPredicateException(this, "precpred(_ctx, 2)");
+						setState(35);
+						match(BINARY_OP_LOW);
+						setState(36);
+						term(3);
+						}
+						break;
 					}
 					} 
 				}
-				setState(38);
+				setState(41);
 				_errHandler.sync(this);
-				_alt = getInterpreter().adaptivePredict(_input,3,_ctx);
+				_alt = getInterpreter().adaptivePredict(_input,4,_ctx);
 			}
 			}
 		}
@@ -421,24 +454,27 @@ public class ReikaParser extends Parser {
 	private boolean term_sempred(TermContext _localctx, int predIndex) {
 		switch (predIndex) {
 		case 0:
+			return precpred(_ctx, 3);
+		case 1:
 			return precpred(_ctx, 2);
 		}
 		return true;
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\17*\4\2\t\2\4\3\t"+
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\20-\4\2\t\2\4\3\t"+
 		"\3\4\4\t\4\4\5\t\5\3\2\6\2\f\n\2\r\2\16\2\r\3\3\3\3\3\3\3\4\3\4\3\4\5"+
-		"\4\26\n\4\3\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5\5\5 \n\5\3\5\3\5\3\5\7\5%\n"+
-		"\5\f\5\16\5(\13\5\3\5\2\3\b\6\2\4\6\b\2\2\2+\2\13\3\2\2\2\4\17\3\2\2\2"+
-		"\6\25\3\2\2\2\b\37\3\2\2\2\n\f\5\4\3\2\13\n\3\2\2\2\f\r\3\2\2\2\r\13\3"+
-		"\2\2\2\r\16\3\2\2\2\16\3\3\2\2\2\17\20\5\b\5\2\20\21\7\3\2\2\21\5\3\2"+
-		"\2\2\22\26\7\7\2\2\23\26\7\b\2\2\24\26\7\t\2\2\25\22\3\2\2\2\25\23\3\2"+
-		"\2\2\25\24\3\2\2\2\26\7\3\2\2\2\27\30\b\5\1\2\30 \5\6\4\2\31\32\7\4\2"+
-		"\2\32 \5\b\5\5\33\34\7\5\2\2\34\35\5\b\5\2\35\36\7\6\2\2\36 \3\2\2\2\37"+
-		"\27\3\2\2\2\37\31\3\2\2\2\37\33\3\2\2\2 &\3\2\2\2!\"\f\4\2\2\"#\7\13\2"+
-		"\2#%\5\b\5\5$!\3\2\2\2%(\3\2\2\2&$\3\2\2\2&\'\3\2\2\2\'\t\3\2\2\2(&\3"+
-		"\2\2\2\6\r\25\37&";
+		"\4\26\n\4\3\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5\5\5 \n\5\3\5\3\5\3\5\3\5\3\5"+
+		"\3\5\7\5(\n\5\f\5\16\5+\13\5\3\5\2\3\b\6\2\4\6\b\2\2\2/\2\13\3\2\2\2\4"+
+		"\17\3\2\2\2\6\25\3\2\2\2\b\37\3\2\2\2\n\f\5\4\3\2\13\n\3\2\2\2\f\r\3\2"+
+		"\2\2\r\13\3\2\2\2\r\16\3\2\2\2\16\3\3\2\2\2\17\20\5\b\5\2\20\21\7\3\2"+
+		"\2\21\5\3\2\2\2\22\26\7\7\2\2\23\26\7\b\2\2\24\26\7\t\2\2\25\22\3\2\2"+
+		"\2\25\23\3\2\2\2\25\24\3\2\2\2\26\7\3\2\2\2\27\30\b\5\1\2\30 \5\6\4\2"+
+		"\31\32\7\4\2\2\32 \5\b\5\6\33\34\7\5\2\2\34\35\5\b\5\2\35\36\7\6\2\2\36"+
+		" \3\2\2\2\37\27\3\2\2\2\37\31\3\2\2\2\37\33\3\2\2\2 )\3\2\2\2!\"\f\5\2"+
+		"\2\"#\7\f\2\2#(\5\b\5\6$%\f\4\2\2%&\7\13\2\2&(\5\b\5\5\'!\3\2\2\2\'$\3"+
+		"\2\2\2(+\3\2\2\2)\'\3\2\2\2)*\3\2\2\2*\t\3\2\2\2+)\3\2\2\2\7\r\25\37\'"+
+		")";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

@@ -31,42 +31,49 @@ public class ReikaBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements 
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitLtBool(ReikaParser.LtBoolContext ctx) { return visitChildren(ctx); }
+	@Override public T visitValBool(ReikaParser.ValBoolContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitLtInt(ReikaParser.LtIntContext ctx) { return visitChildren(ctx); }
+	@Override public T visitValInt(ReikaParser.ValIntContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitLtDouble(ReikaParser.LtDoubleContext ctx) { return visitChildren(ctx); }
+	@Override public T visitValDouble(ReikaParser.ValDoubleContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitTmBinaryOp(ReikaParser.TmBinaryOpContext ctx) { return visitChildren(ctx); }
+	@Override public T visitTmBinaryHigh(ReikaParser.TmBinaryHighContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitTmNegative(ReikaParser.TmNegativeContext ctx) { return visitChildren(ctx); }
+	@Override public T visitTmUnaryNegative(ReikaParser.TmUnaryNegativeContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitTmLiteral(ReikaParser.TmLiteralContext ctx) { return visitChildren(ctx); }
+	@Override public T visitTmBinaryLow(ReikaParser.TmBinaryLowContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitTmValue(ReikaParser.TmValueContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *

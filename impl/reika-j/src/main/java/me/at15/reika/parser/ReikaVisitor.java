@@ -23,47 +23,54 @@ public interface ReikaVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitStat(ReikaParser.StatContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code LtBool}
-	 * labeled alternative in {@link ReikaParser#literal}.
+	 * Visit a parse tree produced by the {@code ValBool}
+	 * labeled alternative in {@link ReikaParser#value}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitLtBool(ReikaParser.LtBoolContext ctx);
+	T visitValBool(ReikaParser.ValBoolContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code LtInt}
-	 * labeled alternative in {@link ReikaParser#literal}.
+	 * Visit a parse tree produced by the {@code ValInt}
+	 * labeled alternative in {@link ReikaParser#value}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitLtInt(ReikaParser.LtIntContext ctx);
+	T visitValInt(ReikaParser.ValIntContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code LtDouble}
-	 * labeled alternative in {@link ReikaParser#literal}.
+	 * Visit a parse tree produced by the {@code ValDouble}
+	 * labeled alternative in {@link ReikaParser#value}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitLtDouble(ReikaParser.LtDoubleContext ctx);
+	T visitValDouble(ReikaParser.ValDoubleContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code TmBinaryOp}
+	 * Visit a parse tree produced by the {@code TmBinaryHigh}
 	 * labeled alternative in {@link ReikaParser#term}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitTmBinaryOp(ReikaParser.TmBinaryOpContext ctx);
+	T visitTmBinaryHigh(ReikaParser.TmBinaryHighContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code TmNegative}
+	 * Visit a parse tree produced by the {@code TmUnaryNegative}
 	 * labeled alternative in {@link ReikaParser#term}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitTmNegative(ReikaParser.TmNegativeContext ctx);
+	T visitTmUnaryNegative(ReikaParser.TmUnaryNegativeContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code TmLiteral}
+	 * Visit a parse tree produced by the {@code TmBinaryLow}
 	 * labeled alternative in {@link ReikaParser#term}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitTmLiteral(ReikaParser.TmLiteralContext ctx);
+	T visitTmBinaryLow(ReikaParser.TmBinaryLowContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code TmValue}
+	 * labeled alternative in {@link ReikaParser#term}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTmValue(ReikaParser.TmValueContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code TmBrackets}
 	 * labeled alternative in {@link ReikaParser#term}.

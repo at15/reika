@@ -10,10 +10,10 @@ stat
     ;
 
 // TODO: symbol (immutable string) and string (list of character)
-literal
-    : BOOL # LtBool
-    | INT # LtInt
-    | DOUBLE # LtDouble
+value
+    : BOOL # ValBool
+    | INT # ValInt
+    | DOUBLE # ValDouble
 //    | STRING # LtString
     ;
 
@@ -31,9 +31,10 @@ literal
 //    ;
 
 term
-    : literal # TmLiteral
-    | '-' term # TmNegative
-    | term BINARY_OP term # TmBinaryOp
+    : value # TmValue
+    | '-' term # TmUnaryNegative
+    | term BINARY_OP_HIGH term # TmBinaryHigh
+    | term BINARY_OP_LOW term # TmBinaryLow
 //    | list # TmList
 //    | record # TmRecord
     | '(' term ')' # TmBrackets
@@ -63,12 +64,16 @@ ESC
     | '\\\\'  // \\
     ;
 
-BINARY_OP
+BINARY_OP_LOW
     : '+'
     | '-'
-    | '*'
+    ;
+
+// 'random_from' TODO: use ? and # like q does, and it should be high?
+BINARY_OP_HIGH
+    : '*'
     | '/'
-//    | 'random_from' // TODO: use ? and # like q does
+    | '%'
     ;
 
 ID  :   LETTER (LETTER | [0-9])* ;
