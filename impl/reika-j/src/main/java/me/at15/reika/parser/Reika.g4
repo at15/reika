@@ -1,12 +1,8 @@
 grammar Reika;
 
-prog
-    : stat+
-    ;
-
 // TODO: how to use new line instead of ; and also support multi line expression
-stat
-    : term ';'
+prog
+    : (term ';')+
     ;
 
 // TODO: symbol (immutable string) and string (list of character)
@@ -33,6 +29,7 @@ value
 term
     : value # TmValue
     | '-' term # TmUnaryNegative
+    | '!' term # TmUnaryNot
     | term BINARY_OP_HIGH term # TmBinaryHigh
     | term BINARY_OP_LOW term # TmBinaryLow
 //    | list # TmList

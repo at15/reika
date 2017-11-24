@@ -1,5 +1,10 @@
 # Log
 
+## 2017-11-24
+
+- add doc folder for reika-j, specify the phases
+- remove statement, use term directly
+
 ## 2017-11-23
 
 - dealt with negative number using unary expression [#18](https://github.com/at15/reika/issues/18)

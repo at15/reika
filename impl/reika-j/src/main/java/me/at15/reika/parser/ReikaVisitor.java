@@ -17,12 +17,6 @@ public interface ReikaVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitProg(ReikaParser.ProgContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link ReikaParser#stat}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitStat(ReikaParser.StatContext ctx);
-	/**
 	 * Visit a parse tree produced by the {@code ValBool}
 	 * labeled alternative in {@link ReikaParser#value}.
 	 * @param ctx the parse tree
@@ -71,6 +65,13 @@ public interface ReikaVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitTmValue(ReikaParser.TmValueContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code TmUnaryNot}
+	 * labeled alternative in {@link ReikaParser#term}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTmUnaryNot(ReikaParser.TmUnaryNotContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code TmBrackets}
 	 * labeled alternative in {@link ReikaParser#term}.

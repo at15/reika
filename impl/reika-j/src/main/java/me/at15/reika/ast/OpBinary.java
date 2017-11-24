@@ -1,6 +1,6 @@
 package me.at15.reika.ast;
 
-public class Binary extends Node {
+public class OpBinary extends Node {
     public static enum Op {
         Add, Minus,
         Mul, Div, Mod
@@ -10,7 +10,7 @@ public class Binary extends Node {
     public final Node l;
     public final Node r;
 
-    public Binary(Op op, Node l, Node r) {
+    public OpBinary(Op op, Node l, Node r) {
         this.op = op;
         this.l = l;
         this.r = r;

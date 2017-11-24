@@ -34,7 +34,7 @@ public class ErrorListener extends BaseErrorListener {
                             RecognitionException e) {
         if (stderrEnabled) {
             // default behaviour of ANTLR error listener is log to stderr
-            System.err.printf("line %d:%d %s", line, charPositionInLine, msg);
+            System.err.printf("line %d:%d %s\n", line, charPositionInLine, msg);
         }
         errors.add(new SyntaxError(line, charPositionInLine, msg));
     }

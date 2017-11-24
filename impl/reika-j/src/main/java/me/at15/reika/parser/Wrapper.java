@@ -1,32 +1,33 @@
 package me.at15.reika.parser;
 
-import org.antlr.v4.runtime.Lexer;
-import org.antlr.v4.runtime.Parser;
-
-public class Wrapper<P extends Parser, L extends Lexer> {
+public class Wrapper {
 
     private ErrorListener lexerErrorListener;
     private ErrorListener parserErrorListener;
-    private P parser;
-    private L lexer;
+    private ReikaParser parser;
+    private ReikaLexer lexer;
 
     public Wrapper() {
-        lexerErrorListener = new ErrorListener();
-        parserErrorListener = new ErrorListener();
+        this(false);
     }
 
-    public void wrapParser(P parser) {
+    public Wrapper(boolean stderrEnabled) {
+        lexerErrorListener = new ErrorListener(stderrEnabled);
+        parserErrorListener = new ErrorListener(stderrEnabled);
+    }
+
+    public void wrapParser(ReikaParser parser) {
         this.parser = parser;
         parser.removeErrorListeners();
         parser.addErrorListener(parserErrorListener);
     }
 
-    public void wrapLexer(L lexer) {
+    public void wrapLexer(ReikaLexer lexer) {
         lexer.removeErrorListeners();
         lexer.addErrorListener(lexerErrorListener);
     }
 
-    public P getParser() {
+    public ReikaParser getParser() {
         return parser;
     }
 

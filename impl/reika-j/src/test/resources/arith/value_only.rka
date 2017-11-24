@@ -1,0 +1,11 @@
+/*
+* value only, NOTE: negative number is a unary operator in parser, not in lexer
+* #18 https://github.com/at15/reika/issues/18
+*/
+1;
+2.2;
+0.3;
+true;
+false;
+// non primitive type, commented out in the grammar, will trigger parser error
+// [1 2 3];
