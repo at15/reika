@@ -24,6 +24,8 @@ public class UntypedVisitor extends ReikaBaseVisitor<Node> implements Loggable {
         return new Program(terms);
     }
 
+    // TODO: forgot visitTmValue, though the default one might work directly?
+
     @Override
     public Node visitValInt(ReikaParser.ValIntContext ctx) {
         return new Literal.Int(Integer.parseInt(ctx.INT().getText()));

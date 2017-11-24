@@ -2,6 +2,7 @@
 
 ## 2017-11-24
 
+- #18 negative number comes up again for `1 + 2 - 3;`
 - add doc folder for reika-j, specify the phases
 - remove statement, use term directly
 
