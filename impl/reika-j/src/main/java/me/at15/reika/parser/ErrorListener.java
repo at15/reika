@@ -51,6 +51,10 @@ public class ErrorListener extends BaseErrorListener {
         stderrEnabled = false;
     }
 
+    public List<SyntaxError> getErrors() {
+        return errors;
+    }
+
     public void printErrors() {
         System.out.printf("\u001b[91mERROR\u001b[0m: %d syntax errors\n", errors.size());
         for (SyntaxError error : errors) {

@@ -1,0 +1,7 @@
+/*
+* #18 negative https://github.com/at15/reika/issues/18
+* #19 precedence https://github.com/at15/reika/issues/19
+*/
+-1 + 2 - 3;
+1 + 2 * 3;
+(1 + 2) * 3;

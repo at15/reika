@@ -24,8 +24,6 @@ public class UntypedVisitor extends ReikaBaseVisitor<Node> implements Loggable {
         return new Program(terms);
     }
 
-    // TODO: forgot visitTmValue, though the default one might work directly?
-
     @Override
     public Node visitValBool(ReikaParser.ValBoolContext ctx) {
         return new Val.Bool(Boolean.parseBoolean(ctx.BOOL().getText()));
@@ -39,6 +37,11 @@ public class UntypedVisitor extends ReikaBaseVisitor<Node> implements Loggable {
     @Override
     public Node visitValDouble(ReikaParser.ValDoubleContext ctx) {
         return new Val.Double(Double.parseDouble(ctx.DOUBLE().getText()));
+    }
+
+    @Override
+    public Node visitTmValue(ReikaParser.TmValueContext ctx) {
+        return visit(ctx.value());
     }
 
     @Override
@@ -56,5 +59,10 @@ public class UntypedVisitor extends ReikaBaseVisitor<Node> implements Loggable {
                 visit(ctx.term(0)),
                 visit(ctx.term(1))
         );
+    }
+
+    @Override
+    public Node visitTmBrackets(ReikaParser.TmBracketsContext ctx) {
+        return visit(ctx.term());
     }
 }
