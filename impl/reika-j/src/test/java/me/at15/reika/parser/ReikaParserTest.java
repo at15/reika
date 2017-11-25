@@ -17,6 +17,8 @@ public class ReikaParserTest {
     @Test
     @Tag("arith")
     @DisplayName("value only")
+    // TODO: use parameterized test, it's experimental API, we may need to use a newer JUnit5
+    // http://junit.org/junit5/docs/current/user-guide/#writing-tests-parameterized-tests
     void arithValueOnly() throws IOException {
         Wrapper wrapper = ParserUtil.readResource("arith/value_only", true);
         ReikaParser parser = wrapper.getParser();

@@ -10,6 +10,10 @@ all: gen build
 build:
 	gradle build
 
+.PHONY: test
+test:
+	gradle test
+
 .PHONY: gen
 gen:
 	gradle genReika
