@@ -1,7 +1,7 @@
 package me.at15.reika.ast;
 
-public class Literal extends Node {
-    public static class Bool extends Literal {
+public class Val extends Node {
+    public static class Bool extends Val {
         public final boolean v;
 
         public Bool(boolean v) {
@@ -14,7 +14,7 @@ public class Literal extends Node {
         }
     }
 
-    public static class Int extends Literal {
+    public static class Int extends Val {
         public final int v;
 
         public Int(int v) {
@@ -27,7 +27,7 @@ public class Literal extends Node {
         }
     }
 
-    public static class Double extends Literal {
+    public static class Double extends Val {
         public final double v;
 
         public Double(double v) {

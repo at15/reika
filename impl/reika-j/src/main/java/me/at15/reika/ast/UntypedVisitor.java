@@ -27,34 +27,34 @@ public class UntypedVisitor extends ReikaBaseVisitor<Node> implements Loggable {
     // TODO: forgot visitTmValue, though the default one might work directly?
 
     @Override
+    public Node visitValBool(ReikaParser.ValBoolContext ctx) {
+        return new Val.Bool(Boolean.parseBoolean(ctx.BOOL().getText()));
+    }
+
+    @Override
     public Node visitValInt(ReikaParser.ValIntContext ctx) {
-        return new Literal.Int(Integer.parseInt(ctx.INT().getText()));
+        return new Val.Int(Integer.parseInt(ctx.INT().getText()));
     }
 
     @Override
     public Node visitValDouble(ReikaParser.ValDoubleContext ctx) {
-        return new Literal.Double(Double.parseDouble(ctx.DOUBLE().getText()));
+        return new Val.Double(Double.parseDouble(ctx.DOUBLE().getText()));
     }
 
     @Override
-    public Node visitTmUnaryNegative(ReikaParser.TmUnaryNegativeContext ctx) {
-        return new OpUnary(OpUnary.Op.Negative, visit(ctx.term()));
+    public Node visitTmUnary(ReikaParser.TmUnaryContext ctx) {
+        return new OpUnary(
+                OpUnary.opFromText(ctx.op.getText()),
+                visit(ctx.term())
+        );
     }
 
     @Override
-    public Node visitTmUnaryNot(ReikaParser.TmUnaryNotContext ctx) {
-        return new OpUnary(OpUnary.Op.Not, visit(ctx.term()));
-    }
-
-    @Override
-    public Node visitTmBinaryHigh(ReikaParser.TmBinaryHighContext ctx) {
-        OpBinary.Op op = OpBinary.opFromText(ctx.BINARY_OP_HIGH().getText());
-        return new OpBinary(op, visit(ctx.term(0)), visit(ctx.term(1)));
-    }
-
-    @Override
-    public Node visitTmBinaryLow(ReikaParser.TmBinaryLowContext ctx) {
-        OpBinary.Op op = OpBinary.opFromText(ctx.BINARY_OP_LOW().getText());
-        return new OpBinary(op, visit(ctx.term(0)), visit(ctx.term(1)));
+    public Node visitTmBinary(ReikaParser.TmBinaryContext ctx) {
+        return new OpBinary(
+                OpBinary.opFromText(ctx.op.getText()),
+                visit(ctx.term(0)),
+                visit(ctx.term(1))
+        );
     }
 }

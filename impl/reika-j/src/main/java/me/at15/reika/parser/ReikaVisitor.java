@@ -38,26 +38,12 @@ public interface ReikaVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitValDouble(ReikaParser.ValDoubleContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code TmBinaryHigh}
+	 * Visit a parse tree produced by the {@code TmUnary}
 	 * labeled alternative in {@link ReikaParser#term}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitTmBinaryHigh(ReikaParser.TmBinaryHighContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code TmUnaryNegative}
-	 * labeled alternative in {@link ReikaParser#term}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitTmUnaryNegative(ReikaParser.TmUnaryNegativeContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code TmBinaryLow}
-	 * labeled alternative in {@link ReikaParser#term}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitTmBinaryLow(ReikaParser.TmBinaryLowContext ctx);
+	T visitTmUnary(ReikaParser.TmUnaryContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code TmValue}
 	 * labeled alternative in {@link ReikaParser#term}.
@@ -66,12 +52,12 @@ public interface ReikaVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitTmValue(ReikaParser.TmValueContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code TmUnaryNot}
+	 * Visit a parse tree produced by the {@code TmBinary}
 	 * labeled alternative in {@link ReikaParser#term}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitTmUnaryNot(ReikaParser.TmUnaryNotContext ctx);
+	T visitTmBinary(ReikaParser.TmBinaryContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code TmBrackets}
 	 * labeled alternative in {@link ReikaParser#term}.
