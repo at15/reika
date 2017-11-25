@@ -8,36 +8,28 @@ grammar Arith;
 // 1 + 2 - 3;
 
 prog
-    : (term ';')+
+    : (term SEMI)+
     ;
 
 term
-    : '-' term # Negative
-    | term BINARY_OP_HIGH term # MulOrDiv
-    | term ('-'|'+') term # AddOrMinus
-    | INT # Number
+    : op=(NOT | MINUS) term # TmUnary
+    | term op=(MUL | DIV | MOD) term # TmBinary
+    | term op=(ADD | MINUS) term # TmBinary
+    | INT # TmNum
     ;
+
+SEMI : ';';
+
+NOT: '!';
+ADD: '+';
+MINUS: '-';
+MUL: '*';
+DIV: '/';
+MOD: '%';
 
 INT
     : '0'
     | [1-9]+[0-9]*
-    ;
-
-
-BINARY_OP_LOW
-    : '+'
-    | '-'
-    ;
-
-BINARY_OP_HIGH
-    : '*'
-    | '/'
-    | '%'
-    ;
-
-UNARY_OP
-    : '-'
-    | '!'
     ;
 
 WS  :   [ \t\n\r]+ -> skip;
