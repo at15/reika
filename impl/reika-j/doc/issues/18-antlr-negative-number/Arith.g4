@@ -12,10 +12,10 @@ prog
     ;
 
 term
-    : INT
-    | '-' term
-    | term BINARY_OP_HIGH term
-    | term ('-'|'+') term
+    : '-' term # Negative
+    | term BINARY_OP_HIGH term # MulOrDiv
+    | term ('-'|'+') term # AddOrMinus
+    | INT # Number
     ;
 
 INT

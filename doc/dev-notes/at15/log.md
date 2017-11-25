@@ -2,6 +2,9 @@
 
 ## 2017-11-24
 
+- try to reduce the duplicated logic for binary operators was the initial cause of precedence problem [#22]https://github.com/at15/reika/issues/22)
+- need to recap what is lexer, what is parser to understand what
+should be put in parser rule, what should be put into lexer rule
 - #18 negative number comes up again for `1 + 2 - 3;`
 - add doc folder for reika-j, specify the phases
 - remove statement, use term directly
