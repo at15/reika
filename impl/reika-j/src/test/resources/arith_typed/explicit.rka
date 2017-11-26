@@ -1,5 +1,5 @@
 /*
-* explicit specify type of variable
+* explicit specify varType of variable
 */
 let x:Int = 1;
 let y:Double = 0.2;

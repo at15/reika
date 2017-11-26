@@ -1,14 +1,14 @@
 package me.at15.reika.ast;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-
 import me.at15.reika.common.ReikaException;
 
-import org.antlr.v4.runtime.tree.ParseTree;
+import me.at15.reika.type.Primitive;
+import me.at15.reika.type.Unspecified;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 @Tag("fast")
 public class UntypedVisitorTest {
@@ -48,4 +48,37 @@ public class UntypedVisitorTest {
         assertEquals(2, ((Val.Int) t3l.r).v);
     }
 
+    @Test
+    @Tag("arith_typed")
+    @DisplayName("explicit typed")
+    void arithTypedExplicit() throws ReikaException {
+        Program root = (Program) ASTUtil.readResource("arith_typed/explicit");
+        for (Node t : root.terms) {
+            Let l = (Let) t;
+            assertFalse(l.varType.v instanceof Unspecified);
+        }
+    }
+
+    @Test
+    @Tag("arith_typed")
+    @DisplayName("implicit")
+    void arithTypedImplicit() throws ReikaException {
+        Program root = (Program) ASTUtil.readResource("arith_typed/implicit");
+        for (Node t : root.terms) {
+            Let l = (Let) t;
+            assertTrue(l.varType.v instanceof Unspecified);
+        }
+    }
+
+    @Test
+    @Tag("arith_typed")
+    @DisplayName("mixed")
+    void arithTypedMixed() throws ReikaException {
+        Program root = (Program) ASTUtil.readResource("arith_typed/mixed");
+        Let t1 = (Let) root.terms.get(0);
+//        System.out.println(t1.varType.varType.getClass());
+        assertTrue(t1.varType.v instanceof Primitive.Int);
+        Let t2 = (Let) root.terms.get(1);
+        assertTrue(t2.varType.v instanceof Unspecified);
+    }
 }

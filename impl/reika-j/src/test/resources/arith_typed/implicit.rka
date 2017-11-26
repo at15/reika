@@ -1,5 +1,5 @@
 /*
-* infer type from right hand side
+* infer varType from right hand side
 */
 let x = 1;
 let y = 2;
