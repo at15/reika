@@ -10,11 +10,19 @@ value
     | DOUBLE # ValDouble
     ;
 
+type
+    : 'Int'
+    | 'Double'
+    | 'Bool'
+    ;
+
 term
     : value # TmValue
+    | ID # TmVar
     | op=('-'|'!') term # TmUnary
     | term op=('*'|'/'|'%') term # TmBinary
     | term op=('+'|'-') term # TmBinary
+    | 'let' ID (':' type)? '=' term # TmLet
     | '(' term ')' # TmBrackets
     ;
 
@@ -25,11 +33,29 @@ BOOL
 
 INT
     : '0'
-    | [1-9]+[0-9]*
+    | [1-9] DIGIT*
     ;
 
 DOUBLE
-    : [0-9]+ '.' [0-9]+
+    : DIGIT+ '.' DIGIT+
+    ;
+
+ID
+    : [a-z] ID_LETTER*
+    ;
+
+//TYPE
+//    : [A-Z] ID_LETTER*
+//    ;
+
+fragment DIGIT
+    : [0-9]
+    ;
+
+fragment ID_LETTER
+    : [a-z]
+    | [A-Z]
+    | '_'
     ;
 
 WS  :   [ \t\n\r]+ -> skip;
