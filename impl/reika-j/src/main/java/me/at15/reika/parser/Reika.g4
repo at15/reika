@@ -11,9 +11,9 @@ value
     ;
 
 type
-    : 'Int'
-    | 'Double'
-    | 'Bool'
+    : 'Int' # TypeInt
+    | 'Double' # TypeDouble
+    | 'Bool' # TypeBool
     ;
 
 term

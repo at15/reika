@@ -38,11 +38,26 @@ public interface ReikaVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitValDouble(ReikaParser.ValDoubleContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link ReikaParser#type}.
+	 * Visit a parse tree produced by the {@code TypeInt}
+	 * labeled alternative in {@link ReikaParser#type}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitType(ReikaParser.TypeContext ctx);
+	T visitTypeInt(ReikaParser.TypeIntContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code TypeDouble}
+	 * labeled alternative in {@link ReikaParser#type}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTypeDouble(ReikaParser.TypeDoubleContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code TypeBool}
+	 * labeled alternative in {@link ReikaParser#type}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTypeBool(ReikaParser.TypeBoolContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code TmLet}
 	 * labeled alternative in {@link ReikaParser#term}.

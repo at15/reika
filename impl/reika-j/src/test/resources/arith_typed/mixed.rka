@@ -1,0 +1,6 @@
+/*
+* mix implicit and explicit
+*/
+let x:Int = 1;
+let y = 2;
+let z = x + y;

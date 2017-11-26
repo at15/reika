@@ -13,20 +13,38 @@ import org.junit.jupiter.api.Test;
 import java.io.IOException;
 
 @Tag("fast")
+// TODO: use parametrized test, it's experimental API, we may need to use a newer JUnit5
+// http://junit.org/junit5/docs/current/user-guide/#writing-tests-parameterized-tests
+// we are currently using for loop
 public class ReikaParserTest {
     @Test
     @Tag("arith")
     @DisplayName("parse arith")
     void arith() throws IOException {
-        // TODO: use parametrized test, it's experimental API, we may need to use a newer JUnit5
-        // http://junit.org/junit5/docs/current/user-guide/#writing-tests-parameterized-tests
-        String[] files = {"value_only", "negative_precedence"};
+        helper("arith", new String[]{
+                "value_only",
+                "negative_precedence"
+        });
+    }
+
+    @Test
+    @Tag("arith_typed")
+    void arithTyped() throws IOException {
+        helper("arith_typed", new String[]{
+                "explicit",
+                "implicit",
+                "mixed"
+        });
+    }
+
+    private void helper(String prefix, String[] files) throws IOException {
         for (String file : files) {
-            Wrapper wrapper = ParserUtil.readResource("arith/" + file, true);
+            Wrapper wrapper = ParserUtil.readResource(prefix + "/" + file, true);
             ReikaParser parser = wrapper.getParser();
             ParseTree tree = parser.prog();
             assertNotNull(tree);
             assertFalse(wrapper.hasError());
         }
     }
+
 }

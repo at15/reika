@@ -228,9 +228,33 @@ public class ReikaParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_type; }
+	 
+		public TypeContext() { }
+		public void copyFrom(TypeContext ctx) {
+			super.copyFrom(ctx);
+		}
+	}
+	public static class TypeBoolContext extends TypeContext {
+		public TypeBoolContext(TypeContext ctx) { copyFrom(ctx); }
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof ReikaVisitor ) return ((ReikaVisitor<? extends T>)visitor).visitType(this);
+			if ( visitor instanceof ReikaVisitor ) return ((ReikaVisitor<? extends T>)visitor).visitTypeBool(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class TypeIntContext extends TypeContext {
+		public TypeIntContext(TypeContext ctx) { copyFrom(ctx); }
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ReikaVisitor ) return ((ReikaVisitor<? extends T>)visitor).visitTypeInt(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class TypeDoubleContext extends TypeContext {
+		public TypeDoubleContext(TypeContext ctx) { copyFrom(ctx); }
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ReikaVisitor ) return ((ReikaVisitor<? extends T>)visitor).visitTypeDouble(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -238,20 +262,36 @@ public class ReikaParser extends Parser {
 	public final TypeContext type() throws RecognitionException {
 		TypeContext _localctx = new TypeContext(_ctx, getState());
 		enterRule(_localctx, 4, RULE_type);
-		int _la;
 		try {
-			enterOuterAlt(_localctx, 1);
-			{
-			setState(20);
-			_la = _input.LA(1);
-			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__1) | (1L << T__2) | (1L << T__3))) != 0)) ) {
-			_errHandler.recoverInline(this);
-			}
-			else {
-				if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
-				_errHandler.reportMatch(this);
-				consume();
-			}
+			setState(23);
+			_errHandler.sync(this);
+			switch (_input.LA(1)) {
+			case T__1:
+				_localctx = new TypeIntContext(_localctx);
+				enterOuterAlt(_localctx, 1);
+				{
+				setState(20);
+				match(T__1);
+				}
+				break;
+			case T__2:
+				_localctx = new TypeDoubleContext(_localctx);
+				enterOuterAlt(_localctx, 2);
+				{
+				setState(21);
+				match(T__2);
+				}
+				break;
+			case T__3:
+				_localctx = new TypeBoolContext(_localctx);
+				enterOuterAlt(_localctx, 3);
+				{
+				setState(22);
+				match(T__3);
+				}
+				break;
+			default:
+				throw new NoViableAltException(this);
 			}
 		}
 		catch (RecognitionException re) {
@@ -366,7 +406,7 @@ public class ReikaParser extends Parser {
 			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(39);
+			setState(42);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case BOOL:
@@ -377,7 +417,7 @@ public class ReikaParser extends Parser {
 				_ctx = _localctx;
 				_prevctx = _localctx;
 
-				setState(23);
+				setState(26);
 				value();
 				}
 				break;
@@ -386,7 +426,7 @@ public class ReikaParser extends Parser {
 				_localctx = new TmVarContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(24);
+				setState(27);
 				match(ID);
 				}
 				break;
@@ -396,7 +436,7 @@ public class ReikaParser extends Parser {
 				_localctx = new TmUnaryContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(25);
+				setState(28);
 				((TmUnaryContext)_localctx).op = _input.LT(1);
 				_la = _input.LA(1);
 				if ( !(_la==T__4 || _la==T__5) ) {
@@ -407,7 +447,7 @@ public class ReikaParser extends Parser {
 					_errHandler.reportMatch(this);
 					consume();
 				}
-				setState(26);
+				setState(29);
 				term(5);
 				}
 				break;
@@ -416,25 +456,25 @@ public class ReikaParser extends Parser {
 				_localctx = new TmLetContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(27);
+				setState(30);
 				match(T__10);
-				setState(28);
-				match(ID);
 				setState(31);
+				match(ID);
+				setState(34);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 				if (_la==T__11) {
 					{
-					setState(29);
+					setState(32);
 					match(T__11);
-					setState(30);
+					setState(33);
 					type();
 					}
 				}
 
-				setState(33);
+				setState(36);
 				match(T__12);
-				setState(34);
+				setState(37);
 				term(2);
 				}
 				break;
@@ -443,11 +483,11 @@ public class ReikaParser extends Parser {
 				_localctx = new TmBracketsContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(35);
+				setState(38);
 				match(T__13);
-				setState(36);
+				setState(39);
 				term(0);
-				setState(37);
+				setState(40);
 				match(T__14);
 				}
 				break;
@@ -455,24 +495,24 @@ public class ReikaParser extends Parser {
 				throw new NoViableAltException(this);
 			}
 			_ctx.stop = _input.LT(-1);
-			setState(49);
+			setState(52);
 			_errHandler.sync(this);
-			_alt = getInterpreter().adaptivePredict(_input,5,_ctx);
+			_alt = getInterpreter().adaptivePredict(_input,6,_ctx);
 			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
 				if ( _alt==1 ) {
 					if ( _parseListeners!=null ) triggerExitRuleEvent();
 					_prevctx = _localctx;
 					{
-					setState(47);
+					setState(50);
 					_errHandler.sync(this);
-					switch ( getInterpreter().adaptivePredict(_input,4,_ctx) ) {
+					switch ( getInterpreter().adaptivePredict(_input,5,_ctx) ) {
 					case 1:
 						{
 						_localctx = new TmBinaryContext(new TermContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_term);
-						setState(41);
+						setState(44);
 						if (!(precpred(_ctx, 4))) throw new FailedPredicateException(this, "precpred(_ctx, 4)");
-						setState(42);
+						setState(45);
 						((TmBinaryContext)_localctx).op = _input.LT(1);
 						_la = _input.LA(1);
 						if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__6) | (1L << T__7) | (1L << T__8))) != 0)) ) {
@@ -483,7 +523,7 @@ public class ReikaParser extends Parser {
 							_errHandler.reportMatch(this);
 							consume();
 						}
-						setState(43);
+						setState(46);
 						term(5);
 						}
 						break;
@@ -491,9 +531,9 @@ public class ReikaParser extends Parser {
 						{
 						_localctx = new TmBinaryContext(new TermContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_term);
-						setState(44);
+						setState(47);
 						if (!(precpred(_ctx, 3))) throw new FailedPredicateException(this, "precpred(_ctx, 3)");
-						setState(45);
+						setState(48);
 						((TmBinaryContext)_localctx).op = _input.LT(1);
 						_la = _input.LA(1);
 						if ( !(_la==T__4 || _la==T__9) ) {
@@ -504,16 +544,16 @@ public class ReikaParser extends Parser {
 							_errHandler.reportMatch(this);
 							consume();
 						}
-						setState(46);
+						setState(49);
 						term(4);
 						}
 						break;
 					}
 					} 
 				}
-				setState(51);
+				setState(54);
 				_errHandler.sync(this);
-				_alt = getInterpreter().adaptivePredict(_input,5,_ctx);
+				_alt = getInterpreter().adaptivePredict(_input,6,_ctx);
 			}
 			}
 		}
@@ -546,22 +586,23 @@ public class ReikaParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\30\67\4\2\t\2\4\3"+
-		"\t\3\4\4\t\4\4\5\t\5\3\2\3\2\3\2\6\2\16\n\2\r\2\16\2\17\3\3\3\3\3\3\5"+
-		"\3\25\n\3\3\4\3\4\3\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5\5\5\"\n\5\3\5\3"+
-		"\5\3\5\3\5\3\5\3\5\5\5*\n\5\3\5\3\5\3\5\3\5\3\5\3\5\7\5\62\n\5\f\5\16"+
-		"\5\65\13\5\3\5\2\3\b\6\2\4\6\b\2\6\3\2\4\6\3\2\7\b\3\2\t\13\4\2\7\7\f"+
-		"\f\2<\2\r\3\2\2\2\4\24\3\2\2\2\6\26\3\2\2\2\b)\3\2\2\2\n\13\5\b\5\2\13"+
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\30:\4\2\t\2\4\3\t"+
+		"\3\4\4\t\4\4\5\t\5\3\2\3\2\3\2\6\2\16\n\2\r\2\16\2\17\3\3\3\3\3\3\5\3"+
+		"\25\n\3\3\4\3\4\3\4\5\4\32\n\4\3\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5\5\5"+
+		"%\n\5\3\5\3\5\3\5\3\5\3\5\3\5\5\5-\n\5\3\5\3\5\3\5\3\5\3\5\3\5\7\5\65"+
+		"\n\5\f\5\16\58\13\5\3\5\2\3\b\6\2\4\6\b\2\5\3\2\7\b\3\2\t\13\4\2\7\7\f"+
+		"\f\2A\2\r\3\2\2\2\4\24\3\2\2\2\6\31\3\2\2\2\b,\3\2\2\2\n\13\5\b\5\2\13"+
 		"\f\7\3\2\2\f\16\3\2\2\2\r\n\3\2\2\2\16\17\3\2\2\2\17\r\3\2\2\2\17\20\3"+
 		"\2\2\2\20\3\3\2\2\2\21\25\7\22\2\2\22\25\7\23\2\2\23\25\7\24\2\2\24\21"+
-		"\3\2\2\2\24\22\3\2\2\2\24\23\3\2\2\2\25\5\3\2\2\2\26\27\t\2\2\2\27\7\3"+
-		"\2\2\2\30\31\b\5\1\2\31*\5\4\3\2\32*\7\25\2\2\33\34\t\3\2\2\34*\5\b\5"+
-		"\7\35\36\7\r\2\2\36!\7\25\2\2\37 \7\16\2\2 \"\5\6\4\2!\37\3\2\2\2!\"\3"+
-		"\2\2\2\"#\3\2\2\2#$\7\17\2\2$*\5\b\5\4%&\7\20\2\2&\'\5\b\5\2\'(\7\21\2"+
-		"\2(*\3\2\2\2)\30\3\2\2\2)\32\3\2\2\2)\33\3\2\2\2)\35\3\2\2\2)%\3\2\2\2"+
-		"*\63\3\2\2\2+,\f\6\2\2,-\t\4\2\2-\62\5\b\5\7./\f\5\2\2/\60\t\5\2\2\60"+
-		"\62\5\b\5\6\61+\3\2\2\2\61.\3\2\2\2\62\65\3\2\2\2\63\61\3\2\2\2\63\64"+
-		"\3\2\2\2\64\t\3\2\2\2\65\63\3\2\2\2\b\17\24!)\61\63";
+		"\3\2\2\2\24\22\3\2\2\2\24\23\3\2\2\2\25\5\3\2\2\2\26\32\7\4\2\2\27\32"+
+		"\7\5\2\2\30\32\7\6\2\2\31\26\3\2\2\2\31\27\3\2\2\2\31\30\3\2\2\2\32\7"+
+		"\3\2\2\2\33\34\b\5\1\2\34-\5\4\3\2\35-\7\25\2\2\36\37\t\2\2\2\37-\5\b"+
+		"\5\7 !\7\r\2\2!$\7\25\2\2\"#\7\16\2\2#%\5\6\4\2$\"\3\2\2\2$%\3\2\2\2%"+
+		"&\3\2\2\2&\'\7\17\2\2\'-\5\b\5\4()\7\20\2\2)*\5\b\5\2*+\7\21\2\2+-\3\2"+
+		"\2\2,\33\3\2\2\2,\35\3\2\2\2,\36\3\2\2\2, \3\2\2\2,(\3\2\2\2-\66\3\2\2"+
+		"\2./\f\6\2\2/\60\t\3\2\2\60\65\5\b\5\7\61\62\f\5\2\2\62\63\t\4\2\2\63"+
+		"\65\5\b\5\6\64.\3\2\2\2\64\61\3\2\2\2\658\3\2\2\2\66\64\3\2\2\2\66\67"+
+		"\3\2\2\2\67\t\3\2\2\28\66\3\2\2\2\t\17\24\31$,\64\66";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {
