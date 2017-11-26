@@ -81,7 +81,7 @@ public class UntypedVisitor extends ReikaBaseVisitor<Node> implements Loggable {
 
     @Override
     public Node visitTmLet(ReikaParser.TmLetContext ctx) {
-        // varType is optional in let, we can have let x = 1 and let x:Int = 1
+        // type is optional in let, we can have let x = 1 and let x:Int = 1
         ReikaParser.TypeContext typeContext = ctx.type();
         Type type = new Type(new Unspecified());
         if (typeContext != null) {

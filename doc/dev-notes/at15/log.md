@@ -1,7 +1,12 @@
 # Log
 
+## 2017-11-26
+
+- read ANLTR3 Chapter 8 Enforcing static typing rules
+
 ## 2017-11-25
 
+- finish syntax, use immutable variable
 - introducing variable [#23](https://github.com/at15/reika/issues/23)
 
 ## 2017-11-24
