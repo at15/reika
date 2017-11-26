@@ -27,7 +27,7 @@ Unary
 
 Infix
 
-- [ ] avoid duplicate logic in ASTBuilder like we did before
+- [x] avoid duplicate logic in ASTBuilder like we did before [#22](https://github.com/at15/reika/issues/22)
 - `+, -, *, /`
 - `random_from`
 
@@ -38,4 +38,12 @@ Infix
 5 random_from [1 2 3]
 ````
 
+Overloading
+
+- could be implemented as syntax sugar, since we only allow built in operators
+  - [PEP 443 Single-dispatch generic functions](https://www.python.org/dev/peps/pep-0443/)
+    - Python has always provided a variety of built-in and standard-library generic functions, such as len(), iter()
+    - does not have a simple or straightforward way for developers to create new generic function
+    - In addition, it is currently a common anti-pattern for Python code to inspect the types of received arguments, in order to decide what to do with the objects
+    
 ## Example

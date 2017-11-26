@@ -1,4 +1,4 @@
 package me.at15.reika.type;
 
-public class Reconstructor {
+public class Checker {
 }

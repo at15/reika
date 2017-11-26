@@ -1,5 +1,9 @@
 # Log
 
+## 2017-11-25
+
+- introducing variable [#23](https://github.com/at15/reika/issues/23)
+
 ## 2017-11-24
 
 - solved the precedence #19 and negative #18 and duplicate binary operator handling in visitor #22, by specify all the token in parser rule, use same label for alternative and label token in rule.
