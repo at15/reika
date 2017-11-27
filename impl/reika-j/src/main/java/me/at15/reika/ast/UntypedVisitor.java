@@ -3,24 +3,22 @@ package me.at15.reika.ast;
 import me.at15.reika.common.Loggable;
 import me.at15.reika.parser.ReikaBaseVisitor;
 import me.at15.reika.parser.ReikaParser;
+import me.at15.reika.type.Primitive;
+import me.at15.reika.type.Unspecified;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class UntypedVisitor extends ReikaBaseVisitor<Node> implements Loggable {
-    private List<Node> terms;
 
     @Override
     public Node visitProg(ReikaParser.ProgContext ctx) {
-        // TODO: we need extra handling in interactive environment, because the input stream in instead of one batch,
-        // we need to keep previous context, old reika code has a flag for that, but if we split the type process out of
-        // visitor, type check can be delegated to downstream
-        terms = new ArrayList<>();
-        logger().debug("visit program");
+        List<Node> terms = new ArrayList<>();
+        logger().trace("visit program");
         for (ReikaParser.TermContext tm : ctx.term()) {
             terms.add(visit(tm));
         }
-        logger().debug("total {} statements in program", terms.size());
+        logger().trace("total {} statements in program", terms.size());
         return new Program(terms);
     }
 
@@ -40,8 +38,28 @@ public class UntypedVisitor extends ReikaBaseVisitor<Node> implements Loggable {
     }
 
     @Override
+    public Node visitTypeInt(ReikaParser.TypeIntContext ctx) {
+        return new Type(new Primitive.Int());
+    }
+
+    @Override
+    public Node visitTypeDouble(ReikaParser.TypeDoubleContext ctx) {
+        return new Type(new Primitive.Double());
+    }
+
+    @Override
+    public Node visitTypeBool(ReikaParser.TypeBoolContext ctx) {
+        return new Type(new Primitive.Bool());
+    }
+
+    @Override
     public Node visitTmValue(ReikaParser.TmValueContext ctx) {
         return visit(ctx.value());
+    }
+
+    @Override
+    public Node visitTmVar(ReikaParser.TmVarContext ctx) {
+        return new Var(ctx.ID().getText());
     }
 
     @Override
@@ -58,6 +76,21 @@ public class UntypedVisitor extends ReikaBaseVisitor<Node> implements Loggable {
                 OpBinary.opFromText(ctx.op.getText()),
                 visit(ctx.term(0)),
                 visit(ctx.term(1))
+        );
+    }
+
+    @Override
+    public Node visitTmLet(ReikaParser.TmLetContext ctx) {
+        // type is optional in let, we can have let x = 1 and let x:Int = 1
+        ReikaParser.TypeContext typeContext = ctx.type();
+        Type type = new Type(new Unspecified());
+        if (typeContext != null) {
+            type = (Type) visit(typeContext);
+        }
+        return new Let(
+                new Var(ctx.ID().getText()),
+                type,
+                visit(ctx.term())
         );
     }
 

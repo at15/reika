@@ -1,0 +1,6 @@
+/*
+* explicit specify varType of variable
+*/
+let x:Int = 1;
+let y:Double = 0.2;
+let z:Int = x + 1 - 2;

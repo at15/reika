@@ -45,5 +45,21 @@ Overloading
     - Python has always provided a variety of built-in and standard-library generic functions, such as len(), iter()
     - does not have a simple or straightforward way for developers to create new generic function
     - In addition, it is currently a common anti-pattern for Python code to inspect the types of received arguments, in order to decide what to do with the objects
-    
+
+## Variable
+
+- start with smaller case
+- no mutable variable, for now, it depends on how the interpreter/compiler implement stuff
+- as long as the data size is small, it should work ....
+
+````
+x = 1
+y = x + 1
+let z:Double = x + 1
+````
+
+## Type
+
+- start with upper case
+
 ## Example

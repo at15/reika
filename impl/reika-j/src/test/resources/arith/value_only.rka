@@ -7,5 +7,5 @@
 0.3;
 true;
 false;
-// non primitive type, commented out in the grammar, will trigger parser error
+// non primitive varType, commented out in the grammar, will trigger parser error
 // [1 2 3];
