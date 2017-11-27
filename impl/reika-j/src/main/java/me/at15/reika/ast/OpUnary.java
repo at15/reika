@@ -1,7 +1,7 @@
 package me.at15.reika.ast;
 
 public class OpUnary extends Node {
-    public static enum Op {
+    public enum Op {
         Negative, Not
     }
 
