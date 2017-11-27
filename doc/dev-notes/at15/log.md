@@ -1,7 +1,18 @@
 # Log
 
+Important lessons
+
+- [#18](https://github.com/at15/reika/issues/18) support negative number and [#21](https://github.com/at15/reika/issues/21) difference between lexer and parser
+- [#26](https://github.com/at15/reika/issues/26) variable declaration is just let binding, user can specify type of left side as extra constraint.
+- [#27](https://github.com/at15/reika/issues/27) visitor pattern is double dispatch, requires each subclass of node to have the exact same
+override method of accept, otherwise you will have stack overflow
+
 ## 2017-11-26
 
+- we don't need type inference for current features, `x = 1` is just let binding
+  - which does not require user to specify type, type is from rhs
+  - user can specify type if they want, as an extra constraint
+- learned visitor pattern [#27](https://github.com/at15/reika/issues/27)
 - read ANLTR3 Chapter 8 Enforcing static typing rules
 
 ## 2017-11-25
