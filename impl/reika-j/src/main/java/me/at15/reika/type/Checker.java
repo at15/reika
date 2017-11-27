@@ -10,28 +10,18 @@ import java.util.Map;
 
 public class Checker implements ASTVisitor<Node> {
     private Map<String, Ty> env;
-//    private boolean inplace;
 
     public Checker() {
         env = new HashMap<>();
-//        inplace = false;
     }
 
     @Override
     public Node visit(Node n) throws ReikaException {
-//        throw new ReikaException("Abstract class Node should never be visited");
         return n.accept(this);
     }
 
     @Override
     public Node visit(Program n) throws ReikaException {
-//        if (inplace) {
-//            for (Node tm : n.terms) {
-//                visit(tm);
-//            }
-//            return n;
-//        }
-
         List<Node> terms = new ArrayList<>();
         for (Node tm : n.terms) {
             terms.add(visit(tm));
