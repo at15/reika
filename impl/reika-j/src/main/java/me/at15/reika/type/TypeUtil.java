@@ -8,6 +8,7 @@ public class TypeUtil {
     public static Node readResource(String path) throws ReikaException {
         Node root = ASTUtil.readResource(path);
         Checker checker = new Checker();
-        return checker.visit(root);
+//        return checker.visit(root);
+        return root.accept(checker);
     }
 }

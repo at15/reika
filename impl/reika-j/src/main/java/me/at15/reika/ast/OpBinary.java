@@ -1,5 +1,7 @@
 package me.at15.reika.ast;
 
+import me.at15.reika.common.ReikaException;
+
 public class OpBinary extends Node {
     public enum Op {
         Add, Minus,
@@ -30,5 +32,10 @@ public class OpBinary extends Node {
         } else {
             throw new InvalidGrammarException("unknown binary operator " + s);
         }
+    }
+
+    @Override
+    public <T> T accept(ASTVisitor<? extends T> visitor) throws ReikaException {
+        return visitor.visit(this);
     }
 }

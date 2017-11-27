@@ -1,5 +1,7 @@
 package me.at15.reika.ast;
 
+import me.at15.reika.common.ReikaException;
+
 public class OpUnary extends Node {
     public enum Op {
         Negative, Not
@@ -21,5 +23,10 @@ public class OpUnary extends Node {
         } else {
             throw new InvalidGrammarException("unknown unary operator " + s);
         }
+    }
+
+    @Override
+    public <T> T accept(ASTVisitor<? extends T> visitor) throws ReikaException {
+        return visitor.visit(this);
     }
 }
