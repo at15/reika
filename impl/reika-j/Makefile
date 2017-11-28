@@ -21,3 +21,7 @@ gen:
 .PHONY: visual
 visual:
 	$(GRUN) me.at15.reika.parser.Reika prog -gui
+
+.PHONY: loc
+loc:
+	cloc --exclude-dir=third_party,.idea .
