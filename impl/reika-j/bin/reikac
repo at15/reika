@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+# get the script path http://stackoverflow.com/questions/4774054/reliable-way-for-a-bash-script-to-get-the-full-path-to-itself
+pushd `dirname $0` > /dev/null
+SCRIPTPATH=`pwd -P`
+popd > /dev/null
+ORIGINAL_WD=${PWD}
+cd ${SCRIPTPATH}
+
+# TODO: use variable to set version
+if [ -f "../build/libs/reika-0.0.1-SNAPSHOT-all.jar" ]; then
+    java -cp ../build/libs/reika-0.0.1-SNAPSHOT-all.jar me.at15.reika.compiler.Reikac
+else
+    echo "Please run 'gradle shadowJar' to build the executable jar"
+fi
+
+cd ${ORIGINAL_WD}
