@@ -8,3 +8,4 @@
 # IDEA
 .idea
 *.iml
+.ipynb_checkpoints
