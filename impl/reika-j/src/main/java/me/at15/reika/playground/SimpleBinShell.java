@@ -19,11 +19,12 @@ public class SimpleBinShell {
     private Evaluator evaluator;
     private Printer printer;
     private TypeChecker typeChecker;
+    private CPrinter cPrinter;
     private final String commandPrefix;
     private LineReader reader;
     private String prompt;
     private String mode;
-    private final String[] modes = {"eval", "print", "type"};
+    private final String[] modes = {"eval", "print", "type", "c"};
 
     public SimpleBinShell() throws IOException {
         commandPrefix = ":";
@@ -35,6 +36,7 @@ public class SimpleBinShell {
         evaluator = new Evaluator();
         printer = new Printer();
         typeChecker = new TypeChecker();
+        cPrinter = new CPrinter();
     }
 
     public String readLine() {
@@ -87,6 +89,8 @@ public class SimpleBinShell {
                 System.out.println(printer.visit(n));
             } else if ("type".equals(mode)) {
                 typeChecker.visit(n);
+            } else if ("c".equals(mode)) {
+                System.out.println(cPrinter.visit(n));
             }
         }
     }
