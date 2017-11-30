@@ -7,6 +7,16 @@ public class Printer implements Visitor<String> {
     }
 
     @Override
+    public String visit(Node.Prog n) {
+        StringBuilder sb = new StringBuilder();
+        for (Node tm : n.terms) {
+            sb.append(visit(tm));
+            sb.append('\n');
+        }
+        return sb.toString();
+    }
+
+    @Override
     public String visit(Node.Int n) {
         return String.valueOf(n.val);
     }

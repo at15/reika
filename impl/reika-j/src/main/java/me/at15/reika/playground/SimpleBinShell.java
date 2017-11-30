@@ -12,19 +12,29 @@ import org.jline.terminal.Terminal;
 import org.jline.terminal.TerminalBuilder;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 public class SimpleBinShell {
     private AstBuilder astBuilder;
+    private Evaluator evaluator;
+    private Printer printer;
+    private TypeChecker typeChecker;
     private final String commandPrefix;
     private LineReader reader;
     private String prompt;
+    private String mode;
+    private final String[] modes = {"eval", "print", "type"};
 
     public SimpleBinShell() throws IOException {
         commandPrefix = ":";
         prompt = "> ";
+        mode = "eval";
         Terminal terminal = TerminalBuilder.builder().build();
         reader = LineReaderBuilder.builder().terminal(terminal).build();
         astBuilder = new AstBuilder();
+        evaluator = new Evaluator();
+        printer = new Printer();
+        typeChecker = new TypeChecker();
     }
 
     public String readLine() {
@@ -41,6 +51,18 @@ public class SimpleBinShell {
             System.out.println("Use Google and StackOverflow, luke");
         } else if (cmd.equals("exit")) {
             throw new EndOfFileException();
+        } else if (cmd.startsWith("mode")) {
+            if (cmd.equals("mode")) {
+                System.out.println("current mode is " + mode);
+                return;
+            }
+            String mode = cmd.substring(5);
+            if (!Arrays.asList(modes).contains(mode)) {
+                System.out.println("unknown mode " + mode);
+                return;
+            }
+            this.mode = mode;
+            System.out.println("mode set to " + mode);
         }
     }
 
@@ -58,7 +80,14 @@ public class SimpleBinShell {
         if (isSysCommand(line)) {
             processCommand(line);
         } else {
-            buildAst(line);
+            Node n = buildAst(line);
+            if ("eval".equals(mode)) {
+                evaluator.visit(n);
+            } else if ("print".equals(mode)) {
+                System.out.println(printer.visit(n));
+            } else if ("type".equals(mode)) {
+                typeChecker.visit(n);
+            }
         }
     }
 

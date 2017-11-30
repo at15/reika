@@ -7,6 +7,16 @@ public class TypeChecker implements Visitor<Type> {
     }
 
     @Override
+    public Type visit(Node.Prog n) {
+        Type tp = Type.INT;
+        for (Node tm : n.terms) {
+            tp = visit(tm);
+            System.out.println(tp.name());
+        }
+        return tp;
+    }
+
+    @Override
     public Type visit(Node.Int n) {
         return Type.INT;
     }
@@ -18,6 +28,11 @@ public class TypeChecker implements Visitor<Type> {
 
     @Override
     public Type visit(Node.BinOp n) {
-        return null;
+        Type tl = visit(n.l);
+        Type tr = visit(n.r);
+        if (tl != tr) {
+            System.out.printf("type error: l is %s but r is %s\n", tl.name(), tr.name());
+        }
+        return tl;
     }
 }
