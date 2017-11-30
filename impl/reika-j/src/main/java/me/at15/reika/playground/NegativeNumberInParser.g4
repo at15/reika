@@ -13,6 +13,5 @@ term
 //    | '-' term // try -1 + 2
     ;
 
-
 INT: [0-9]+;
 WS: [ \t\r\n] -> skip;

@@ -79,3 +79,14 @@ task genReika {
         }
     }
 }
+
+task genSimpleBin {
+    doLast {
+        exec {
+            println "Generate parser for Playground SimpleBin"
+            workingDir "./src/main/java/me/at15/reika/playground"
+            commandLine 'java', '-cp', "$projectDir/third_party/antlr-4.7-complete.jar", '-Xmx500M',
+                    'org.antlr.v4.Tool', '-visitor', '-no-listener', '-package', 'me.at15.reika.playground', 'SimpleBin.g4'
+        }
+    }
+}
