@@ -3,6 +3,7 @@
 - https://github.com/at15/reika/issues/35
 - http://dotty.epfl.ch/docs/internals/overall-structure.html
 - https://www.slideshare.net/Odersky/compilers-are-databases/15
+- http://guillaume.martres.me/talks/dotty-live-demo/#/5
 
 ## Read Source
 
@@ -48,6 +49,27 @@ introduced a serialization format for typed AST called TASTY
 
 - allows to get scala source from compiled classfiles
 - dotty can recompile from TASTY
+
+## Dotty Internals 1: Tree & Symbols
+
+https://www.youtube.com/watch?v=yYd-zuDd3S8
+
+- `Compiler` is the entry point
+- `ast/Trees.scala`
+  - `untped.scala`, some trees only exist as untyped like `DoWhile`, they disappear after type check
+  - `tpd.scala`, provide convenient API for construct AST classes
+  - immutable
+
+- Ident, extends RefTree
+- Select, also used for refer, i.e. `a.foo`
+- This, current class
+- Super, supper class
+- Apply, i.e. `a.foo(1, 2)` is `Apply(Select(Ident(a), foo), (1,2))`, args is `List[Tree[T]]`
+- TypeApply, `def foo[T](a: T)`, `foo[Int](1)`, `Apply(TypeApply(Ident(foo), List(int)), 1)` it is actually a DAG
+- Literal, constant
+- New,
+
+20:32
 
 ## Extra
 
