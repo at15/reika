@@ -120,6 +120,12 @@ Symbol
 - symbol has hierachy, all symbol has a owner except NoSymbol
 - https://github.com/scala/scala/blob/v2.11.6/src/reflect/scala/reflect/api/Symbols.scala
 
+## Read Source
+
+- https://github.com/scala/scala/blob/2.13.x/src/intellij/README.md
+- `sbt intellij`
+- open `src/intellij/scala.ipr` in IntelliJ
+
 ## Phases
 
 - [phases](https://typelevel.org/scala/docs/phases.html)
