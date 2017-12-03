@@ -1,4 +1,5 @@
 package me.at15.reika.compiler.ast;
 
-public class Tree {
+public abstract class Tree {
+    public Position pos;
 }

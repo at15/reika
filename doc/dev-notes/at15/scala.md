@@ -19,8 +19,10 @@
   - A scope object generally maps names to symbols available in a corresponding lexical scope
 - A Deep Dive into Scalac https://www.youtube.com/watch?v=2742pWdUm6c
 - [phases](https://typelevel.org/scala/docs/phases.html)
+- search `val phaseName` and you can find all the phases in source code ...
 - https://www.scala-lang.org/files/archive/spec/2.12/13-syntax-summary.html
   - `literal ::= ['-'] integerLiteral`
+- compiler/scala/tools/nsc/SubComponent.scala, defines StdPhase, determines order etc.
 
 compiler/scala/tools/nsc/typechcker
 
