@@ -1,5 +1,6 @@
 # Scala
 
+Based on 2.13.x c5dc46457fee0289f23ac126fcfa4c75b10bc45a
 
 - online https://scastie.scala-lang.org/
 - http://docs.scala-lang.org/overviews/reflection/symbols-trees-types.html
@@ -18,11 +19,8 @@
 - http://docs.scala-lang.org/overviews/reflection/annotations-names-scopes.html
   - A scope object generally maps names to symbols available in a corresponding lexical scope
 - A Deep Dive into Scalac https://www.youtube.com/watch?v=2742pWdUm6c
-- [phases](https://typelevel.org/scala/docs/phases.html)
-- search `val phaseName` and you can find all the phases in source code ...
 - https://www.scala-lang.org/files/archive/spec/2.12/13-syntax-summary.html
   - `literal ::= ['-'] integerLiteral`
-- compiler/scala/tools/nsc/SubComponent.scala, defines StdPhase, determines order etc.
 
 compiler/scala/tools/nsc/typechcker
 
@@ -121,6 +119,42 @@ Symbol
 - certain types of tree nodes such as Ident (x) and Select (foo.bar) expose method symbol to obtain the symbol that represents their declaration. During the typechecking phase, the compiler looks up the symbol based on the name and scope and set the symbol field of tree nodes
 - symbol has hierachy, all symbol has a owner except NoSymbol
 - https://github.com/scala/scala/blob/v2.11.6/src/reflect/scala/reflect/api/Symbols.scala
+
+## Phases
+
+- [phases](https://typelevel.org/scala/docs/phases.html)
+- search `val phaseName` and you can find all the phases in source code ...
+
+`compiler/scala/tools/nsc`
+
+- `Global.scala`, the entry for compiler logic
+  - L1438 `compileUnitsInternal`, pass in `fromPhase`, default is `firstPhase` L1157 from `Run`, and calls `run` on it, timer and profiler are also enabled here
+  - L400 `run` calls `applyPhase` on each compilation unit, which calls `apply(unit: CompilationUnit): Unit` that is defined in all the phases
+  - `Run` a run is a single execution unit, it (seems) define the components `firstPhase` based on `-Yskip` and `-Ystop`
+  - `abstract class GlobalPhase(prev: Phase) extends Phase(prev)`
+- `SubComponent.scala`, defines `StdPhase`, determines order etc, seems to be a wrapper around phase
+  - in compiler plugin `PluginComponent.scala`, `abstract class PluginComponent extends SubComponent`
+  - `abstract class StdPhase(prev: Phase) extends global.GlobalPhase(prev)`
+
+`reflect/scala/reflect/internal`
+
+- `Phase.scala`, defines `abstract class Phase(val prev: Phase)`
+  - has prev and next
+  - `def run(): Unit`
+- `Reporting.scala` defines `abstract class Reporter`
+  - echo, warning, error which accept `(pos: Position, msg: String)`
+- `Types.scala` define `abstract class Type extends TypeApiImpl`
+
+`compiler/scala/tools/nsc/ast/parser`
+
+- `SyntaxAnalyzer.scala` define the the phase and `UnitParser`
+
+`compiler/scala/tools/nsc/typechecker`
+
+- `Analyzer.scala` contains `namer`, `typer`
+  - `unit.body = typer.typed(unit.body)`
+- `Namers.scala` declares methods to create symbols and to enter them into scopes
+- `Typers.scala` provides methods to assign types to trees
 
 ## A Deep Dive into Scalac
 

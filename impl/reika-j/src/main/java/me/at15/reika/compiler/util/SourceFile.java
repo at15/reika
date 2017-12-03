@@ -1,5 +1,6 @@
 package me.at15.reika.compiler.util;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
@@ -10,55 +11,58 @@ import java.nio.file.Paths;
 public abstract class SourceFile {
     abstract public InputStream getStream();
 
-    public static class ResourceFile extends SourceFile {
+    public static class LocalFile extends SourceFile {
         private String path;
+        private URL url;
         private InputStream stream;
 
-        public ResourceFile(String path, InputStream stream) {
+        public LocalFile(URL url, String path, InputStream stream) {
+            this.url = url;
             this.path = path;
             this.stream = stream;
         }
 
+        @Override
         public InputStream getStream() {
             return this.stream;
         }
     }
 
-    // TODO: DiskFile class is exactly same as resource file
-    public static class DiskFile extends SourceFile {
-        private String path;
-        private InputStream stream;
+    public static class SingleLine extends SourceFile {
+        private String line;
 
-        public DiskFile(String path, InputStream stream) {
-            this.path = path;
-            this.stream = stream;
+        public SingleLine(String line) {
+            this.line = line;
         }
 
+        @Override
         public InputStream getStream() {
-            return this.stream;
+            return new ByteArrayInputStream(line.getBytes());
         }
-
-//        public static class
     }
 
-//    public static
-
-    public static DiskFile fromFile(String path) throws FileNotFoundException {
+    public static LocalFile fromFile(String path) throws FileNotFoundException {
         Path file = Paths.get(path);
         try {
             InputStream stream = Files.newInputStream(file);
-            return new DiskFile(path, stream);
+            // https://stackoverflow.com/questions/6098472/pass-a-local-file-in-to-url-in-java
+            return new LocalFile(file.toUri().toURL(), path, stream);
         } catch (IOException ex) {
             throw new FileNotFoundException("file: " + path);
         }
     }
 
-    public static ResourceFile fromResource(String path) throws FileNotFoundException {
+    public static LocalFile fromResource(String path) throws FileNotFoundException {
         ClassLoader classLoader = SourceFile.class.getClassLoader();
-        InputStream stream = classLoader.getResourceAsStream(path);
-        if (stream == null) {
+        URL url = classLoader.getResource(path);
+        if (url == null) {
             throw new FileNotFoundException("resource:" + path);
         }
-        return new ResourceFile(path, stream);
+        try {
+            InputStream stream = url.openStream();
+            return new LocalFile(url, path, stream);
+        } catch (IOException ex) {
+            throw new FileNotFoundException("resource:" + path, ex);
+        }
     }
 }
