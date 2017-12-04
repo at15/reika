@@ -59,6 +59,8 @@ https://www.youtube.com/watch?v=yYd-zuDd3S8
   - `untped.scala`, some trees only exist as untyped like `DoWhile`, they disappear after type check
   - `tpd.scala`, provide convenient API for construct AST classes
   - immutable
+  
+### Trees
 
 - Ident, extends RefTree
 - Select, also used for refer, i.e. `a.foo`
@@ -68,8 +70,63 @@ https://www.youtube.com/watch?v=yYd-zuDd3S8
 - TypeApply, `def foo[T](a: T)`, `foo[Int](1)`, `Apply(TypeApply(Ident(foo), List(int)), 1)` it is actually a DAG
 - Literal, constant
 - New,
+- Typed, i.e. `1: Any`
+- NamedArg, i.e. `def foo(bar: Int, boo: Int)`, like in python you can `foo(boo = 1, bar = 1)`
+- Assign, `var f = 0`, `f = 1`, it's `lhs` can be very complex, like a field in a class `(new C).f = 1`
+- Block, `{ val s = 12 s + 1 }` it has `stats` and `expr`
+- If
+- Closure (28:04) `val z = 1 List(1).map(x => x + z)`,  `env, meth, tpt`, `meth` is the generated annonymous function
+- Match & CaseDef, Match is selector, cases (CaseDef), CaseDef is pat, guard, body, pattern is Bind, UnApply etc.
+- Return, expr, from
+- Try, expr, cases, finalizer
+- SeqLiteral, i.e. `def foo(s: Int*) foo(1, 2, 3)`
+- JavaSeqLiteral, use jvm array
+- Inlined, for generic and meta programming
+- **TypeTree** (35:09)
+- SingletonTypeTree, And (Int && Double), Or (Int || Double)
+- skipped, Refined, Applied, Ploy, ByName ... TypeTree
+- Bind, Alternative, UnApply
+- **ValDef** (38:00), field or local variable, name, tpt, preRhs: LazyTree
+- DefDef, method, name, tparams, vparamss, tpt, preRhs
+- TypeDef, class `class C {}` or local type, `type A = Int`
+- Template, body of the class, self, preBody
+- Import, PackageDef, Annotated
+- Thicket, a helper tree
+- EmptyValDef
+- **withType** (50:@5) and `ThisTree`, same tree but typed?
 
-20:32
+### Symbols
+
+1:01:09
+
+- represent things people refer to but you are not compliling, i.e. standard libary
+- `core/Symbols.scala`
+  - Symbol: field, variable
+  - ClassSymbol, NoSymbol
+  - ErrorSymbol (also ErrorTree, ErrorType)
+    - try to compile as much as you can and output all the errors
+- every symbol is given a Denotations, and it gives what the symbol means (difference from scalac)
+  - a symbol at a time single denoatation, can change over time
+  - can refer both term and type
+- `SymDenotation`, symbol, ownerIfExisits, initInfo
+- `Flags`, for optimization, just numeric tag
+  - termFlag and typeFlag can use same number
+
+### Phases
+
+1:13:00
+
+- small phases are joined together to reduce overhead of traverse tree
+- `Periods.scala` a phase, or a block of phases
+  - runid 17 bits, for using in ide, could have many runs
+  - Nowwhere, ValidForever
+- dotty assume you may reuse data from previous phases
+
+### Debug
+
+1:23:00
+
+- break points one line, exception
 
 ## Extra
 
