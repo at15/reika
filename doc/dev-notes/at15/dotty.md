@@ -128,6 +128,67 @@ https://www.youtube.com/watch?v=yYd-zuDd3S8
 
 - break points one line, exception
 
+## Dotty Internals 2: Types
+
+https://www.youtube.com/watch?v=3gmLIYlGbKc
+
+`core/Types.scala`
+
+- ProxyType and GroundType
+- ProxyType
+  - NamedType - TypeRef (i.e. Int)
+  - SingletonType 
+    - TermRef i.e. x.type
+    - ThisType i.e. C.this.type
+    - SuperType i.e. super.type
+    - ConstantType
+    - TermParamRef, RecThis, SkolemType
+  - RefinedOrRecType i.e. C { type T <: S; val x: this.T }
+
+29:37 someone asked about TypeProxy (how to use underlying), and start looking at symbol
+
+- `typeSymbol`, if `TypeRef` return `tp.symbol`, if `SingletionType` return `NoSymbol` (?), if `TypeProxy` return `underlying.typeSymbol`
+- `classSymbol`, special treatment for `AndType` and `OrType`
+- `termSymbol`
+- `baseClasses`, not the union and intersect
+- `decls` return Scope
+- `decl` return Denotation
+- `member` more common than decl, return **Denotation**
+  - in scalac `xs: List[Int] xs.head: Symbol T` its a common newbie mistake (?)
+  - in dotty `xs: List[Int] xs.head: Denotation Denotation { symbol == "head"); info = TypeRef(<scala> Int }`
+
+`core/Scopes.scala` 35:20
+
+- class contains scope (?)
+
+57:14
+
+- subtype, type equal
+- overrides
+- subst, substitution
+
+... (skipped a lot, talked about cache)
+
+1:34:00
+
+- RecType (RecType => Type), used in RefinedType
+
+1:56:00
+
+- MethodType, signature for overload
+
+2:00:00
+
+**NamedType**
+
+- simple, much simpler than in scalc, only has prefix and name
+- in scalac, it contains a Symbol
+- in dotty, symbol is not inherit from type, but is computed
+- denotation is cached
+- `denot` and `denotAt` and `computeDenot`, `loadDenot`
+- use signature to solve overload `TermRefWithSignature`
+
+
 ## Extra
 
 Language Server Protocol
