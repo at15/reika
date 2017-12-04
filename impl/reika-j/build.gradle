@@ -74,6 +74,7 @@ dependencies {
     testRuntime("org.apache.logging.log4j:log4j-jul:${log4jVersion}")
 }
 
+// TODO: might migrate those tasks to makefile, since it's just calling binary
 task genReika {
     doLast {
         exec {

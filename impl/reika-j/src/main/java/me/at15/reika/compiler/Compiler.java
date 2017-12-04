@@ -2,6 +2,7 @@ package me.at15.reika.compiler;
 
 import me.at15.reika.compiler.phases.ANTLRLexer;
 import me.at15.reika.compiler.phases.ANTLRParser;
+import me.at15.reika.compiler.phases.AST;
 import me.at15.reika.compiler.phases.Phase;
 import me.at15.reika.compiler.util.CompilationUnit;
 
@@ -18,6 +19,7 @@ public class Compiler {
         phases = new LinkedHashMap<>(5);
         addPhase(new ANTLRLexer(globalPhaseId));
         addPhase(new ANTLRParser(globalPhaseId));
+        addPhase(new AST(globalPhaseId));
     }
 
     public void compileToPhase(CompilationUnit unit, int phaseId) {
@@ -34,7 +36,7 @@ public class Compiler {
     public void printPhases() {
         System.out.println("id\tname\t\tdescription");
         phases.forEach((id, phase) -> {
-            System.out.printf("%d  %-12s %s\n", id, phase.name(), phase.description());
+            System.out.printf("%d  %-12s %s\n", id, phase.name, phase.description);
         });
     }
 
