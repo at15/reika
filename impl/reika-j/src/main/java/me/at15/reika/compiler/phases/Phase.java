@@ -11,4 +11,9 @@ public abstract class Phase {
     public Phase(int id) {
         this.id = id;
     }
+
+    public abstract String name();
+    public abstract String description();
+    public abstract void run();
+    public abstract boolean hasError();
 }
