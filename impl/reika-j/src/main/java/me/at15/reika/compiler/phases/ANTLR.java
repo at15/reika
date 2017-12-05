@@ -23,8 +23,8 @@ public class ANTLR extends Phase {
 
     public ANTLR(int id) {
         super(id, NAME, DESCRIPTION, true, false);
-        lexerErr = new ErrorListener();
-        parserErr = new ErrorListener();
+        lexerErr = new ErrorListener(true);
+        parserErr = new ErrorListener(false);
     }
 
     @Override

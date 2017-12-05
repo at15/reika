@@ -6,7 +6,6 @@ import com.beust.jcommander.ParameterException;
 
 public class Reikac {
     private JCommander commander;
-    private Compiler compiler;
 
     @Parameter(names = {"-h", "--help"}, help = true)
     private boolean help = false;
@@ -19,7 +18,7 @@ public class Reikac {
             commander.usage();
             return;
         }
-        compiler = new Compiler();
+        Compiler compiler = new Compiler();
         if (showPhases) {
             compiler.printPhases();
         } else {

@@ -1,4 +1,4 @@
-package me.at15.reika.compiler.ast;
+package me.at15.reika.compiler.reporter;
 
 public class Position {
     public int line = -1;

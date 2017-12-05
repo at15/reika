@@ -32,9 +32,10 @@ public class Compiler {
     }
 
     public void printPhases() {
-        System.out.println("id\tname\t\tdescription");
+        // TODO: do we really need phase id?
+        System.out.println("id name  description");
         phases.forEach((id, phase) -> {
-            System.out.printf("%d  %-12s %s\n", id, phase.name, phase.description);
+            System.out.printf("%d  %-5s %s\n", id, phase.name, phase.description);
         });
     }
 
