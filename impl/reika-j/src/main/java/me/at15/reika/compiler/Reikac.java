@@ -27,7 +27,7 @@ public class Reikac {
         }
     }
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
         Reikac reikac = new Reikac();
         JCommander commander = JCommander.newBuilder().addObject(reikac).build();
         try {

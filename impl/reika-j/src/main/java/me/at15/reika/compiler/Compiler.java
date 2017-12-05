@@ -1,7 +1,6 @@
 package me.at15.reika.compiler;
 
-import me.at15.reika.compiler.phases.ANTLRLexer;
-import me.at15.reika.compiler.phases.ANTLRParser;
+import me.at15.reika.compiler.phases.ANTLR;
 import me.at15.reika.compiler.phases.AST;
 import me.at15.reika.compiler.phases.Phase;
 import me.at15.reika.compiler.util.CompilationUnit;
@@ -17,8 +16,7 @@ public class Compiler {
 
     public Compiler() {
         phases = new LinkedHashMap<>(5);
-        addPhase(new ANTLRLexer(globalPhaseId));
-        addPhase(new ANTLRParser(globalPhaseId));
+        addPhase(new ANTLR(globalPhaseId));
         addPhase(new AST(globalPhaseId));
     }
 

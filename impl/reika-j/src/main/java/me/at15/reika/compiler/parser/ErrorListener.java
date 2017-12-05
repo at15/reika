@@ -29,9 +29,13 @@ public class ErrorListener extends BaseErrorListener {
                             int charPositionInLine,
                             String msg,
                             RecognitionException e) {
-            // default behaviour of ANTLR error listener is log to stderr
+        // default behaviour of ANTLR error listener is log to stderr
 //            System.err.printf("line %d:%d %s\n", line, charPositionInLine, msg);
         errors.add(new SyntaxError(line, charPositionInLine, msg));
+    }
+
+    public void reset() {
+        errors.clear();
     }
 
     public boolean hasError() {

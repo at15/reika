@@ -12,7 +12,7 @@ public class AST extends Phase {
 
     @Override
     public String runsAfter() {
-        return ANTLRParser.NAME;
+        return ANTLR.NAME;
     }
 
     @Override

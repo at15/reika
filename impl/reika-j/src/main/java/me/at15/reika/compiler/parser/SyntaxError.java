@@ -1,5 +1,6 @@
 package me.at15.reika.compiler.parser;
 
+// TODO: extends or implement a common class/interface for all compiler errors, like Locatable/Positioned
 public class SyntaxError {
     public final int line;
     public final int charPos;
