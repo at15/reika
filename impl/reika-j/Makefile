@@ -10,6 +10,10 @@ all: test
 build:
 	gradle build
 
+.PHONY: release
+release:
+	gradle shadowJar
+
 .PHONY: test
 test:
 	gradle test

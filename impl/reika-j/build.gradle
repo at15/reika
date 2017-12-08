@@ -61,7 +61,8 @@ dependencies {
     compile group: 'org.antlr', name: 'antlr4', version: '4.7'
     compile group: 'org.apache.logging.log4j', name: 'log4j-api', version: log4jVersion
     compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: log4jVersion
-    compile group: 'org.jline', name: 'jline', version: '3.1.3'
+    compile group: 'org.jline', name: 'jline', version: '3.5.1'
+    compile group: 'com.beust', name: 'jcommander', version: '1.72'
 
     // JUnit Jupiter API and TestEngine implementation
     testCompile("org.junit.jupiter:junit-jupiter-api:${junitJupiterVersion}")
@@ -73,6 +74,7 @@ dependencies {
     testRuntime("org.apache.logging.log4j:log4j-jul:${log4jVersion}")
 }
 
+// TODO: might migrate those tasks to makefile, since it's just calling binary
 task genReika {
     doLast {
         exec {
@@ -91,6 +93,18 @@ task genSimpleBin {
             workingDir "./src/main/java/me/at15/reika/playground"
             commandLine 'java', '-cp', "$projectDir/third_party/antlr-4.7-complete.jar", '-Xmx500M',
                     'org.antlr.v4.Tool', '-visitor', '-no-listener', '-package', 'me.at15.reika.playground', 'SimpleBin.g4'
+        }
+    }
+}
+
+// TODO: remove the old one and rename after the refactor is finished
+task genReikaNew {
+    doLast {
+        exec {
+            println "Generate parser for Reika"
+            workingDir "./src/main/java/me/at15/reika/compiler/parser"
+            commandLine 'java', '-cp', "$projectDir/third_party/antlr-4.7-complete.jar", '-Xmx500M',
+                    'org.antlr.v4.Tool', '-visitor', '-no-listener', '-package', 'me.at15.reika.compiler.parser', 'Reika.g4'
         }
     }
 }

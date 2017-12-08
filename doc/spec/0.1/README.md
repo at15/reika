@@ -3,3 +3,4 @@
 - [01](01-q.md) modeled after Q, has list, table, no record
   - deprecated, dynamic typing when used in interactive environment, notebook or repl
 - [02](02-primitive-type.md) primitive types, int, float, double, list, record, basic binary and unary operators
+- [03](03-compiler-arch.md) compiler architecture, modeled after scala

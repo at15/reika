@@ -9,3 +9,7 @@
 .idea
 *.iml
 .ipynb_checkpoints
+
+# Node
+package-lock.json
+node_modules
