@@ -1,0 +1,5 @@
+/* reika file with invalid token */
+class Java {
+    int a = 123;
+    int b = 124;
+}

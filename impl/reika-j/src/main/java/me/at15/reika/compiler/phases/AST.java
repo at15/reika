@@ -16,6 +16,21 @@ public class AST extends Phase {
     }
 
     @Override
+    public void printError() {
+
+    }
+
+    @Override
+    public boolean canContinue() {
+        return false;
+    }
+
+    @Override
+    public void reset() {
+
+    }
+
+    @Override
     public void run(CompilationUnit unit) {
 
     }

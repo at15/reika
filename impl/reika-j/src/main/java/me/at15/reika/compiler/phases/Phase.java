@@ -34,4 +34,10 @@ public abstract class Phase {
     public abstract void run(CompilationUnit unit);
 
     public abstract boolean hasError();
+
+    public abstract void printError();
+
+    public abstract boolean canContinue();
+
+    public abstract void reset();
 }

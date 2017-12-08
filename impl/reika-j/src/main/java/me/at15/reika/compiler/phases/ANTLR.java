@@ -65,7 +65,26 @@ public class ANTLR extends Phase {
         return false;
     }
 
-    private void reset() {
+    @Override
+    public void printError() {
+        if (lexerErr.hasError()) {
+            lexerErr.printErrors();
+        }
+        if (parserErr.hasError()) {
+            parserErr.printErrors();
+        }
+    }
+
+    @Override
+    public boolean canContinue() {
+        if (cantOpenStream || nullParseTree) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public void reset() {
         this.lexerErr.reset();
         this.parserErr.reset();
     }

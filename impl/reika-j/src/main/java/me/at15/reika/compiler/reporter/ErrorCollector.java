@@ -24,7 +24,10 @@ public abstract class ErrorCollector {
     public abstract List<? extends Error> getErrors();
 
     public final void printErrors() {
+//        System.out.println("ErrorCollector need to print errors");
         printErrors(writer);
+        // NOTE: need to call writer.flush to see it on console, and might use logger? add LogErrors?
+        writer.flush();
     }
 
     // TODO: it seems we should implement this by default ....

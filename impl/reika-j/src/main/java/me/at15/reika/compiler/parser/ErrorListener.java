@@ -86,7 +86,11 @@ public class ErrorListener extends ErrorCollector implements ANTLRErrorListener 
 
     @Override
     public void printErrors(PrintWriter writer) {
-        writer.printf("\u001b[91mERROR\u001b[0m: %d syntax errors\n", errors.size());
+        if (lexer) {
+            writer.printf("\u001b[91mERROR\u001b[0m: %d syntax errors in lexer\n", errors.size());
+        } else {
+            writer.printf("\u001b[91mERROR\u001b[0m: %d syntax errors in parser\n", errors.size());
+        }
         for (SyntaxError error : errors) {
             writer.println(error);
         }
