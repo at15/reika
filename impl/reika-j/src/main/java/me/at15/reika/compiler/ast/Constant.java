@@ -1,6 +1,5 @@
 package me.at15.reika.compiler.ast;
 
-import com.sun.xml.internal.bind.v2.runtime.reflect.opt.Const;
 import me.at15.reika.compiler.reporter.Position;
 
 public class Constant extends Tree {
