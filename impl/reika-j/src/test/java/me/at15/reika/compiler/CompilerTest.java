@@ -1,9 +1,5 @@
 package me.at15.reika.compiler;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import me.at15.reika.common.ReikaException;
 import me.at15.reika.compiler.util.CompilationUnit;
 import me.at15.reika.compiler.util.SourceFile;
@@ -11,6 +7,8 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * @TODO update compiler before each run instead of copy and paste
@@ -52,14 +50,10 @@ public class CompilerTest {
     void compileToAstErrors() throws ReikaException {
         Compiler compiler = new Compiler();
         CompilationUnit unit = new CompilationUnit(SourceFile.fromResource("invalid/token.rka"));
-        try {
-            compiler.compileToPhase(unit, compiler.getPhaseId("ast"));
-        } catch (NullPointerException ex) {
-            // FIXME: we ignore this because visitProg will throw it when we don't implement all the visitors generated
-            // by our grammar
-        }
+        compiler.compileToPhase(unit, compiler.getPhaseId("ast"));
         // it's an empty parse tree, but not null
         assertNotNull(unit.parseTree);
+        assertNotNull(unit.tree);
     }
 
     @Test

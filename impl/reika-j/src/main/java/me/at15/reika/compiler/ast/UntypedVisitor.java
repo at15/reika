@@ -20,14 +20,7 @@ public class UntypedVisitor extends ReikaBaseVisitor<Tree> {
         for (ReikaParser.TermContext tm : ctx.term()) {
             trees.add(visit(tm));
         }
-        // TODO: use from context
-        Position pos = Position.UNKNOWN;
-//        System.out.println(trees.size());
-        if (trees.size() != 0) {
-            // TODO: we can have null pointer exception because we have more parser rule in grammar
-            pos.setStart(trees.get(0).pos);
-            pos.setEnd(trees.get(trees.size() - 1).pos);
-        }
+        Position pos = fromContext(ctx);
         return new Block(pos, trees);
     }
 
