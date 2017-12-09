@@ -1,4 +1,4 @@
-// Generated from Reika.g4 by ANTLR 4.7
+// Generated from src/main/java/me/at15/reika/compiler/parser/Reika.g4 by ANTLR 4.7
 package me.at15.reika.compiler.parser;
 import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
 
