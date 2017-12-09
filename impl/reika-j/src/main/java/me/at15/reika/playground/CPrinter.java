@@ -13,7 +13,7 @@ public class CPrinter implements Visitor<String> {
         for (Node tm : n.terms) {
             sb.append("  ");
             sb.append(visit(tm));
-           sb.append("\n");
+            sb.append("\n");
         }
         sb.append("}\n");
         return sb.toString();
@@ -34,7 +34,7 @@ public class CPrinter implements Visitor<String> {
         String l = visit(n.l);
         String r = visit(n.r);
         if ((l.contains("true") || l.contains("false")) &&
-                r.contains("true") || r.contains("false")) {
+                (r.contains("true") || r.contains("false"))) {
             return String.format("if (%s %s %s) {\n printf(\"true\\n\"); \n} else {\n printf(\"false\\n\"); \n}", l, n.op, r);
         }
         // return String.format("printf(\"\\%d\", %s %s %s);\\n", l, n.op, r);

@@ -1,9 +1,9 @@
 package me.at15.reika.compiler.parser;
 
-import me.at15.reika.compiler.reporter.Error;
+import me.at15.reika.compiler.reporter.Err;
 import me.at15.reika.compiler.reporter.Position;
 
-public class SyntaxError extends Error {
+public class SyntaxError extends Err {
     public static final String TYPE = "syntax";
     public final boolean lexer;
 

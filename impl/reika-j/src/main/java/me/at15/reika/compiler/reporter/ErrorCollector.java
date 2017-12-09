@@ -1,13 +1,16 @@
 package me.at15.reika.compiler.reporter;
 
+import java.io.BufferedWriter;
+import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 public abstract class ErrorCollector {
     protected PrintWriter writer;
 
     public ErrorCollector() {
-        this.writer = new PrintWriter(System.out);
+        this.writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out, StandardCharsets.UTF_8)));
     }
 
     public ErrorCollector(PrintWriter writer) {
@@ -21,7 +24,7 @@ public abstract class ErrorCollector {
 
     public abstract boolean hasError();
 
-    public abstract List<? extends Error> getErrors();
+    public abstract List<? extends Err> getErrors();
 
     public final void printErrors() {
 //        System.out.println("ErrorCollector need to print errors");

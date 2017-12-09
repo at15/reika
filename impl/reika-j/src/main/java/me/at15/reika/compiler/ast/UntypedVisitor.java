@@ -66,7 +66,7 @@ public class UntypedVisitor extends ReikaBaseVisitor<Tree> {
         pos.column = symbol.getCharPositionInLine();
         // TODO: there seems to be no way to get exact position of token across two lines
         pos.lineEnd = pos.line;
-        pos.columnEnd = symbol.getStopIndex() - symbol.getStopIndex() + pos.column;
+        pos.columnEnd = pos.column + symbol.getStopIndex() - symbol.getStartIndex();
         return pos;
     }
 }

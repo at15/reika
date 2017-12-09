@@ -1,10 +1,10 @@
 package me.at15.reika.compiler.reporter;
 
-public abstract class Error implements Positioned {
+public abstract class Err implements Positioned {
     public final Position pos;
     public final String msg;
 
-    public Error(Position position, String msg) {
+    public Err(Position position, String msg) {
         this.pos = position;
         this.msg = msg;
     }
@@ -18,6 +18,6 @@ public abstract class Error implements Positioned {
 
     @Override
     public String toString() {
-        return String.format("%s error at %d:%d %s", pos.line, pos.column, msg);
+        return String.format("%s error at %d:%d %s", type(), pos.line, pos.column, msg);
     }
 }

@@ -18,7 +18,7 @@ public class Reikac {
             commander.usage();
             return;
         }
-        Compiler compiler = new Compiler();
+        ReikaCompiler compiler = new ReikaCompiler();
         if (showPhases) {
             compiler.printPhases();
         } else {

@@ -4,10 +4,14 @@ buildscript {
     repositories {
         mavenCentral()
         jcenter()
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
     }
     dependencies {
         classpath 'org.junit.platform:junit-platform-gradle-plugin:1.0.2'
         classpath 'com.github.jengelman.gradle.plugins:shadow:2.0.0'
+        classpath 'net.ltgt.gradle:gradle-errorprone-plugin:0.0.13'
     }
 }
 
@@ -22,8 +26,10 @@ ext.junitJupiterVersion = '5.0.2'
 ext.log4jVersion = '2.9.0'
 
 apply plugin: 'com.github.johnrengelman.shadow'
+apply plugin: "net.ltgt.errorprone"
 apply plugin: 'java'
 apply plugin: 'org.junit.platform.gradle.plugin'
+apply plugin: 'project-report'
 
 group 'me.at15.reika'
 version '0.0.1-SNAPSHOT'

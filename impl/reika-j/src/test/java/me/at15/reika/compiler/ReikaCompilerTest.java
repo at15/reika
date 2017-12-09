@@ -13,12 +13,12 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  * @TODO update compiler before each run instead of copy and paste
  */
-public class CompilerTest {
+public class ReikaCompilerTest {
 
     @Test
     @Tag("fast")
     void compileToParseTree() throws ReikaException {
-        Compiler compiler = new Compiler();
+        ReikaCompiler compiler = new ReikaCompiler();
         CompilationUnit unit = new CompilationUnit(SourceFile.fromResource("primitive/positive_number_only.rka"));
         compiler.compileToPhase(unit, compiler.getPhaseId("antlr"));
         assertNotNull(unit.parseTree);
@@ -27,7 +27,7 @@ public class CompilerTest {
     @Test
     @Tag("fast")
     void compileToParseTreeErrors() throws ReikaException {
-        Compiler compiler = new Compiler();
+        ReikaCompiler compiler = new ReikaCompiler();
         CompilationUnit unit = new CompilationUnit(SourceFile.fromResource("invalid/token.rka"));
         compiler.compileToPhase(unit, compiler.getPhaseId("antlr"));
         // it's an empty parse tree, but not null
@@ -37,7 +37,7 @@ public class CompilerTest {
     @Test
     @Tag("fast")
     void compileToAst() throws ReikaException {
-        Compiler compiler = new Compiler();
+        ReikaCompiler compiler = new ReikaCompiler();
         CompilationUnit unit = new CompilationUnit(SourceFile.fromResource("primitive/positive_number_only.rka"));
         compiler.compileToPhase(unit, compiler.getPhaseId("ast"));
         assertNotNull(unit.parseTree);
@@ -48,7 +48,7 @@ public class CompilerTest {
     @Test
     @Tag("fast")
     void compileToAstErrors() throws ReikaException {
-        Compiler compiler = new Compiler();
+        ReikaCompiler compiler = new ReikaCompiler();
         CompilationUnit unit = new CompilationUnit(SourceFile.fromResource("invalid/token.rka"));
         compiler.compileToPhase(unit, compiler.getPhaseId("ast"));
         // it's an empty parse tree, but not null
@@ -59,7 +59,7 @@ public class CompilerTest {
     @Test
     @Tag("fast")
     void resolveDependencies() throws ReikaException {
-        Compiler compiler = new Compiler();
+        ReikaCompiler compiler = new ReikaCompiler();
         List<Integer> antlrPhases = compiler.resolveDependencies(compiler.getPhaseId("antlr"));
         assertEquals(1, antlrPhases.size());
         assertEquals(compiler.getPhaseId("antlr"), antlrPhases.get(0));

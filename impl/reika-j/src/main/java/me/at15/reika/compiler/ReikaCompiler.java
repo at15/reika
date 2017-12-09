@@ -3,7 +3,6 @@ package me.at15.reika.compiler;
 import me.at15.reika.common.Loggable;
 import me.at15.reika.common.ReikaException;
 import me.at15.reika.common.ReikaInternalException;
-import me.at15.reika.compiler.parser.SyntaxError;
 import me.at15.reika.compiler.phases.ANTLR;
 import me.at15.reika.compiler.phases.AST;
 import me.at15.reika.compiler.phases.Phase;
@@ -11,14 +10,14 @@ import me.at15.reika.compiler.util.CompilationUnit;
 
 import java.util.*;
 
-public class Compiler implements Loggable {
+public class ReikaCompiler implements Loggable {
     private int runId = 0;
     private int phaseId = 0;
     private int globalPhaseId = 1;
     protected LinkedHashMap<Integer, Phase> phases;
     private Map<String, Integer> phaseName2Id;
 
-    public Compiler() {
+    public ReikaCompiler() {
         phases = new LinkedHashMap<>(5);
         phaseName2Id = new HashMap<>(5);
         addPhase(new ANTLR(globalPhaseId));
