@@ -28,4 +28,4 @@ visual:
 
 .PHONY: loc
 loc:
-	cloc --exclude-dir=third_party,.idea .
+	cloc --exclude-dir=third_party,.idea,build .
