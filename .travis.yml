@@ -5,3 +5,6 @@ before_script:
   - cd impl/reika-j
 script:
   - gradle test
+  - gradle jacocoTestReportHack
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
