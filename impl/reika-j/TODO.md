@@ -5,8 +5,15 @@ A single file to record current status
 Tooling
 
 - [ ] profiler
+  - [ ] use guava stopwatch to count time
+  - [ ] use ManagementFactory to get info about gc etc.
 - [ ] setting
-
+  - [ ] debug flag, log level (config log4j ...)
+  - [ ] enable profiler, and how much... TODO: can jcommand support -YXXX stuff like that, so we don't need to add them one by one
+    - 22. Dynamic parameters
+- [ ] benchmark
+  - [ ] jmh https://github.com/melix/jmh-gradle-plugin
+  
 Compiler
 
 - [ ] add symbol table and scope following previous ANTLR note

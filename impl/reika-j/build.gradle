@@ -84,6 +84,7 @@ dependencies {
     compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: log4jVersion
     compile group: 'org.jline', name: 'jline', version: '3.5.1'
     compile group: 'com.beust', name: 'jcommander', version: '1.72'
+    compile group: 'com.google.guava', name: 'guava', version: '23.5-jre'
 
     // JUnit Jupiter API and TestEngine implementation
     testCompile("org.junit.jupiter:junit-jupiter-api:${junitJupiterVersion}")

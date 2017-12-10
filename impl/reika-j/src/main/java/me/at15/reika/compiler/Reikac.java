@@ -3,9 +3,16 @@ package me.at15.reika.compiler;
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.ParameterException;
+import me.at15.reika.common.Loggable;
 
-public class Reikac {
+import java.util.ArrayList;
+import java.util.List;
+
+public class Reikac implements Loggable {
     private JCommander commander;
+
+    @Parameter(description = "files")
+    public List<String> parameters = new ArrayList<>();
 
     @Parameter(names = {"-h", "--help"}, help = true)
     private boolean help = false;
@@ -22,7 +29,8 @@ public class Reikac {
         if (showPhases) {
             compiler.printPhases();
         } else {
-            System.out.println("reikac can do nothing for now");
+            parameters.stream().forEach(System.out::println);
+            logger().warn("reikac does nothing for now");
         }
     }
 

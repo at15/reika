@@ -19,6 +19,7 @@ public abstract class ErrorCollector {
 
     // TODO: add flag for allow printing right away
     // TODO: add warning and error methods
+    // TODO: allow print summary
 
     public abstract void reset();
 
