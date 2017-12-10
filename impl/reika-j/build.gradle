@@ -23,7 +23,7 @@ ext.junit4Version = '4.12'
 ext.junitVintageVersion = '4.12.2'
 ext.junitPlatformVersion = '1.0.2'
 ext.junitJupiterVersion = '5.0.2'
-ext.log4jVersion = '2.9.0'
+ext.log4jVersion = '2.10.0'
 
 apply plugin: 'java'
 apply plugin: 'project-report'

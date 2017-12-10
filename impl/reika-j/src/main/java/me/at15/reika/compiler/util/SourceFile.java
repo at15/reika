@@ -11,6 +11,7 @@ import java.nio.file.Paths;
 
 public abstract class SourceFile {
     abstract public InputStream getStream();
+    abstract public String getPath();
 
     public static class LocalFile extends SourceFile {
         private String path;
@@ -27,6 +28,11 @@ public abstract class SourceFile {
         public InputStream getStream() {
             return this.stream;
         }
+
+        @Override
+        public String getPath() {
+            return this.path;
+        }
     }
 
     public static class SingleLine extends SourceFile {
@@ -39,6 +45,12 @@ public abstract class SourceFile {
         @Override
         public InputStream getStream() {
             return new ByteArrayInputStream(line.getBytes(StandardCharsets.UTF_8));
+        }
+
+        // TODO: even input from REPL also has line ...
+        @Override
+        public String getPath() {
+            return "single line";
         }
     }
 

@@ -3,6 +3,7 @@ package me.at15.reika.compiler.phases;
 import me.at15.reika.compiler.parser.ErrorListener;
 import me.at15.reika.compiler.parser.ReikaLexer;
 import me.at15.reika.compiler.parser.ReikaParser;
+import me.at15.reika.compiler.parser.SyntaxError;
 import me.at15.reika.compiler.util.CompilationUnit;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
@@ -11,6 +12,9 @@ import org.antlr.v4.runtime.tree.ParseTree;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class ANTLR extends Phase {
     public static final String NAME = "antlr";
@@ -66,13 +70,13 @@ public class ANTLR extends Phase {
     }
 
     @Override
-    public void printError() {
-        if (lexerErr.hasError()) {
-            lexerErr.printErrors();
-        }
-        if (parserErr.hasError()) {
-            parserErr.printErrors();
-        }
+    public List<SyntaxError> getErrors() {
+        return Stream.concat(lexerErr.getErrors().stream(), parserErr.getErrors().stream()).collect(Collectors.toList());
+    }
+
+    @Override
+    public int countErrors() {
+        return lexerErr.countErrors() + parserErr.countErrors();
     }
 
     @Override

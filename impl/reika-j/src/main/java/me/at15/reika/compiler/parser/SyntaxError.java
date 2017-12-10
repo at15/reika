@@ -21,16 +21,16 @@ public class SyntaxError extends Err {
     }
 
     @Override
-    public String type() {
+    public String getType() {
         return TYPE;
     }
 
     @Override
     public String toString() {
         if (lexer) {
-            return String.format("lexer error at %d:%d %s", pos.line, pos.column, msg);
+            return String.format("error:lexer at %d:%d %s", pos.line, pos.column, msg);
         } else {
-            return String.format("parser error at %d:%d %s", pos.line, pos.column, msg);
+            return String.format("error:parser at %d:%d %s", pos.line, pos.column, msg);
         }
     }
 }

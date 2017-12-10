@@ -9,7 +9,7 @@ public abstract class Err implements Positioned {
         this.msg = msg;
     }
 
-    public abstract String type();
+    public abstract String getType();
 
     @Override
     public Position getPosition() {
@@ -18,6 +18,6 @@ public abstract class Err implements Positioned {
 
     @Override
     public String toString() {
-        return String.format("%s error at %d:%d %s", type(), pos.line, pos.column, msg);
+        return String.format("error:%s at %d:%d %s", getType(), pos.line, pos.column, msg);
     }
 }

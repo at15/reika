@@ -31,4 +31,8 @@ public class CompilationUnit implements Loggable {
         }
     }
 
+    public String getPath() {
+        return source.getPath();
+    }
+
 }

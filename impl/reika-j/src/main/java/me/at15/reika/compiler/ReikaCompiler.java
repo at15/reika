@@ -40,14 +40,13 @@ public class ReikaCompiler implements Loggable {
             phase.reset();
             phase.run(unit);
             if (phase.hasError()) {
-                // TODO: print source file location from unit
-                logger().warn("found error in phase:" + getPhaseName(id));
-                phase.printError();
+                logger().warn(String.format("%s found %d errors in phase %s", unit.getPath(), phase.countErrors(), getPhaseName(id)));
+                phase.printErrors();
                 // TODO: might just print error? or return something to indicate error
                 if (!phase.canContinue()) {
-                    throw new ReikaException("stop at phase:" + getPhaseName(id));
+                    throw new ReikaException(String.format("%s stop at phase %s", unit.getPath(), getPhaseName(id)));
                 }
-                logger().debug("tolerate error in phase:" + getPhaseName(id));
+                logger().info(String.format("%s tolerate error in phase %s", unit.getPath(), getPhaseName(id)));
             }
         }
     }

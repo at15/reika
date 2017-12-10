@@ -5,7 +5,10 @@ import me.at15.reika.common.ReikaInternalException;
 import me.at15.reika.compiler.ast.Block;
 import me.at15.reika.compiler.ast.Tree;
 import me.at15.reika.compiler.ast.UntypedVisitor;
+import me.at15.reika.compiler.reporter.Err;
 import me.at15.reika.compiler.util.CompilationUnit;
+
+import java.util.List;
 
 public class AST extends Phase implements Loggable {
     public static final String NAME = "ast";
@@ -24,7 +27,7 @@ public class AST extends Phase implements Loggable {
     }
 
     @Override
-    public void printError() {
+    public void printErrors() {
         logger().warn("print error is not implemented in AST phase");
     }
 
@@ -36,6 +39,18 @@ public class AST extends Phase implements Loggable {
     @Override
     public void reset() {
         logger().warn("reset is not implemented in AST phase");
+    }
+
+    @Override
+    public List<? extends Err> getErrors() {
+        // TODO: count errors is not implemented
+        return null;
+    }
+
+    @Override
+    public int countErrors() {
+        // TODO: count errors is not implemented
+        return 0;
     }
 
     @Override

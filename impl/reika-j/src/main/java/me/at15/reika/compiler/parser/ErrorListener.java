@@ -17,7 +17,7 @@ import java.util.List;
  * keep track of parse error instead of just log to stderr
  * based on old reika https://github.com/xephonhq/tsdb-proxy-java/issues/5
  */
-public class ErrorListener extends ErrorCollector implements ANTLRErrorListener {
+public class ErrorListener implements ANTLRErrorListener, ErrorCollector {
     private List<SyntaxError> errors;
     private final boolean lexer; // either a lexer or parser
 
@@ -85,14 +85,19 @@ public class ErrorListener extends ErrorCollector implements ANTLRErrorListener 
     }
 
     @Override
-    public void printErrors(PrintWriter writer) {
-        if (lexer) {
-            writer.printf("\u001b[91mERROR\u001b[0m: %d syntax errors in lexer\n", errors.size());
-        } else {
-            writer.printf("\u001b[91mERROR\u001b[0m: %d syntax errors in parser\n", errors.size());
-        }
-        for (SyntaxError error : errors) {
-            writer.println(error);
-        }
+    public int countErrors() {
+        return errors.size();
     }
+
+    //    @Override
+//    public void printErrors(PrintWriter writer) {
+//        if (lexer) {
+//            writer.printf("\u001b[91mERROR\u001b[0m: %d syntax errors in lexer\n", errors.size());
+//        } else {
+//            writer.printf("\u001b[91mERROR\u001b[0m: %d syntax errors in parser\n", errors.size());
+//        }
+//        for (SyntaxError error : errors) {
+//            writer.println(error);
+//        }
+//    }
 }
