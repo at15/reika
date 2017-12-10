@@ -1,6 +1,7 @@
 package me.at15.reika.compiler;
 
 import me.at15.reika.common.ReikaException;
+import me.at15.reika.compiler.setting.CompilerSetting;
 import me.at15.reika.compiler.util.CompilationUnit;
 import me.at15.reika.compiler.util.SourceFile;
 import org.junit.jupiter.api.BeforeEach;
@@ -21,7 +22,7 @@ public class ReikaCompilerTest {
 
     @BeforeEach
     void resetCompiler() {
-        compiler = new ReikaCompiler();
+        compiler = new ReikaCompiler(CompilerSetting.settingForTest(true));
     }
 
     @Nested
