@@ -1,7 +1,5 @@
 package me.at15.reika.compiler.reporter;
 
-import afu.org.checkerframework.checker.oigj.qual.O;
-
 import java.io.BufferedWriter;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;

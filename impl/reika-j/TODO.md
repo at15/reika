@@ -13,11 +13,11 @@ Tooling
     - [x] it seems not very easy to config log level programmatically https://logging.apache.org/log4j/2.x/manual/customconfig.html
     - https://logging.apache.org/log4j/2.x/faq.html#reconfig_level_from_code
   - [ ] enable profiler, and how much... TODO: can jcommand support -YXXX stuff like that, so we don't need to add them one by one
-    - 22. Dynamic parameters
+    - jcommand 22. Dynamic parameters
 - [ ] reporter
-   - [ ] decouple error collector and reporter
+   - [x] decouple error collector and reporter
    - [ ] allow warning
-   - [ ] allow specify output location, so we can capture them in test and compare with expected results
+   - [x] allow specify output location, so we can capture them in test and compare with expected results, use `StringWriter`
 - [ ] benchmark
   - [ ] jmh https://github.com/melix/jmh-gradle-plugin
   
