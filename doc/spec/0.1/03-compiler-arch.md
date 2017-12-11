@@ -48,3 +48,36 @@ parallel phases (no dependencies between each other)
 ## Scope & Symbol
 
 - follow ANTLR book
+
+## Syntax
+
+Variable
+
+- immutable `val`
+
+````reika
+val x = 1
+val x:Int = 1
+````
+
+Function
+
+- [ ] anonymous function?
+
+````reika
+func add(x:Int, y:Int) {
+  return x + y;
+}
+
+func add(x:Int, y:Int): Int {
+  return x + y;
+}
+````
+
+List
+
+````reika
+val x = [1, 2, 3, 4];
+val x:List[Int] = [1, 2, 3, 4];
+x + 1; // [2, 3, 4, 5]
+````

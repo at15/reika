@@ -38,6 +38,20 @@ public interface ReikaVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitConsDouble(ReikaParser.ConsDoubleContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code TypeBool}
+	 * labeled alternative in {@link ReikaParser#type}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTypeBool(ReikaParser.TypeBoolContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code TypeGeneric}
+	 * labeled alternative in {@link ReikaParser#type}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTypeGeneric(ReikaParser.TypeGenericContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code TypeInt}
 	 * labeled alternative in {@link ReikaParser#type}.
 	 * @param ctx the parse tree
@@ -52,19 +66,18 @@ public interface ReikaVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitTypeDouble(ReikaParser.TypeDoubleContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code TypeBool}
+	 * Visit a parse tree produced by the {@code TypeList}
 	 * labeled alternative in {@link ReikaParser#type}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitTypeBool(ReikaParser.TypeBoolContext ctx);
+	T visitTypeList(ReikaParser.TypeListContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code TmLet}
-	 * labeled alternative in {@link ReikaParser#term}.
+	 * Visit a parse tree produced by {@link ReikaParser#typedId}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitTmLet(ReikaParser.TmLetContext ctx);
+	T visitTypedId(ReikaParser.TypedIdContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code TmUnary}
 	 * labeled alternative in {@link ReikaParser#term}.
@@ -73,12 +86,33 @@ public interface ReikaVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitTmUnary(ReikaParser.TmUnaryContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code TmVal}
+	 * labeled alternative in {@link ReikaParser#term}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTmVal(ReikaParser.TmValContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code TmApp}
+	 * labeled alternative in {@link ReikaParser#term}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTmApp(ReikaParser.TmAppContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code TmVar}
 	 * labeled alternative in {@link ReikaParser#term}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitTmVar(ReikaParser.TmVarContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code TmList}
+	 * labeled alternative in {@link ReikaParser#term}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTmList(ReikaParser.TmListContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code TmCons}
 	 * labeled alternative in {@link ReikaParser#term}.
@@ -100,4 +134,10 @@ public interface ReikaVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitTmBrackets(ReikaParser.TmBracketsContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ReikaParser#func}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFunc(ReikaParser.FuncContext ctx);
 }

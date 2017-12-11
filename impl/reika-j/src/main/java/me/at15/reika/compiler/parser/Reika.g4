@@ -1,7 +1,9 @@
 grammar Reika;
 
+// parser start
+
 prog
-    : (term ';')+
+    : (term ';' | func)+
     ;
 
 constant
@@ -15,7 +17,15 @@ type
     : 'Int' # TypeInt
     | 'Double' # TypeDouble
     | 'Bool' # TypeBool
+    | 'List' # TypeList
+    | type '[' type ']' # TypeGeneric
     ;
+
+typedId
+    : ID ':' type
+    ;
+
+// TODO: optionalType: (':' type)? it is used in both var and function
 
 term
     : constant # TmCons
@@ -23,9 +33,19 @@ term
     | op=('-'|'!') term # TmUnary
     | term op=('*'|'/'|'%') term # TmBinary
     | term op=('+'|'-') term # TmBinary
-    | 'let' ID (':' type)? '=' term # TmLet
+    | 'val' ID (':' type)? '=' term # TmVal
     | '(' term ')' # TmBrackets
+    | '[' term (',' term)* ']' # TmList
+    | ID '(' term (',' term )* ')' # TmApp // TODO: can we remove the brackets?
     ;
+
+func
+    : 'func' ID '(' typedId (',' typedId)* ')' (':' type)? '{' (term ';')* '}'
+    ;
+
+// parser end
+
+// lexer start
 
 BOOL
     : 'true'
@@ -62,3 +82,5 @@ fragment ID_LETTER
 WS  :   [ \t\n\r]+ -> skip;
 BLOCK_COMMENT  : '/*' .*? '*/' -> skip;
 SINGLE_COMMENT : '//' .*? '\n' -> skip;
+
+// lexer end
