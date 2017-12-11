@@ -9,7 +9,7 @@ all: test
 
 .PHONY: build
 build:
-	gradle build
+# gradle build
 	gradle shadowJar
 
 .PHONY: release

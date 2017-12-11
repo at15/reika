@@ -8,6 +8,13 @@ public class Position {
 
     public static Position UNKNOWN = new Position();
 
+    public void set(Position pos) {
+        this.line = pos.line;
+        this.column = pos.column;
+        this.lineEnd = pos.lineEnd;
+        this.columnEnd = pos.columnEnd;
+    }
+
     public void setStart(Position pos) {
         this.line = pos.line;
         this.column = pos.column;

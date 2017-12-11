@@ -6,18 +6,20 @@ import me.at15.reika.common.ReikaInternalException;
 import me.at15.reika.compiler.phases.ANTLR;
 import me.at15.reika.compiler.phases.AST;
 import me.at15.reika.compiler.phases.Phase;
+import me.at15.reika.compiler.setting.CompilerSetting;
 import me.at15.reika.compiler.util.CompilationUnit;
 
 import java.util.*;
 
 public class ReikaCompiler implements Loggable {
+    private CompilerSetting setting;
     private int runId = 0;
-    private int phaseId = 0;
     private int globalPhaseId = 1;
     protected LinkedHashMap<Integer, Phase> phases;
     private Map<String, Integer> phaseName2Id;
 
-    public ReikaCompiler() {
+    public ReikaCompiler(CompilerSetting setting) {
+        this.setting = setting;
         phases = new LinkedHashMap<>(5);
         phaseName2Id = new HashMap<>(5);
         addPhase(new ANTLR(globalPhaseId));
@@ -38,13 +40,13 @@ public class ReikaCompiler implements Loggable {
             phase.reset();
             phase.run(unit);
             if (phase.hasError()) {
-                // TODO: print source file location from unit
-                logger().debug("found error in phase:" + getPhaseName(id));
-                phase.printError();
+                logger().warn(String.format("%s found %d errors in phase %s", unit.getPath(), phase.countErrors(), getPhaseName(id)));
+                phase.printErrors();
+                // TODO: might just print error? or return something to indicate error
                 if (!phase.canContinue()) {
-                    throw new ReikaException("stop at phase:" + getPhaseName(id));
+                    throw new ReikaException(String.format("%s stop at phase %s", unit.getPath(), getPhaseName(id)));
                 }
-                logger().debug("tolerate error in phase:" + getPhaseName(id));
+                logger().debug(String.format("%s tolerate error in phase %s", unit.getPath(), getPhaseName(id)));
             }
         }
     }
@@ -69,6 +71,10 @@ public class ReikaCompiler implements Loggable {
             throw new ReikaInternalException("phases map does not contains phase with id " + id);
         }
         return phases.get(id).name;
+    }
+
+    public Phase getPhaseByName(String name) {
+        return phases.get(getPhaseId(name));
     }
 
     protected void addPhase(Phase phase) {

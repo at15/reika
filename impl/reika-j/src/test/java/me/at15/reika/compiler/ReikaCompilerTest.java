@@ -1,13 +1,19 @@
 package me.at15.reika.compiler;
 
+import com.google.common.io.CharStreams;
 import me.at15.reika.common.ReikaException;
+import me.at15.reika.compiler.phases.Phase;
+import me.at15.reika.compiler.reporter.ConsoleReporter;
+import me.at15.reika.compiler.setting.CompilerSetting;
 import me.at15.reika.compiler.util.CompilationUnit;
 import me.at15.reika.compiler.util.SourceFile;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Nested;
-import org.junit.jupiter.api.Tag;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.StringWriter;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -21,31 +27,39 @@ public class ReikaCompilerTest {
 
     @BeforeEach
     void resetCompiler() {
-        compiler = new ReikaCompiler();
+        compiler = new ReikaCompiler(CompilerSetting.settingForTest(true));
     }
 
     @Nested
     class Parser {
-        Integer phase;
+        Integer phaseId;
+        Phase phase;
 
         @BeforeEach
         void setPhase() {
-            phase = compiler.getPhaseId("antlr");
+            phaseId = compiler.getPhaseId("antlr");
+            phase = compiler.getPhaseByName("antlr");
+            phase.setReporter(new ConsoleReporter(new StringWriter())); // store error report in string
         }
 
         @Test
         @Tag("fast")
         void compileToParseTree() throws ReikaException {
             CompilationUnit unit = new CompilationUnit(SourceFile.fromResource("primitive/positive_number_only.rka"));
-            compiler.compileToPhase(unit, phase);
+            compiler.compileToPhase(unit, phaseId);
             assertNotNull(unit.parseTree);
         }
 
         @Test
         @Tag("fast")
-        void compileToParseTreeErrors() throws ReikaException {
+        void compileToParseTreeErrors() throws ReikaException, IOException {
             CompilationUnit unit = new CompilationUnit(SourceFile.fromResource("invalid/token.rka"));
-            compiler.compileToPhase(unit, phase);
+            // NOTE: we can log to stdout immediately when encounter error regard less of reporter
+            phase.setLogToStdout(true);
+            compiler.compileToPhase(unit, phaseId);
+            String report = phase.getReporter().toString();
+            // TODO: why there is an extra blank line in report
+            assertEquals(readResourceText("invalid/token.rka.parser.err"), report);
             // it's an empty parse tree, but not null
             assertNotNull(unit.parseTree);
         }
@@ -53,11 +67,12 @@ public class ReikaCompilerTest {
 
     @Nested
     class Ast {
-        Integer phase;
+        Integer phaseId;
 
         @BeforeEach
         void setPhase() {
-            phase = compiler.getPhaseId("ast");
+            phaseId = compiler.getPhaseId("ast");
+            compiler.getPhaseByName("antlr").setReporter(new ConsoleReporter(new StringWriter()));
         }
 
 
@@ -65,17 +80,19 @@ public class ReikaCompilerTest {
         @Tag("fast")
         void compileToAst() throws ReikaException {
             CompilationUnit unit = new CompilationUnit(SourceFile.fromResource("primitive/positive_number_only.rka"));
-            compiler.compileToPhase(unit, phase);
+            compiler.compileToPhase(unit, phaseId);
             assertNotNull(unit.parseTree);
             assertNotNull(unit.tree);
-            assertTrue(unit.treeInPhases.containsKey(phase));
+            assertTrue(unit.treeInPhases.containsKey(phaseId));
         }
 
         @Test
         @Tag("fast")
-        void compileToAstErrors() throws ReikaException {
+        void compileToAstErrors() throws ReikaException, IOException {
             CompilationUnit unit = new CompilationUnit(SourceFile.fromResource("invalid/token.rka"));
-            compiler.compileToPhase(unit, phase);
+            compiler.compileToPhase(unit, phaseId);
+            String parserErr = compiler.getPhaseByName("antlr").getReporter().toString();
+            assertEquals(readResourceText("invalid/token.rka.parser.err"), parserErr);
             // it's an empty parse tree, but not null
             assertNotNull(unit.parseTree);
             assertNotNull(unit.tree);
@@ -93,5 +110,11 @@ public class ReikaCompilerTest {
         assertEquals(2, astPhases.size());
         assertEquals(compiler.getPhaseId("antlr"), astPhases.get(0));
         assertEquals(compiler.getPhaseId("ast"), astPhases.get(1));
+    }
+
+    private String readResourceText(String path) throws IOException {
+        ClassLoader classLoader = ReikaCompilerTest.class.getClassLoader();
+        InputStream is = classLoader.getResourceAsStream(path);
+        return CharStreams.toString(new InputStreamReader(is, StandardCharsets.UTF_8));
     }
 }
