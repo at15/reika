@@ -1,12 +1,10 @@
 package me.at15.reika.compiler.phases;
 
 import me.at15.reika.compiler.reporter.ConsoleReporter;
-import me.at15.reika.compiler.reporter.Err;
 import me.at15.reika.compiler.reporter.ErrorCollector;
 import me.at15.reika.compiler.reporter.Reporter;
 import me.at15.reika.compiler.util.CompilationUnit;
 
-import java.util.List;
 
 public abstract class Phase implements ErrorCollector {
     //    public final int P
@@ -18,6 +16,7 @@ public abstract class Phase implements ErrorCollector {
     public final String description;
     public final boolean isStart;
     public final boolean isTerminal;
+
     private Reporter reporter;
 
     public Phase(int id, String name, String description) {
@@ -43,5 +42,13 @@ public abstract class Phase implements ErrorCollector {
     }
 
     public abstract boolean canContinue();
+
+    public Reporter getReporter() {
+        return reporter;
+    }
+
+    public void setReporter(Reporter reporter) {
+        this.reporter = reporter;
+    }
 
 }

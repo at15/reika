@@ -1,17 +1,27 @@
 package me.at15.reika.compiler.reporter;
 
+import afu.org.checkerframework.checker.oigj.qual.O;
+
 import java.io.BufferedWriter;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.io.Writer;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 public class ConsoleReporter implements Reporter {
+    private Writer originalWriter;
     private PrintWriter writer;
 
     public ConsoleReporter() {
         // TODO: allow disable buffer?
-        writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out, StandardCharsets.UTF_8)));
+        originalWriter = new BufferedWriter(new OutputStreamWriter(System.out, StandardCharsets.UTF_8));
+        writer = new PrintWriter(originalWriter);
+    }
+
+    public ConsoleReporter(Writer writer) {
+        originalWriter = writer;
+        this.writer = new PrintWriter(originalWriter);
     }
 
     @Override
@@ -46,7 +56,8 @@ public class ConsoleReporter implements Reporter {
         // TODO: print summary?
     }
 
-    private void log(Severity severity, Position pos, String msg) {
-
+    @Override
+    public String toString() {
+        return originalWriter.toString();
     }
 }

@@ -46,7 +46,7 @@ public class ReikaCompiler implements Loggable {
                 if (!phase.canContinue()) {
                     throw new ReikaException(String.format("%s stop at phase %s", unit.getPath(), getPhaseName(id)));
                 }
-                logger().info(String.format("%s tolerate error in phase %s", unit.getPath(), getPhaseName(id)));
+                logger().debug(String.format("%s tolerate error in phase %s", unit.getPath(), getPhaseName(id)));
             }
         }
     }
@@ -71,6 +71,10 @@ public class ReikaCompiler implements Loggable {
             throw new ReikaInternalException("phases map does not contains phase with id " + id);
         }
         return phases.get(id).name;
+    }
+
+    public Phase getPhaseByName(String name) {
+        return phases.get(getPhaseId(name));
     }
 
     protected void addPhase(Phase phase) {

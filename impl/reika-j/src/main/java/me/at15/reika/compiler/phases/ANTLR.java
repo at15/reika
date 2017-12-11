@@ -80,6 +80,12 @@ public class ANTLR extends Phase {
     }
 
     @Override
+    public void setLogToStdout(boolean l) {
+        lexerErr.setLogToStdout(l);
+        parserErr.setLogToStdout(l);
+    }
+
+    @Override
     public boolean canContinue() {
         if (cantOpenStream || nullParseTree) {
             return false;
@@ -89,7 +95,7 @@ public class ANTLR extends Phase {
 
     @Override
     public void reset() {
-        this.lexerErr.reset();
-        this.parserErr.reset();
+        lexerErr.reset();
+        parserErr.reset();
     }
 }

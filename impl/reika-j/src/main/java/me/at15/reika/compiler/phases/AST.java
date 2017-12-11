@@ -54,6 +54,11 @@ public class AST extends Phase implements Loggable {
     }
 
     @Override
+    public void setLogToStdout(boolean l) {
+        // TODO: pass down to underlying error collector
+    }
+
+    @Override
     public void run(CompilationUnit unit) {
         if (unit.parseTree == null) {
             nullParseTree = true;
