@@ -159,6 +159,7 @@ public class ReikaParser extends Parser {
 		}
 	}
 	public static class ConsIntContext extends ConstantContext {
+		public Token sign;
 		public TerminalNode INT() { return getToken(ReikaParser.INT, 0); }
 		public ConsIntContext(ConstantContext ctx) { copyFrom(ctx); }
 		@Override
@@ -168,6 +169,7 @@ public class ReikaParser extends Parser {
 		}
 	}
 	public static class ConsDoubleContext extends ConstantContext {
+		public Token sign;
 		public TerminalNode DOUBLE() { return getToken(ReikaParser.DOUBLE, 0); }
 		public ConsDoubleContext(ConstantContext ctx) { copyFrom(ctx); }
 		@Override
@@ -203,7 +205,7 @@ public class ReikaParser extends Parser {
 				if (_la==T__1) {
 					{
 					setState(16);
-					match(T__1);
+					((ConsIntContext)_localctx).sign = match(T__1);
 					}
 				}
 
@@ -221,7 +223,7 @@ public class ReikaParser extends Parser {
 				if (_la==T__1) {
 					{
 					setState(20);
-					match(T__1);
+					((ConsDoubleContext)_localctx).sign = match(T__1);
 					}
 				}
 

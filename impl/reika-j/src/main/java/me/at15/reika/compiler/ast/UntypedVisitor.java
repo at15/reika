@@ -38,17 +38,23 @@ public class UntypedVisitor extends ReikaBaseVisitor<Tree> {
     @Override
     public Tree visitConsInt(ReikaParser.ConsIntContext ctx) {
         Position pos = fromSymbol(ctx.INT().getSymbol());
-        // TODO: this may not handle negative number, since the token does not catch the negative token
         // TODO: also we may have invalid integer (too big etc.)
-        return new Constant(pos, Integer.parseInt(ctx.INT().getText()), Constant.Tag.INT);
+        int val = Integer.parseInt(ctx.INT().getText());
+        if (ctx.sign != null) {
+            return new Constant(pos, -1 * val, Constant.Tag.INT);
+        }
+        return new Constant(pos, val, Constant.Tag.INT);
     }
 
     @Override
     public Tree visitConsDouble(ReikaParser.ConsDoubleContext ctx) {
         Position pos = fromSymbol(ctx.DOUBLE().getSymbol());
-        // TODO: this may not handle negative number, since the token does not catch the negative token
         // TODO: also we may have invalid double (too big etc.)
-        return new Constant(pos, Double.parseDouble(ctx.DOUBLE().getText()), Constant.Tag.DOUBLE);
+        double val = Double.parseDouble(ctx.DOUBLE().getText());
+        if (ctx.sign != null) {
+            return new Constant(pos, -1 * val, Constant.Tag.DOUBLE);
+        }
+        return new Constant(pos, val, Constant.Tag.DOUBLE);
     }
 
     private Position fromContext(ParserRuleContext ctx) {

@@ -2,6 +2,9 @@ package me.at15.reika.compiler;
 
 import com.google.common.io.CharStreams;
 import me.at15.reika.common.ReikaException;
+import me.at15.reika.compiler.ast.Block;
+import me.at15.reika.compiler.ast.Constant;
+import me.at15.reika.compiler.ast.Tree;
 import me.at15.reika.compiler.phases.Phase;
 import me.at15.reika.compiler.reporter.ConsoleReporter;
 import me.at15.reika.compiler.setting.CompilerSetting;
@@ -84,6 +87,19 @@ public class ReikaCompilerTest {
             assertNotNull(unit.parseTree);
             assertNotNull(unit.tree);
             assertTrue(unit.treeInPhases.containsKey(phaseId));
+        }
+
+        @Test
+        @Tag("fast")
+        void negativeNumber() throws ReikaException {
+            CompilationUnit unit = new CompilationUnit(SourceFile.fromResource("primitive/number_only.rka"));
+            compiler.compileToPhase(unit, phaseId);
+            Block tree = (Block) unit.tree;
+            Object[] expected = {1, -1, 2.2, -2.2};
+            for (int i = 0; i < expected.length; i++) {
+                Constant cons = (Constant) tree.trees.get(i);
+                assertEquals(expected[i], cons.value);
+            }
         }
 
         @Test

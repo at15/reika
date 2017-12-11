@@ -6,8 +6,8 @@ prog
 
 constant
     : BOOL # ConsBool
-    | '-'? INT # ConsInt
-    | '-'? DOUBLE # ConsDouble
+    | sign='-'? INT # ConsInt
+    | sign='-'? DOUBLE # ConsDouble
     ;
 
 // TODO: merge builtin types?
