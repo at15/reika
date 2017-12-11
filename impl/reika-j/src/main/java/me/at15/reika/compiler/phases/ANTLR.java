@@ -1,6 +1,6 @@
 package me.at15.reika.compiler.phases;
 
-import me.at15.reika.compiler.parser.ErrorListener;
+import me.at15.reika.compiler.parser.SyntaxErrorListener;
 import me.at15.reika.compiler.parser.ReikaLexer;
 import me.at15.reika.compiler.parser.ReikaParser;
 import me.at15.reika.compiler.parser.SyntaxError;
@@ -22,13 +22,13 @@ public class ANTLR extends Phase {
 
     private boolean cantOpenStream = false;
     private boolean nullParseTree = false;
-    private ErrorListener lexerErr;
-    private ErrorListener parserErr;
+    private SyntaxErrorListener lexerErr;
+    private SyntaxErrorListener parserErr;
 
     public ANTLR(int id) {
         super(id, NAME, DESCRIPTION, true, false);
-        lexerErr = new ErrorListener(true);
-        parserErr = new ErrorListener(false);
+        lexerErr = new SyntaxErrorListener(true);
+        parserErr = new SyntaxErrorListener(false);
     }
 
     @Override
@@ -70,6 +70,20 @@ public class ANTLR extends Phase {
     }
 
     @Override
+    public boolean canContinue() {
+        if (cantOpenStream || nullParseTree) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public void reset() {
+        lexerErr.reset();
+        parserErr.reset();
+    }
+
+    @Override
     public List<SyntaxError> getErrors() {
         return Stream.concat(lexerErr.getErrors().stream(), parserErr.getErrors().stream()).collect(Collectors.toList());
     }
@@ -83,19 +97,5 @@ public class ANTLR extends Phase {
     public void setLogToStdout(boolean l) {
         lexerErr.setLogToStdout(l);
         parserErr.setLogToStdout(l);
-    }
-
-    @Override
-    public boolean canContinue() {
-        if (cantOpenStream || nullParseTree) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public void reset() {
-        lexerErr.reset();
-        parserErr.reset();
     }
 }

@@ -2,6 +2,7 @@ package me.at15.reika.compiler.phases;
 
 import me.at15.reika.common.Loggable;
 import me.at15.reika.common.ReikaInternalException;
+import me.at15.reika.compiler.ast.AstErrorListener;
 import me.at15.reika.compiler.ast.Block;
 import me.at15.reika.compiler.ast.Tree;
 import me.at15.reika.compiler.ast.UntypedVisitor;
@@ -14,48 +15,18 @@ public class AST extends Phase implements Loggable {
     public static final String NAME = "ast";
     public static final String DESCRIPTION = "build abstract syntax tree from parse tree";
     private boolean nullParseTree = false;
+    private AstErrorListener astErr;
     private UntypedVisitor builder;
 
     public AST(int id) {
         super(id, NAME, DESCRIPTION);
-        builder = new UntypedVisitor();
+        astErr = new AstErrorListener();
+        builder = new UntypedVisitor(astErr);
     }
 
     @Override
     public String runsAfter() {
         return ANTLR.NAME;
-    }
-
-    @Override
-    public void printErrors() {
-        logger().warn("print error is not implemented in AST phase");
-    }
-
-    @Override
-    public boolean canContinue() {
-        return false;
-    }
-
-    @Override
-    public void reset() {
-        logger().warn("reset is not implemented in AST phase");
-    }
-
-    @Override
-    public List<? extends Err> getErrors() {
-        // TODO: count errors is not implemented
-        return null;
-    }
-
-    @Override
-    public int countErrors() {
-        // TODO: count errors is not implemented
-        return 0;
-    }
-
-    @Override
-    public void setLogToStdout(boolean l) {
-        // TODO: pass down to underlying error collector
     }
 
     @Override
@@ -75,7 +46,33 @@ public class AST extends Phase implements Loggable {
 
     @Override
     public boolean hasError() {
-        logger().warn("hasError is not fully implemented in AST phase");
-        return nullParseTree;
+        return nullParseTree || astErr.hasError();
     }
+
+    @Override
+    public boolean canContinue() {
+        return !nullParseTree;
+    }
+
+    @Override
+    public void reset() {
+        astErr.reset();
+    }
+
+    @Override
+    public List<? extends Err> getErrors() {
+        return astErr.getErrors();
+    }
+
+    @Override
+    public int countErrors() {
+        return astErr.countErrors();
+    }
+
+    @Override
+    public void setLogToStdout(boolean l) {
+        astErr.setLogToStdout(l);
+    }
+
+
 }

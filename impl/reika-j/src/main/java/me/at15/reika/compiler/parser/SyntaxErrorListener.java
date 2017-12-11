@@ -17,12 +17,12 @@ import java.util.List;
  * keep track of parse error instead of just log to stderr
  * based on old reika https://github.com/xephonhq/tsdb-proxy-java/issues/5
  */
-public class ErrorListener implements ANTLRErrorListener, ErrorCollector {
+public class SyntaxErrorListener implements ANTLRErrorListener, ErrorCollector {
     private List<SyntaxError> errors;
     private final boolean lexer; // either a lexer or parser
     private boolean log2Stdout = false;
 
-    public ErrorListener(boolean lexer) {
+    public SyntaxErrorListener(boolean lexer) {
         this.lexer = lexer;
         errors = new ArrayList<>();
     }

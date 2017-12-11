@@ -1,6 +1,5 @@
 package me.at15.reika.compiler;
 
-import com.google.common.io.CharStreams;
 import me.at15.reika.common.ReikaException;
 import me.at15.reika.compiler.ast.Block;
 import me.at15.reika.compiler.ast.Constant;
@@ -13,19 +12,17 @@ import me.at15.reika.compiler.util.SourceFile;
 import org.junit.jupiter.api.*;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.StringWriter;
-import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * @TODO: rename, and plan to support test w/ more language features
+ * @TODO: move test into their corresponding package
  * @TODO: don't print so much error, maybe printSummary?
  */
-public class ReikaCompilerTest {
+public class ReikaCompilerTest implements TestBase {
     ReikaCompiler compiler;
 
     @BeforeEach
@@ -126,11 +123,5 @@ public class ReikaCompilerTest {
         assertEquals(2, astPhases.size());
         assertEquals(compiler.getPhaseId("antlr"), astPhases.get(0));
         assertEquals(compiler.getPhaseId("ast"), astPhases.get(1));
-    }
-
-    private String readResourceText(String path) throws IOException {
-        ClassLoader classLoader = ReikaCompilerTest.class.getClassLoader();
-        InputStream is = classLoader.getResourceAsStream(path);
-        return CharStreams.toString(new InputStreamReader(is, StandardCharsets.UTF_8));
     }
 }
