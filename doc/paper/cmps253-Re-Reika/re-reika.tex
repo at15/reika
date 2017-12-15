@@ -209,7 +209,23 @@ The new design of Reika allow user to define function, and part of standard libr
 reduce the burden of the host language when porting.
 And this forces us to split symbol and type checking from constructing AST and do it in multiple phases.
 
-% TODO: graph for new compiler
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\columnwidth]{reika-compiler}
+    \caption{New Reika Compiler design}
+    \label{fig:reika-compiler}
+\end{figure}
+
+As shown in figure~\ref{fig:reika-compiler}, its input can also be notebook or editor,
+so it should be able to start a compiler server and do compile incrementally,
+also using a compiler server increase compile speed even without incremental compile when we wrote compiler in language with JIT.
+Extra phase (\verb+ast+) after parser is needed because we only get a Parse Tree after using ANLTR, and we need a cleaner AST.
+The typed AST can go three directions (in parallel).
+For interpreter, it gives back text and graph directly.
+For transpiler, based on code template, the AST is converted to C/Java/JavaScript,
+target language need to have standard library implemented, external compiler is called to compile the generated code.
+For compiler, we can generate LLVM IR or Java Byte Code directly, skipping the call to external compiler,
+though since it's hard to do the optimization right, it might be better to sacrifice compile time for correctness and runtime performance.
 
 
 % TODO: multi dialect
@@ -218,7 +234,6 @@ And this forces us to split symbol and type checking from constructing AST and d
 % TODO: 伪编译语言算不算编译语言？ - 梨梨喵的回答 - 知乎
 % https://www.zhihu.com/question/263559593/answer/270924481
 % 二村射影 https://en.wikipedia.org/wiki/Partial_evaluation
-% TODO: overload vs. type inference
 % TODO: phases, parallel phases (immutable trees)
 
 \section{Implementation}
