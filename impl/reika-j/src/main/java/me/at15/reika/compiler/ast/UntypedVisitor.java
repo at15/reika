@@ -14,6 +14,12 @@ import java.util.List;
  * https://github.com/at15/reika/issues/28
  */
 public class UntypedVisitor extends ReikaBaseVisitor<Tree> {
+    private AstErrorListener astErr;
+
+    public UntypedVisitor(AstErrorListener astErr) {
+        this.astErr = astErr;
+    }
+
     @Override
     public Tree visitProg(ReikaParser.ProgContext ctx) {
         List<Tree> trees = new ArrayList<>();
@@ -38,17 +44,33 @@ public class UntypedVisitor extends ReikaBaseVisitor<Tree> {
     @Override
     public Tree visitConsInt(ReikaParser.ConsIntContext ctx) {
         Position pos = fromSymbol(ctx.INT().getSymbol());
-        // TODO: this may not handle negative number, since the token does not catch the negative token
-        // TODO: also we may have invalid integer (too big etc.)
-        return new Constant(pos, Integer.parseInt(ctx.INT().getText()), Constant.Tag.INT);
+        int val = 0;
+        try {
+            val = Integer.parseInt(ctx.INT().getText());
+        } catch (NumberFormatException ex) {
+            addError(ctx.INT().getSymbol(), "invalid int literal " + ctx.INT().getText() + " " + ex.getMessage());
+        }
+        if (ctx.sign != null) {
+            return new Constant(pos, -1 * val, Constant.Tag.INT);
+        }
+        return new Constant(pos, val, Constant.Tag.INT);
     }
 
     @Override
     public Tree visitConsDouble(ReikaParser.ConsDoubleContext ctx) {
         Position pos = fromSymbol(ctx.DOUBLE().getSymbol());
-        // TODO: this may not handle negative number, since the token does not catch the negative token
-        // TODO: also we may have invalid double (too big etc.)
-        return new Constant(pos, Double.parseDouble(ctx.DOUBLE().getText()), Constant.Tag.DOUBLE);
+        double val = 0;
+        // TODO: it seems there is huge double does not throw exception like huge int does, java would cut its precision?
+        // as shown by errorprone http://errorprone.info/bugpattern/FloatingPointLiteralPrecision
+        try {
+            val = Double.parseDouble(ctx.DOUBLE().getText());
+        } catch (NumberFormatException ex) {
+            addError(ctx.DOUBLE().getSymbol(), "invalid double literal " + ctx.DOUBLE().getText() + " " + ex.getMessage());
+        }
+        if (ctx.sign != null) {
+            return new Constant(pos, -1 * val, Constant.Tag.DOUBLE);
+        }
+        return new Constant(pos, val, Constant.Tag.DOUBLE);
     }
 
     private Position fromContext(ParserRuleContext ctx) {
@@ -68,5 +90,10 @@ public class UntypedVisitor extends ReikaBaseVisitor<Tree> {
         pos.lineEnd = pos.line;
         pos.columnEnd = pos.column + symbol.getStopIndex() - symbol.getStartIndex();
         return pos;
+    }
+
+    private void addError(Token symbol, String msg) {
+        AstError err = new AstError(fromSymbol(symbol), msg);
+        this.astErr.add(err);
     }
 }

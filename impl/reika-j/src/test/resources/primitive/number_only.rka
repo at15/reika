@@ -1,0 +1,5 @@
+/* reika source that contains both positive and negative number */
+1;
+-1;
+2.2;
+-2.2;

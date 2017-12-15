@@ -7,6 +7,7 @@ public class Position {
     public int columnEnd = -1;
 
     public static Position UNKNOWN = new Position();
+    public static Position BUILTIN = new Position();
 
     public void set(Position pos) {
         this.line = pos.line;

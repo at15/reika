@@ -1,7 +1,9 @@
 package me.at15.reika.compiler;
 
-import com.google.common.io.CharStreams;
 import me.at15.reika.common.ReikaException;
+import me.at15.reika.compiler.ast.Block;
+import me.at15.reika.compiler.ast.Constant;
+import me.at15.reika.compiler.ast.Tree;
 import me.at15.reika.compiler.phases.Phase;
 import me.at15.reika.compiler.reporter.ConsoleReporter;
 import me.at15.reika.compiler.setting.CompilerSetting;
@@ -10,19 +12,17 @@ import me.at15.reika.compiler.util.SourceFile;
 import org.junit.jupiter.api.*;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.StringWriter;
-import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * @TODO: rename, and plan to support test w/ more language features
+ * @TODO: move test into their corresponding package
  * @TODO: don't print so much error, maybe printSummary?
  */
-public class ReikaCompilerTest {
+public class ReikaCompilerTest implements TestBase {
     ReikaCompiler compiler;
 
     @BeforeEach
@@ -88,6 +88,19 @@ public class ReikaCompilerTest {
 
         @Test
         @Tag("fast")
+        void negativeNumber() throws ReikaException {
+            CompilationUnit unit = new CompilationUnit(SourceFile.fromResource("primitive/number_only.rka"));
+            compiler.compileToPhase(unit, phaseId);
+            Block tree = (Block) unit.tree;
+            Object[] expected = {1, -1, 2.2, -2.2};
+            for (int i = 0; i < expected.length; i++) {
+                Constant cons = (Constant) tree.trees.get(i);
+                assertEquals(expected[i], cons.value);
+            }
+        }
+
+        @Test
+        @Tag("fast")
         void compileToAstErrors() throws ReikaException, IOException {
             CompilationUnit unit = new CompilationUnit(SourceFile.fromResource("invalid/token.rka"));
             compiler.compileToPhase(unit, phaseId);
@@ -110,11 +123,5 @@ public class ReikaCompilerTest {
         assertEquals(2, astPhases.size());
         assertEquals(compiler.getPhaseId("antlr"), astPhases.get(0));
         assertEquals(compiler.getPhaseId("ast"), astPhases.get(1));
-    }
-
-    private String readResourceText(String path) throws IOException {
-        ClassLoader classLoader = ReikaCompilerTest.class.getClassLoader();
-        InputStream is = classLoader.getResourceAsStream(path);
-        return CharStreams.toString(new InputStreamReader(is, StandardCharsets.UTF_8));
     }
 }
