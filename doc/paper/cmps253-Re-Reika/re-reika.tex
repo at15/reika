@@ -103,10 +103,44 @@ We do not use indent to structure code, because it makes parser easier implement
 \footnote{We are using parser generator ANLTR, which is already pretty easy, but there is no harm to reduce complexity}
 Semicolon is used to split expressions and curly brackets are used to group expression together for function and control blocks.
 
-% TODO: example Reika Code
+% FIXME: there is no ident for function
+\texttt{/* \\
+@author: at15 \\
+@time: 2017-12-15 \\
+*/ \\
+val x:Int = 1; \\
+val y:List[Int] = x + [1, 2, 3]; // [2, 3, 4]:List[Int] \\
+plot([1,2,3], y) // a graph shows in browser \\
+func a(x:Int, y:Int): Int \{ x + y; \} \\
+val z = a(x, 2); // 3:Int \\
+\\
+val months = [1:5]; // [1, 2, 3, 4, 5] \\
+val incomes = 5 rand\_from [10, 25]; // [10, 25, 25, 10, 10] \\
+val account\_book = make\_table(\{ months: months, incomes: incomes \}); \\
+print(account\_book); \\
+| months | incomes | \\
+|   1    |   10    | \\
+|   2    |   25    | \\
+val m = select max(incomes) from account\_book; // 25:Int\\
+val ms = select months, incomes from account\_book where incomes > 10; // {months: [2. 3], incomes: [25, 25]} \\
+val ms2 = ms.incomes + m // {months: [2. 3], incomes: [50, 50]} \\
+\\
+val stock: \{tm: List[Date], price: List[Float], symbol: List[String]\} = read\_csv("2016-Jan-01-stocks.csv") \\
+% TODO: https://stackoverflow.com/questions/7745609/sql-select-only-rows-with-max-value-on-a-column
+val company = select symbol from stock where price is max(price); // AAPL:String
+}
+
+Above shows the syntax of new Reika (not fully implemented).
+As you may noticed, type can be omitted in several places except function parameters, and variables are not mutable.
+Add operator can broadcast (is overloaded) \texttt{1 + [1, 1]} is interpreted as \texttt{[1, 1] + [1, 1]}.
+SQLish query can be executed on record of list after it is converted to table,
+and data can be read from file or other data source, validation and conversion is performed by the runtime.
 
 \subsection{Type System}
 \label{subsec:type-system}
+
+\subsubsection{No Type Inference}
+\label{subsubsec:no-type-inference}
 
 As a statically typed language, we chose to explict specify type instead of rely on syntax and inference.
 The main reason is we want to support overloading (ad-hoc polymorphism), so we can write 1 + [1, 2, 3] instead of 1 +l [1, 2, 3].
@@ -138,6 +172,24 @@ if you write \verb+val x =+ and went for a coffee, you might not remember what y
 but if you write \verb+val x:Int =+, it is a cache that limit the search domain in your head.
 This also applies to large projects as well, it is much better than writing a comment \verb+/* x is int*/ val x = 1.0+.
 Documentation can't keep up with the rapid iteration, but compiler can, it will throw error you if you write \verb+val x:Int = 1.0+.
+
+\subsubsection{Type check with external data source}
+\label{subsubsec:type-check-with-extrenal-data-source}
+
+Since one of our motivation is to fail early, all operation related with external data source such as file, database
+are paid extra attention.
+Before running the actual code, the runtime would try to valid all the data source are available and has the right type
+\footnote{TODO: there should be formal name and existing implementation in literature, but I didn't find any so far},
+i.e. a csv file should exists, and can contains more column but not less (subtype),
+and the type should match what the user specified.
+Normally, user have to implement those guardian code in languages like python, and a lot of time I find it verbose and repetitive.
+So we decide to put it into the language.
+However, we don't allow pass type to function, so it should be a hack in compiler implementation,
+where data source related built in function need to look at the left hand side for expected type.
+The reverse of this (kind of) is known as information based programming in F\# \footnote{http://thorium.github.io/FSharpAzure/2-DataUsage/DataUsageEng.html}.
+It might be possible to do similar in Reika, use \texttt{type Stock = load\_type\_from\_csv("2016-Jan-01-stocks.csv")},
+those two does not has conflict, one is eager runtime check, another is type system aided by data source at compile (develop) time
+(the data source must be reachable when compile).
 
 \subsection{Compiler Architecture}
 \label{subsec:compiler-architecture}
