@@ -81,11 +81,91 @@ like generating report and graph, extra check is needed everywhere, they should 
 We want a language for data analytic that fails fast, has good editor integration.
 It should be interactive for exploration and have good performance when run in production.
 Which leads to our statically typed, mostly declarative DSL - Reika.
+The rest of the paper is organized as following,
+Section~\ref{sec:design} describes current syntax and semantic,
+the choice we made in our type system and the overview of the compiler structure.
+Section~\ref{sec:implementation} shows the progress so far and specific problems we have solved.
+Section~\ref{sec:related-work} list related work and our difference with them.
+Section~\ref{sec:future-work} contains the priority of unfinished work and potential new features.
+Section~\ref{sec:conclusion} concludes the paper.
 
 \section{Design}
 \label{sec:design}
 
+\subsection{Syntax}
+\label{subsec:syntax}
+
+The new syntax of Reika is mainly modeled after Q\footnote{http://code.kx.com/q/},
+and syntax from Java-like language to make it easier to learn and maintain.
+In Q, list and record are basic data structure, the underlying database can be represented as (flip of) a record of list,
+how the data is actual stored on disk and memory is hidden to the user\footnote{Q is not open source}.
+We do not use indent to structure code, because it makes parser easier implement, also code format is easier to do as well.
+\footnote{We are using parser generator ANLTR, which is already pretty easy, but there is no harm to reduce complexity}
+Semicolon is used to split expressions and curly brackets are used to group expression together for function and control blocks.
+
+% TODO: example Reika Code
+
+\subsection{Type System}
+\label{subsec:type-system}
+
+As a statically typed language, we chose to explict specify type instead of rely on syntax and inference.
+The main reason is we want to support overloading (ad-hoc polymorphism), so we can write 1 + [1, 2, 3] instead of 1 +l [1, 2, 3].
+This is more like a syntax sugar because it is resolved at compile time for performance.
+However, it's hard to do type inference when overloading is involved (same syntax structure can result in multiple constraints),
+the type system in Reika is quite limited, so we chose overload over type inference.
+
+However, even without type inference, type specification can be omitted in certain places,
+variable don't need to explict specify type (i.e. \verb+val x = 1+ instead of \verb+val x:Int = 1+)
+because it can be computed from right hand side (like C++'s new \verb+auto+ keyword).
+This is \textbf{not} type inference in ML languages like OCaml, Haskell.
+The difference between compute type and inference type has confused me a lot (before taking the course).
+From implementation side, compute type just need one pass, while inference need two pass, one for generating constraint, one for solve it (unification).
+Considering the following lambda calculus (sort of) example:
+
+\begin{center}
+    ($\lambda$ x. y = x + 1) and ($\lambda$ x:Int. y = x + 1)
+\end{center}
+
+The first one need type inference for y while the second one just compute the type
+because the first one has variable \verb+x+ with unbounded type.
+The only way to introduce variable (w/ or w/o type) is using function (declaring variable in global space can be think
+as the entire program is a function), so as long as the function parameter has type, you don't need type inference, you just
+simply compute the type because there won't be variable with unbounded type on 'rhs'.
+\footnote{TODO: it should be proved, could be wrong, but a quarter is too short for making things sound}
+
+But we still suggest user putting type even when it not necessary needed, because it serves as documentation,
+if you write \verb+val x =+ and went for a coffee, you might not remember what you were trying to do 5 mins ago,
+but if you write \verb+val x:Int =+, it is a cache that limit the search domain in your head.
+This also applies to large projects as well, it is much better than writing a comment \verb+/* x is int*/ val x = 1.0+.
+Documentation can't keep up with the rapid iteration, but compiler can, it will throw error you if you write \verb+val x:Int = 1.0+.
+
+\subsection{Compiler Architecture}
+\label{subsec:compiler-architecture}
+
+Previous design and implementation of Reika targets query language like SQL, making its compiler simple.
+Symbol and type checking are put into single traverse when constructing AST from parse tree.
+The interpreter then execute AST to get the result, there is no user defined function and variable is mutable.
+And since user can't define function, everything is implemented in host language and provided as builtin,
+the is not concept like package or module.
+However, since we want to make Reika more general, the old design is too restrictive.
+
+\begin{center}
+  \verb+REPL/file+ > \verb+ANTLR(lexer&Parser)+ > \verb+Symbol&Type(AST)+ > \verb+Interpreter+
+\end{center}
+
+The new design of Reika allow user to define function, and part of standard library is written in Reika,
+reduce the burden of the host language when porting.
+And this forces us to split symbol and type checking from constructing AST and do it in multiple phases.
+
+% TODO: graph for new compiler
+
+
+% TODO: multi dialect
+% TODO: Syntax, Type System
 % TODO: unify compiler, interpreter, transpiler
+% TODO: 伪编译语言算不算编译语言？ - 梨梨喵的回答 - 知乎
+% https://www.zhihu.com/question/263559593/answer/270924481
+% 二村射影 https://en.wikipedia.org/wiki/Partial_evaluation
 % TODO: overload vs. type inference
 % TODO: phases, parallel phases (immutable trees)
 
