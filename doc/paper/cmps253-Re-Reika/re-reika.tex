@@ -42,30 +42,45 @@ Pinglei Guo \\
 \section{Introduction}
 \label{sec:introduction}
 
-\subsection{Motivation}
+\subsection{Motivation and Accomplishment}
 \label{subsec:motivation}
 
-Continue the work of Reika
+We decided to continue the development of Reika \footnote{\url{https://github.com/xephonhq/tsdb-proxy-java/tree/master/ql}},
+a DSL for time series database previously built in CMPS203.
+\footnote{\href{https://github.com/xephonhq/tsdb-proxy-java/blob/master/ql/Reika\_TSDB\_DSL\_0.0.1.pdf}{Reika\_TSDB\_DSL\_0.0.1.pdf}}.
+However, in this quarter, we mainly focused on more detailed design (type system etc.)
+and how to make the compiler extensible and maintainable.
+Also we no longer limit it to time series data, we want it to be able to handle common data analytic tasks, even simple machine learning.
 
-% FIXME: keep here as example for table
-\begin{table}[h]
-    \caption{Popular Machine learning Frameworks}
-    \label{table:ml-frameworks}
-    \centering
-    \begin{tabular}{llll}
-        \toprule
-        Name & Star & Company & First Release\\
-        \midrule
-        \href{https://github.com/tensorflow/tensorflow}{Tensorflow} & 81697 & Google & 2015-11-08 \\
-        \href{https://github.com/keras-team/keras}{Keras} & 22872 & N/A & 2015-01-13 \\
-        \href{https://github.com/BVLC/caffe}{Caffe} & 21739 & N/A & 2014-03-19 \\
-        \href{https://github.com/Microsoft/CNTK}{CNTK} & 13366 & Microsoft & 2016-01-22 \\
-        \href{https://github.com/apache/incubator-mxnet}{MXNet} & 12392 & Amazon & 2015-12-09 \\
-        \href{https://github.com/pytorch/pytorch}{PyTorch} & 10142 & Facebook & 2016-08-31 \\
-        \href{https://github.com/torch/torch7}{Torch} & 7537 & N/A & 2015? \\
-        \bottomrule
-    \end{tabular}
-\end{table}
+Due to the duration of the quarter, half of the time was spending on survey and building small prototype.
+A survey of q, juila, kotlin, groovy, scala, dotty, weld~\cite{palkar2017weld}'s design and compiler implementation is listed in \verb+doc/dev-notes/at15+.
+We implemented simply typed lambda calculus (\verb+simplebool+) and preceding exercises from TAPL in Java.
+\footnote{located in tapl folder}
+A typecheker, interpreter and transpiler for \verb+SimpleBin+ (only has int and boolean) \footnote{located in playground package of Reika}
+to demonstrate how our real implementation is structured and the relation ship between typechecker, interpreter and transpiler.
+The real Reika implementation is written from scratch without using old Reika codebase,
+and because of a major refactor in the middle \footnote{\url{https://github.com/at15/reika/pull/31}} due to design flaw in AST and compiler phases, the latest version is currently stuck on
+\verb+namer+ (symbol and scope) and \verb+typechecker+ phases,
+it will be continued and integrate into author's master thesis during winter break and final quarter.
+
+\subsection{Why Reika DSL instead of Python or SQL}
+\label{subsec:why-reika}
+
+A common question asked by friends of mine is why don't you just use python,
+which is widely used in big data and machine learning as glue language.
+The reason is python is not statically typed and it has a lot of legacy,
+even though 3.6 adds type hint, most libraries don't have it, not to mention those struggle between python2 and python3.
+When you run a python program,
+it can execute 999 lines but throw error at last line because you concat a int to string when you try to save the result.
+
+Languages like SQL is typed, but it is checked against schema until it is sent to server,
+we want error when I typed invalid column name in editor.
+Also there is always a layer of conversion between SQL query result and the code you used to implement bossiness logic
+like generating report and graph, extra check is needed everywhere, they should be unified.
+
+We want a language for data analytic that fails fast, has good editor integration.
+It should be interactive for exploration and have good performance when run in production.
+Which leads to our statically typed, mostly declarative DSL - Reika.
 
 \section{Design}
 \label{sec:design}
