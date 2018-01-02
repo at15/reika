@@ -1,7 +1,8 @@
 grammar RCL;
 
 // start of parser
-file
+// NOTE: we don't use file because it cause error in python runtime
+fle
     : pair+
     ;
 
