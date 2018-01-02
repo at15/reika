@@ -1,8 +1,7 @@
 ANTLR_JAR=./third_party/antlr-4.7-complete.jar
 ANTLR=java -Xmx500M -cp $(ANTLR_JAR) org.antlr.v4.Tool
 GRUN=java -cp $(ANTLR_JAR):$(BUILT_JAR) org.antlr.v4.gui.TestRig
-# NOTE: no use passing package, python does not declare package in file
-GEN_PARSER=java -cp $(ANTLR_JAR) -Xmx500M org.antlr.v4.Tool -Dlanguage=Python3 -visitor -no-listener -Werror
+GEN_PARSER=java -cp $(ANTLR_JAR) -Xmx500M org.antlr.v4.Tool -Dlanguage=Go -visitor -no-listener -Werror -package
 
 all: test
 
@@ -24,7 +23,7 @@ gen:
 
 .PHONY: gen-rcl
 gen-rcl:
-	$(GEN_PARSER) RCL.g4
+	$(GEN_PARSER) rcl RCL.g4
 
 .PHONY: visual
 visual:
