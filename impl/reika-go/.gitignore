@@ -1,7 +1,2 @@
 .idea
 vendor
-
-# FIXME: ignore generated parser until we figure out the folder structure
-rcl_*.go
-RCL.*
-*.tokens

@@ -23,7 +23,7 @@ gen:
 
 .PHONY: gen-rcl
 gen-rcl:
-	$(GEN_PARSER) rcl RCL.g4
+	$(GEN_PARSER) rcl reika/rcl/parser/RCL.g4
 
 .PHONY: visual
 visual:

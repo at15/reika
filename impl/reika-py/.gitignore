@@ -102,7 +102,3 @@ ENV/
 
 .idea
 .vscode
-
-# FIXME: ignore generated parser for now until we figured out how to import them
-RCL.*
-RCL*.*
