@@ -29,6 +29,8 @@ backends = [
   "Cassandra",
   "Local Disk"
 ]
+oss = true
+github = "https://github.com/xephonhq/xephon-k"
 articles = [
   {
     name = "Introduction to Time Series Database"
