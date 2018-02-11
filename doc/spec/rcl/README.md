@@ -33,7 +33,7 @@ oss = true
 github = "https://github.com/xephonhq/xephon-k"
 articles = [
   {
-    name = "Introduction to Time Series Database"
+    name = "Introduction to Time Series Database",
     url = "https://zhuanlan.zhihu.com/p/29367404"
   }
 ]

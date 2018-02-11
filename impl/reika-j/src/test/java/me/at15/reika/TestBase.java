@@ -1,4 +1,4 @@
-package me.at15.reika.compiler;
+package me.at15.reika;
 
 import com.google.common.io.CharStreams;
 
@@ -12,5 +12,10 @@ public interface TestBase {
         ClassLoader classLoader = TestBase.class.getClassLoader();
         InputStream is = classLoader.getResourceAsStream(path);
         return CharStreams.toString(new InputStreamReader(is, StandardCharsets.UTF_8));
+    }
+
+    default InputStream readResourceStream(String path) throws IOException {
+        ClassLoader classLoader = TestBase.class.getClassLoader();
+        return classLoader.getResourceAsStream(path);
     }
 }

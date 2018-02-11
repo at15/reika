@@ -1,8 +1,8 @@
 package me.at15.reika.compiler.ast;
 
+import me.at15.reika.TestBase;
 import me.at15.reika.common.ReikaException;
 import me.at15.reika.compiler.ReikaCompiler;
-import me.at15.reika.compiler.TestBase;
 import me.at15.reika.compiler.phases.Phase;
 import me.at15.reika.compiler.reporter.ConsoleReporter;
 import me.at15.reika.compiler.setting.CompilerSetting;
@@ -15,7 +15,7 @@ import org.junit.jupiter.api.Test;
 import java.io.IOException;
 import java.io.StringWriter;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @Tag("fast")
 public class UntypedVisitorTest implements TestBase {
