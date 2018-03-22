@@ -13,3 +13,6 @@
 # Node
 package-lock.json
 node_modules
+
+# every implementation has a antlr4 jar
+antlr-4.*-complete.jar

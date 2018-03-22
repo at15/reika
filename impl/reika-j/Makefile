@@ -24,6 +24,10 @@ test:
 gen:
 	$(GEN_PARSER) me.at15.reika.compiler.parser src/main/java/me/at15/reika/compiler/parser/Reika.g4
 
+.PHONY: gen-rcl
+gen-rcl:
+	$(GEN_PARSER) me.at15.reika.rcl.parser src/main/java/me/at15/reika/rcl/parser/RCL.g4
+
 .PHONY: visual
 visual:
 	$(GRUN) me.at15.reika.parser.Reika prog -gui

@@ -1,9 +1,9 @@
 package me.at15.reika.compiler;
 
+import me.at15.reika.TestBase;
 import me.at15.reika.common.ReikaException;
 import me.at15.reika.compiler.ast.Block;
 import me.at15.reika.compiler.ast.Constant;
-import me.at15.reika.compiler.ast.Tree;
 import me.at15.reika.compiler.phases.Phase;
 import me.at15.reika.compiler.reporter.ConsoleReporter;
 import me.at15.reika.compiler.setting.CompilerSetting;
